@@ -5,6 +5,7 @@ import { Hero } from "@/components/harbour/Hero";
 import { Insights } from "@/components/harbour/Insights";
 import { Numbers } from "@/components/harbour/Numbers";
 import { Positioning } from "@/components/harbour/Positioning";
+import { Preloader } from "@/components/harbour/Preloader";
 import { Sectors } from "@/components/harbour/Sectors";
 import { Solutions } from "@/components/harbour/Solutions";
 
@@ -20,6 +21,7 @@ import { Solutions } from "@/components/harbour/Solutions";
 export default function HarbourHomePage() {
   return (
     <>
+      <Preloader />
       <Hero />
       <Positioning />
       <Numbers />
