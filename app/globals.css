@@ -34,8 +34,74 @@
 
   --color-line: #dde3ea;
 
+  /* -------------------------------------------------------------------------
+     Design-spike tokens. Namespaced so they cannot collide with anything above.
+
+     Two competing directions live at /preview/file and /preview/datum. Neither
+     is part of the live site; both are noindex and absent from the sitemap. One
+     will be chosen and carried through a full page, the other deleted.
+  ------------------------------------------------------------------------- */
+
+  /* Direction A — "The Sanction File". Contrast measured against file-paper:
+     ink 16.1:1, oxide 7.0:1, ledger 7.2:1. All pass AA at every size. */
+  --color-file-paper: #f7f7f4;
+  --color-file-ink: #16181c;
+  --color-file-oxide: #a3231c;
+  --color-file-ledger: #1f5f3f;
+  --color-file-rule: #c9c9c0;
+  --color-file-mute: #5c5c56;
+
+  /* Direction B — "Datum". Contrast measured against datum-film:
+     graphite 12.9:1, ink 5.8:1, gate 4.6:1 — all pass AA at any size.
+
+     `datum-line` is 3.9:1 and FAILS AA for body text. It exists for strokes and
+     for display type at 24px and above, where 3:1 is the bar. Annotation set at
+     body size must use `datum-ink`, which is the same hue darkened. Do not
+     substitute one for the other. */
+  --color-datum-film: #e4e2dc;
+  --color-datum-paper: #ffffff;
+  --color-datum-graphite: #23262a;
+  --color-datum-line: #0e7c86;
+  --color-datum-ink: #0a6069;
+  --color-datum-gate: #c4761a;
+  --color-datum-mute: #6b6f74;
+
+  /* Direction C — "Harbour", carried through a full second homepage at
+     /harbour. Contrast measured against harbour-paper unless stated:
+       ink   16.9:1   body and headings
+       moss   5.8:1   accent text and links — passes AA at any size
+       mute   6.3:1   secondary copy, safe down to 12px
+       tint   3.1:1   passes AA for LARGE text only, ≥48px. See note below.
+       sage   1.3:1   FAILS. It is a fill on paper, never text. See note below.
+     On harbour-dark: paper 15.7:1, sage 12.0:1. Ink on a sage fill is 12.9:1. */
+  --color-harbour-paper: #f6f6ee;
+  --color-harbour-paper-2: #ecebe0;
+  --color-harbour-ink: #14150f;
+  --color-harbour-mute: #5a5c52;
+  --color-harbour-tint: #8a8d7a;
+  --color-harbour-rule: #d8d8cc;
+  --color-harbour-dark: #1c1c1a;
+  --color-harbour-sage: #c8e0b0;
+  --color-harbour-moss: #3d6b2a;
+
   --font-display: var(--font-archivo), system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* Spike font stacks.
+     These have to live in `@theme` rather than in a plain `:root` block —
+     Tailwind v4 drops a bare `:root` here and the stacks silently resolve to
+     nothing, which makes every `font-family` referencing them invalid at
+     computed-value time and falls the whole page back to Inter.
+     The `--stack-*` namespace is not one Tailwind generates utilities for, so
+     these emit as plain custom properties and add no classes.
+     The inner `var(--font-*)` names are set by next/font on each spike's
+     wrapper element and resolve at the point of use. */
+  --stack-newsreader: var(--font-newsreader), "Iowan Old Style", Georgia,
+    "Times New Roman", serif;
+  --stack-grotesk: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
+  --stack-plex: var(--font-plex-sans), system-ui, -apple-system, sans-serif;
+  --stack-plex-mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
+  --stack-instrument: var(--font-instrument), "Helvetica Neue", Arial, sans-serif;
 
   --radius-btn: 0.375rem;
   --radius-card: 0.625rem;
@@ -62,13 +128,25 @@
 
   Sections on a dark background carry an `on-dark` class, which switches the
   focus ring to the lighter blue.
+
+  Two more, for the Harbour spike, because both are easy to get wrong:
+
+  - `harbour-sage` is a FILL on paper, not a colour for type — 1.3:1. Text that
+    sits on top of a sage fill uses `harbour-ink` (12.9:1). Sage may be used as
+    type only on `harbour-dark`, where it is 12.0:1. Accent type on paper uses
+    `harbour-moss` (5.8:1).
+  - `harbour-tint` is 3.1:1, which clears the AA bar for large text and nothing
+    else (WCAG puts that bar at 24px normal / 18.66px bold). It exists for one
+    job — the recessed hero headline, which is 700 weight at 40px and up — and
+    must never carry body copy. The reference site fails AA here; this one does
+    not, which is the whole reason the value is #8a8d7a and not lighter.
 */
 
 :root {
   --rule-on-light: var(--color-line);
   --rule-on-dark: rgba(255, 255, 255, 0.16);
 
-  --shell-max: 82.5rem;
+  --shell-max: 92.5rem;
   --shell-pad: 1.25rem;
 }
 
@@ -295,5 +373,450 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===========================================================================
+   DESIGN SPIKES — /preview/file and /preview/datum
+   ===========================================================================
+
+   Everything below is scoped under `.theme-file` or `.theme-datum` and cannot
+   reach the live site. Two notes on how the cascade is being used, because it
+   is deliberate and easy to break:
+
+   1. The scope rules are written OUTSIDE `@layer base`, so they beat the base
+      layer on layer order alone regardless of specificity. Nothing here needs
+      `!important` — if you find yourself reaching for it, the rule has probably
+      drifted into `@layer base` by accident.
+
+   2. The scopes set page-level things only (surface, text colour, body face,
+      focus ring). They deliberately do NOT set heading properties by element,
+      because Tailwind's `@utility` output sits in the utilities layer and would
+      lose to an unlayered `.theme-x h1`. Headings get their size, leading,
+      tracking and face from the display utilities below, which correctly beat
+      the base layer's `h1,h2,h3` block.
+--------------------------------------------------------------------------- */
+
+/* --- Direction A: The Sanction File ------------------------------------- */
+
+.theme-file {
+  min-height: 100dvh;
+  background-color: var(--color-file-paper);
+  color: var(--color-file-ink);
+  font-family: var(--stack-plex);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.theme-file :focus-visible {
+  outline: 2px solid var(--color-file-oxide);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.theme-file ::selection {
+  background-color: var(--color-file-oxide);
+  color: var(--color-file-paper);
+}
+
+/** Hero headline. A text serif at display size wants weight 500, not bold, and
+    leading well under 1 — the counters carry the weight instead. */
+@utility file-display {
+  font-family: var(--stack-newsreader);
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-size: clamp(2.5rem, 1.42rem + 4.8vw, 5rem);
+  line-height: 1.01;
+  letter-spacing: -0.021em;
+  text-wrap: balance;
+}
+
+/** Marginal note. Newsreader's italic is the reason this face was chosen — it
+    is a genuinely different voice, not a slant. */
+@utility file-margin-note {
+  font-family: var(--stack-newsreader);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--color-file-mute);
+}
+
+/** Clause markers, running heads, column heads. */
+@utility file-mono {
+  font-family: var(--stack-plex-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/** Tabular figures. `tabular-nums` matters here — the table is the point. */
+@utility file-figure {
+  font-family: var(--stack-plex-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.01em;
+}
+
+/** The document divider: one heavy rule over one hairline. Used under the
+    running head and around the schedule. */
+@utility file-rule-double {
+  border-bottom: 3px solid var(--color-file-ink);
+  box-shadow: 0 4px 0 -3px var(--color-file-rule);
+}
+
+/* The sanction stamp. Static transform lives on the element so a no-JS visitor
+   gets the stamp in its landed position; the `.js` gate only adds the arrival. */
+.file-stamp {
+  transform: rotate(-7deg);
+  transform-origin: 60% 55%;
+}
+
+@keyframes file-stamp-land {
+  0% {
+    opacity: 0;
+    transform: rotate(-1.5deg) scale(2.6);
+  }
+  62% {
+    opacity: 1;
+    transform: rotate(-7deg) scale(0.965);
+  }
+  80% {
+    transform: rotate(-7deg) scale(1.018);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(-7deg) scale(1);
+  }
+}
+
+.js .file-stamp {
+  animation: file-stamp-land 620ms cubic-bezier(0.2, 0.85, 0.3, 1) 760ms both;
+}
+
+/* --- Direction B: Datum -------------------------------------------------- */
+
+.theme-datum {
+  min-height: 100dvh;
+  background-color: var(--color-datum-film);
+  color: var(--color-datum-graphite);
+  font-family: var(--stack-plex);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.theme-datum :focus-visible {
+  outline: 2px solid var(--color-datum-ink);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.theme-datum ::selection {
+  background-color: var(--color-datum-ink);
+  color: var(--color-datum-paper);
+}
+
+@utility datum-display {
+  font-family: var(--stack-grotesk);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 1.42rem + 3.7vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.032em;
+  text-wrap: balance;
+}
+
+/** Title-block field labels and sheet references. */
+@utility datum-label {
+  font-family: var(--stack-plex-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/** Annotation at body size. Uses `datum-ink`, never `datum-line` — see the
+    contrast note in the token block. */
+@utility datum-anno {
+  font-family: var(--stack-plex-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+/* The drawing draws itself.
+
+   Every drawable element carries `pathLength="1"`, so one dash length works for
+   every shape regardless of its real geometry and nothing has to be measured in
+   JavaScript. Gated behind `.js`: without it the drawing renders complete. */
+@keyframes datum-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes datum-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+.js .datum-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: datum-draw 900ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+
+.js .datum-anno-in {
+  opacity: 0;
+  animation: datum-fade 400ms linear both;
+}
+
+/* --- Direction C: Harbour ------------------------------------------------ */
+
+/* Carried through a whole second homepage at /harbour rather than a fragment.
+   One typeface at an unusually wide range of sizes, paper rather than white, a
+   single dark band, and structure from hairlines only — no cards, no radii, no
+   elevation. The live site's `card`, `shadow-*` and `radius-*` tokens are
+   deliberately unused here. */
+
+.theme-harbour {
+  min-height: 100dvh;
+  background-color: var(--color-harbour-paper);
+  color: var(--color-harbour-ink);
+  font-family: var(--stack-instrument);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.theme-harbour :focus-visible {
+  outline: 2px solid var(--color-harbour-moss);
+  outline-offset: 3px;
+  border-radius: 0;
+}
+
+.theme-harbour ::selection {
+  background-color: var(--color-harbour-moss);
+  color: var(--color-harbour-paper);
+}
+
+/* Scope hook for the dark bands. Moss is invisible on `harbour-dark`, so the
+   focus ring flips to sage, which is 12.0:1 there. Not a Tailwind utility —
+   it exists only to re-target the ring. */
+.harbour-invert :focus-visible {
+  outline-color: var(--color-harbour-sage);
+}
+
+/** The recessed hero headline. Uses `harbour-tint` at the call site; see the
+    contrast note in the token block before changing either value. */
+@utility harbour-display {
+  font-family: var(--stack-instrument);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 1.15rem + 6vw, 5.25rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+
+/** The one-word section title, e.g. SOLUTIONS. Tighter leading than the hero
+    because it is always a single word and never wraps. */
+@utility harbour-poster {
+  font-family: var(--stack-instrument);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 0.9rem + 6vw, 5rem);
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+/** Section heading. Set at weight 400 — the bold half of the two-weight stack
+    opts back in with `font-bold`, so the light half is the default and the
+    emphasis is the exception. */
+@utility harbour-head {
+  font-family: var(--stack-instrument);
+  font-weight: 400;
+  font-size: clamp(1.875rem, 1.1rem + 2.4vw, 3.125rem);
+  line-height: 1.06;
+  letter-spacing: -0.03em;
+}
+
+/** Row and card titles. */
+@utility harbour-md {
+  font-family: var(--stack-instrument);
+  font-weight: 700;
+  font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.375rem);
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+}
+
+/** Micro-lettering: eyebrows, index numbers, tag chips, field labels. 11px
+    rather than the reference's 10px — at 10px the 0.1em tracking starts to cost
+    more legibility than the look is worth. */
+@utility harbour-micro {
+  font-family: var(--stack-instrument);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/** Navigation tabs and the header's mail link. Lowercase where `harbour-micro`
+    is uppercase — a separate utility rather than a `lowercase` class alongside
+    it, because both would be font utilities setting `text-transform` in the same
+    layer and which one won would depend on Tailwind's output order. */
+@utility harbour-tab {
+  font-family: var(--stack-instrument);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-transform: lowercase;
+  line-height: 1.4;
+}
+
+/** Statistics. Tabular figures matter — the four sit in a ruled row and their
+    digits have to line up. */
+@utility harbour-figure {
+  font-family: var(--stack-instrument);
+  font-weight: 700;
+  font-size: clamp(2.25rem, 1.5rem + 2.2vw, 3.5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+@utility harbour-rule {
+  border-color: var(--color-harbour-rule);
+}
+
+/** Hairlines on `harbour-dark`. Paper at 14% — a flat grey would read as a
+    seam rather than a rule. */
+@utility harbour-rule-dark {
+  border-color: rgba(246, 246, 238, 0.14);
+}
+
+/** Photography is monochrome throughout, by filter rather than by asset, so the
+    same Pexels sources the live site uses can be reused unchanged. */
+@utility harbour-plate {
+  filter: grayscale(1) contrast(1.06);
+}
+
+/** The photo-in-a-shape device: a tall arch, round head and square foot. Done
+    with an elliptical `border-radius` rather than a `clip-path` so it needs no
+    viewBox-relative geometry and scales with whatever box it is given.
+
+    `overflow: clip` rather than `hidden`, and that is load-bearing: clip still
+    respects the radius and clips the same pixels, but it is not a scroll
+    container, so it does not capture the view timeline of the plate inside it.
+    See the `harbour-drift` note below. */
+@utility harbour-aperture {
+  border-radius: 47% 47% 0 0 / 30% 30% 0 0;
+  overflow: clip;
+}
+
+/* Parallax drift for the plates. Applied to the image itself, never to `Plate`'s
+   root: the root is where the aspect ratio and `harbour-aperture` arrive, and in
+   Positioning it sits inside a `Reveal` whose `[data-reveal]` rule above already
+   animates `transform`. Two animated transforms on one element is the collision
+   this avoids.
+
+   The image is over-scanned so translating it never exposes the box edge. Scale
+   must exceed 1 + 2×amplitude: at ±5% the floor is 1.10, and 1.14 leaves 2% of
+   the plate's height as margin at full drift (~11px on the hero) so subpixel
+   rounding and browser zoom cannot open a hairline gap. The two values are
+   coupled and cannot be changed independently. Transform functions apply right
+   to left, so the 5% resolves against the *unscaled* border-box height, which is
+   why travel scales with each plate (roughly 54px on the hero, 70px on the
+   Positioning arch) instead of needing per-site tuning.
+
+   Not gated behind `.js`, unlike the reveals: this is pure CSS and works with
+   JavaScript off. That gate exists because `Reveal` hides content and has to
+   fail open, which is not a hazard here.
+
+   Deliberately no `will-change`. Scroll-driven animations are composited
+   already, and there is no `will-change` anywhere else in the codebase.
+
+   IMPORTANT — every clipping box between a drifting image and the viewport uses
+   `overflow: clip`, never `overflow: hidden`. `view()` binds to the subject's
+   nearest ancestor *scroll container*, and `overflow: hidden` is one: the
+   timeline then measures the image against the plate box it lives inside, which
+   never scrolls, so progress freezes at 50% and the plate sits permanently
+   over-scaled and mis-framed. `overflow: clip` clips the same pixels without
+   being a scroll container, so the timeline reaches the document viewport.
+
+   That applies to the whole ancestor chain, not just the plate: `Plate`'s root,
+   `harbour-aperture` above, the Hero `<section>`, and the ContactBand inner
+   band. Switching any one of them back to `hidden` silently breaks the drift on
+   whatever it contains. (`body { overflow-x: hidden }` is fine — body's overflow
+   propagates to the viewport, so body itself is not the scroller.) */
+@keyframes harbour-drift {
+  from {
+    transform: translateY(-5%) scale(1.14);
+  }
+  to {
+    transform: translateY(5%) scale(1.14);
+  }
+}
+
+/* The `@supports` gate is load-bearing rather than defensive. Where
+   `animation-timeline` is unsupported the declaration is dropped and the
+   animation falls back to the document timeline — it would run once on load as a
+   visible lurch. Gating it means those browsers get today's static plate
+   exactly, down to the pixel. */
+@supports (animation-timeline: view()) {
+  .harbour-drift {
+    animation: harbour-drift linear both;
+    animation-timeline: view();
+  }
+}
+
+/* The FAQ rows are native <details>, so they open on Enter and Space and work
+   with JavaScript off. All that is needed is to drop the default marker and
+   turn the chevron over. */
+.theme-harbour summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.theme-harbour summary::-webkit-details-marker {
+  display: none;
+}
+
+.harbour-chevron {
+  transition: transform 0.25s var(--ease-corporate);
+}
+
+.theme-harbour details[open] .harbour-chevron {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .file-stamp,
+  .js .datum-draw,
+  .js .datum-anno-in {
+    animation: none;
+  }
+
+  .js .datum-draw {
+    stroke-dashoffset: 0;
+  }
+
+  .js .datum-anno-in {
+    opacity: 1;
+  }
+
+  /* Required, not belt-and-braces. The global reset above sets
+     `animation-duration: 0.01ms !important`, but against a progress-based
+     timeline a fixed duration is read as a *proportion* of that timeline: the
+     drift would collapse into an invisible sliver and leave the image pinned at
+     its end transform — a plate mis-framed by 5% and over-scaled by 12%. Only
+     `animation: none` actually turns it off. */
+  .harbour-drift {
+    animation: none;
   }
 }

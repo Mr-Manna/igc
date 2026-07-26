@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Inter } from "next/font/google";
 import "./globals.css";
-import { Footer } from "@/components/layout/Footer";
-import { Header } from "@/components/layout/Header";
-import { FloatingActions } from "@/components/layout/FloatingActions";
-import { UtilityBar } from "@/components/layout/UtilityBar";
 import { contact, site } from "@/content/site";
 
 // Headings only, at normal width — the `wdth` axis is not requested because
@@ -122,11 +118,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
 
-        <UtilityBar />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <FloatingActions />
+        {/* Chrome and the <main> landmark belong to the route groups, not here —
+            see app/(corporate)/layout.tsx. This layout owns only the document. */}
+        {children}
 
         <script
           type="application/ld+json"
