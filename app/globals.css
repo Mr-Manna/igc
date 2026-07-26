@@ -1,0 +1,299 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Design tokens — "Corporate Professional"
+
+   A light canvas, deep navy for structure and emphasis, one corporate blue
+   accent. Structure comes from hairline borders plus restrained elevation;
+   there is no film grain, no duotone photography and no marquee — the previous
+   "Industrial Editorial" devices read as campaign work rather than as a
+   professional-services firm that banks and government agencies deal with.
+--------------------------------------------------------------------------- */
+
+@theme {
+  /* Surfaces (light) */
+  --color-canvas: #ffffff;
+  --color-surface: #f4f6f9;
+  --color-surface-2: #eaeff5;
+
+  /* Navy — headings, dark bands, footer */
+  --color-navy: #0b2545;
+  --color-navy-deep: #071a33;
+  --color-navy-soft: #14355c;
+
+  /* Accent. Two blues, deliberately — see the contrast note below. */
+  --color-blue: #1a56a8;
+  --color-blue-dark: #14447f;
+  --color-blue-light: #6aa9f0;
+
+  /* Text */
+  --color-slate: #4a5768;
+  --color-slate-muted: #5d6b7e;
+  --color-ink-invert: #c3d0e0;
+  --color-ink-invert-muted: #a9bcd2;
+
+  --color-line: #dde3ea;
+
+  --font-display: var(--font-archivo), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  --radius-btn: 0.375rem;
+  --radius-card: 0.625rem;
+
+  /* Elevation is deliberately shallow — two shadows only, both navy-tinted so
+     they read as depth in the palette rather than as grey haze. */
+  --shadow-card: 0 1px 2px rgba(11, 37, 69, 0.05), 0 1px 3px rgba(11, 37, 69, 0.06);
+  --shadow-lift:
+    0 4px 10px rgba(11, 37, 69, 0.07), 0 18px 36px -18px rgba(11, 37, 69, 0.24);
+  --shadow-header: 0 6px 20px -14px rgba(11, 37, 69, 0.35);
+
+  --ease-corporate: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+  Contrast, for anyone editing colours here:
+
+  - `blue` #1a56a8 on canvas = 7.1:1, on `surface` = 6.7:1 — safe for body-size
+    links and for white button text (4.8:1).
+  - `blue` on `navy` is only 2.2:1 and FAILS. Dark bands must use `blue-light`
+    #6aa9f0, which is 6.3:1 on navy.
+  - `slate` = 7.3:1 on canvas; `slate-muted` = 5.4:1 — the floor for small text.
+  - On navy: `ink-invert` = 5.7:1, `ink-invert-muted` = 4.6:1.
+
+  Sections on a dark background carry an `on-dark` class, which switches the
+  focus ring to the lighter blue.
+*/
+
+:root {
+  --rule-on-light: var(--color-line);
+  --rule-on-dark: rgba(255, 255, 255, 0.16);
+
+  --shell-max: 82.5rem;
+  --shell-pad: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --shell-pad: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --shell-pad: 3rem;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+--------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Sticky header offset, so an in-page anchor never lands under it. */
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-slate);
+    font-family: var(--font-sans);
+    font-size: clamp(1rem, 0.97rem + 0.14vw, 1.0625rem);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-blue);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-blue);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Dark bands need a ring that is actually visible against navy. */
+  .on-dark :focus-visible {
+    outline-color: var(--color-blue-light);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--color-navy);
+    text-wrap: balance;
+  }
+
+  /* Inside a dark band the heading colour must invert; setting it on the
+     section rather than on every heading keeps the call sites clean. */
+  .on-dark h1,
+  .on-dark h2,
+  .on-dark h3 {
+    color: #ffffff;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Utilities
+--------------------------------------------------------------------------- */
+
+/** Page gutter. */
+@utility shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--shell-pad);
+}
+
+/** Small uppercase eyebrow / caption lettering. */
+@utility label {
+  /* Stated explicitly: `label` is also used on <h2>, which the base layer sets
+     to the display face. */
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/** Display scale. Normal width, moderate sizes — a professional-services
+    headline is authoritative because of what it says, not because it is
+    compressed to poster scale. */
+/* Both ends of this clamp are measured against the longest headline line,
+   "Manufacturing Business", which sets 598px at 56px and scales linearly:
+
+   - the 3.125rem ceiling → 534px, inside the hero copy column from 1280 up;
+   - the shallow 1.7vw growth holds it to 47px → 502px at 1024, where that
+     column is only 528px wide.
+
+   It started at 3.5rem with 2.9vw growth, which overran both and turned a
+   three-line headline into five. */
+@utility display-hero {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.125rem, 1.85rem + 1.7vw, 3.125rem);
+  line-height: 1.14;
+  letter-spacing: -0.022em;
+  text-wrap: balance;
+}
+
+@utility display-xl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 1.6rem + 3.6vw, 4rem);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+}
+
+/** Section headings. */
+@utility display-lg {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 2.5rem);
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+/** Card and sub-section headings. */
+@utility display-md {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+  line-height: 1.3;
+  letter-spacing: -0.012em;
+}
+
+/** Comfortable reading measure. */
+@utility measure {
+  max-width: 62ch;
+}
+
+/** The standard content container: white panel, hairline border, shallow lift
+    on hover. Used for services, testimonials and sector tiles. */
+@utility card {
+  background-color: var(--color-canvas);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-card);
+  transition:
+    border-color 0.25s var(--ease-corporate),
+    box-shadow 0.25s var(--ease-corporate),
+    transform 0.25s var(--ease-corporate);
+}
+
+@utility card-interactive {
+  &:hover {
+    border-color: color-mix(in oklab, var(--color-blue) 45%, var(--color-line));
+    box-shadow: var(--shadow-lift);
+    transform: translateY(-2px);
+  }
+}
+
+@utility rule-light {
+  border-color: var(--rule-on-light);
+}
+
+@utility rule-dark {
+  border-color: var(--rule-on-dark);
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+--------------------------------------------------------------------------- */
+
+/* Scroll reveal.
+
+   Gated behind a `.js` class that a blocking inline script in <head> stamps on
+   <html> before first paint. Without JavaScript the class never lands, the
+   rules below never apply, and every revealed element renders fully visible —
+   so content is never trapped at opacity 0. Because the class is applied
+   synchronously before paint, there is also no flash of visible content.
+
+   The travel is shorter and the curve plainer than the editorial version: the
+   motion should register as polish, not as choreography. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.5s var(--ease-corporate),
+    transform 0.5s var(--ease-corporate);
+}
+
+.js [data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,93 @@
+/**
+ * Global site configuration: identity, navigation and contact details.
+ *
+ * TODO(real-data): every value in `contact` and `social` below is carried over
+ * verbatim from the previous site, where it was placeholder content. The phone
+ * numbers, street address and email addresses are NOT real. Replace this block
+ * before pointing a public domain at this build.
+ */
+
+export const site = {
+  name: "IGC",
+  legalName: "Industrial Growth Consultancy",
+  fullName: "Industrial Growth Consultancy (IGC)",
+  url: "https://igcindia.com",
+  founded: "2009",
+  description:
+    "Expert industrial consultancy for manufacturing industries, MSMEs, startups, and entrepreneurs. We help you establish profitable factories through complete project solutions.",
+  tagline: "Expert Manufacturing Project Consultancy in India",
+} as const;
+
+/** TODO(real-data): placeholder — not real contact information. */
+export const contact = {
+  phonePrimary: "+91 98765 43210",
+  phoneSecondary: "+91 22 2345 6789",
+  /** Digits only, for tel: and wa.me links. */
+  phoneDigits: "919876543210",
+  emailPrimary: "info@igcindia.com",
+  emailSupport: "support@igcindia.com",
+  addressLine1: "101, Industrial Complex, MG Road",
+  addressLine2: "Mumbai, Maharashtra 400001",
+  addressLocality: "Mumbai",
+  addressRegion: "Maharashtra",
+  postalCode: "400001",
+  countryCode: "IN",
+  hours: [
+    { days: "Mon – Sat", time: "9:00 AM – 7:00 PM" },
+    { days: "Sunday", time: "Closed" },
+  ],
+  whatsappMessage:
+    "Hello IGC, I need consultation for my industrial project.",
+} as const;
+
+export const whatsappHref = `https://wa.me/${contact.phoneDigits}?text=${encodeURIComponent(
+  contact.whatsappMessage,
+)}`;
+
+export const telHref = `tel:+${contact.phoneDigits}`;
+
+export type NavItem = { label: string; href: string };
+
+export const primaryNav: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "Services", href: "/services" },
+  { label: "Industries", href: "/industries" },
+  { label: "Subsidies", href: "/subsidies" },
+  { label: "Project Reports", href: "/project-reports" },
+  { label: "Machinery", href: "/machinery" },
+  { label: "Success Stories", href: "/success-stories" },
+];
+
+export const footerQuickLinks: NavItem[] = [
+  { label: "About Us", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Industries", href: "/industries" },
+  { label: "Project Reports", href: "/project-reports" },
+  { label: "Machinery", href: "/machinery" },
+  { label: "Blog", href: "/blog" },
+  { label: "Contact", href: "/contact" },
+  { label: "FAQ", href: "/faq" },
+];
+
+export const footerServiceLinks: NavItem[] = [
+  { label: "Project Consultancy", href: "/services/industrial-project-consultancy" },
+  { label: "Subsidy Consultancy", href: "/services/government-subsidy-consultancy" },
+  { label: "Loan Consultancy", href: "/services/loan-consultancy" },
+  { label: "Industrial Engineering", href: "/services/industrial-engineering" },
+  { label: "Machinery Consultancy", href: "/services/machinery-consultancy" },
+  { label: "Business Consultancy", href: "/services/business-consultancy" },
+];
+
+export const legalLinks: NavItem[] = [
+  { label: "Privacy Policy", href: "/privacy" },
+  { label: "Terms of Service", href: "/terms" },
+  { label: "Refund Policy", href: "/refund" },
+];
+
+/** All non-home routes referenced anywhere in the shell. Used to generate stubs + sitemap. */
+export const allRoutes: string[] = [
+  ...primaryNav.map((n) => n.href),
+  ...footerQuickLinks.map((n) => n.href),
+  ...footerServiceLinks.map((n) => n.href),
+  ...legalLinks.map((n) => n.href),
+].filter((href, i, all) => all.indexOf(href) === i);
