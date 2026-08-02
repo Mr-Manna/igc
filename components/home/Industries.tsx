@@ -1,18 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { Carousel } from "@/components/ui/Carousel";
 import { Reveal } from "@/components/ui/Reveal";
 import { industries } from "@/content/home";
 
 /**
- * Sectors as a plain tile index.
+ * Sectors as photographic tiles on a rail.
  *
- * The previous version ran a full-bleed outlined ticker above the list. It was
- * decorative, unfocusable, unreachable on touch, and it was the single loudest
- * thing on the page — the first element to go when the site moved corporate.
+ * The flat two-word tile grid this replaces was honest but inert — twelve
+ * identical boxes gave a reader no reason to believe IGC had actually been
+ * inside a textile mill or a pharma clean room. A picture per sector is the
+ * cheapest available evidence.
+ *
+ * Every tile links to the sector's block on /industries rather than to a
+ * per-sector page: those routes do not exist, and the index carries the detail
+ * they would hold, anchored by the same slug.
  */
 export function Industries() {
   return (
-    <section className="bg-canvas">
+    <section className="border-y rule-light bg-surface">
       <div className="shell py-20 lg:py-28">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
           <div>
@@ -40,41 +47,48 @@ export function Industries() {
           </Reveal>
         </div>
 
-        <ul className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {industries.map((industry, index) => (
-            <li key={industry} className="flex">
-              <Reveal delay={(index % 4) * 50} className="flex w-full">
-                <Link
-                  href="/industries"
-                  className="card card-interactive group flex w-full items-center justify-between gap-3 px-5 py-4"
-                >
-                  <span className="flex items-center gap-3">
-                    <span
-                      aria-hidden="true"
-                      className="h-1.5 w-1.5 shrink-0 rounded-full bg-blue"
-                    />
-                    <span className="font-display text-[0.9375rem] font-semibold text-navy sm:text-base">
-                      {industry}
-                    </span>
-                  </span>
+        <Carousel ariaLabel="Industries we serve" className="mt-12">
+          {industries.map((industry) => (
+            <div
+              key={industry.slug}
+              className="min-w-0 shrink-0 grow-0 basis-[78%] pr-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+            >
+              <Link
+                href={`/industries#${industry.slug}`}
+                className="group relative block aspect-[4/5] overflow-hidden rounded-card border border-[var(--rule-on-light)] sm:aspect-[4/3]"
+              >
+                <Image
+                  src={industry.image.src}
+                  alt={industry.image.alt}
+                  fill
+                  sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                  className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105"
+                />
+                {/* Bottom-weighted so the label sits on the darkest part of the
+                    plate while the top of the photograph stays readable. */}
+                <span aria-hidden="true" className="tile-scrim absolute inset-0" />
 
+                <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 p-5">
+                  <span className="font-display text-[1.0625rem] font-semibold text-white">
+                    {industry.name}
+                  </span>
                   <svg
                     aria-hidden="true"
                     viewBox="0 0 16 16"
-                    className="h-3.5 w-3.5 shrink-0 text-slate-muted transition-all duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:translate-x-0.5 group-hover:text-blue"
+                    className="h-4 w-4 shrink-0 text-white transition-transform duration-250 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.75"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                   >
-                    <path d="M6 3l5 5-5 5" />
+                    <path d="M2 8h11M9 4l4 4-4 4" />
                   </svg>
-                </Link>
-              </Reveal>
-            </li>
+                </span>
+              </Link>
+            </div>
           ))}
-        </ul>
+        </Carousel>
       </div>
     </section>
   );

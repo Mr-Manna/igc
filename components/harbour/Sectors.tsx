@@ -29,8 +29,11 @@ export function Sectors() {
       </div>
 
       <ul className="mt-14 grid grid-cols-2 border-t border-l harbour-rule sm:grid-cols-3 lg:mt-20 lg:grid-cols-4">
+        {/* `industries` gained a photograph when the live site's sectors section
+            became image tiles. Harbour builds structure from hairlines and takes
+            no pictures here, so it reads the name only. */}
         {industries.map((industry, index) => (
-          <Reveal key={industry} as="li" delay={(index % 4) * 50}>
+          <Reveal key={industry.slug} as="li" delay={(index % 4) * 50}>
             <Link
               href={sectors.cta.href}
               className="group flex h-full items-center gap-3 border-r border-b harbour-rule px-5 py-7 transition-colors duration-200 hover:bg-harbour-paper-2"
@@ -40,7 +43,7 @@ export function Sectors() {
                 className="h-1.5 w-1.5 shrink-0 bg-harbour-moss transition-transform duration-200 group-hover:scale-150"
               />
               <span className="text-[0.9375rem] font-semibold tracking-[-0.01em] text-harbour-ink">
-                {industry}
+                {industry.name}
               </span>
             </Link>
           </Reveal>

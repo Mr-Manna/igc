@@ -1,9 +1,12 @@
 /**
- * Line icons for the services grid.
+ * Line icons for the services grid and the "why choose us" row.
  *
  * Icon-led cards rather than photographic ones: the six services share only two
  * stock photographs between them, so a picture header would have shown the same
  * plant three times over. A consistent 24px stroke set reads as a system.
+ *
+ * Hand-authored rather than pulled from an icon package — the project carries no
+ * icon dependency and every glyph on the site is drawn here or inline.
  */
 
 export type ServiceIconName =
@@ -12,7 +15,13 @@ export type ServiceIconName =
   | "finance"
   | "efficiency"
   | "machinery"
-  | "polymer";
+  | "polymer"
+  // Value propositions.
+  | "expertise"
+  | "endToEnd"
+  | "turnaround"
+  | "network"
+  | "value";
 
 const paths: Record<ServiceIconName, React.ReactNode> = {
   factory: (
@@ -56,6 +65,50 @@ const paths: Record<ServiceIconName, React.ReactNode> = {
       <path d="M9.5 3v6.2L5 17.9A2 2 0 0 0 6.8 21h10.4a2 2 0 0 0 1.8-3.1L14.5 9.2V3" />
       <path d="M8 3h8" />
       <path d="M7 15.5h10" />
+    </>
+  ),
+
+  /* Two figures — the consultant and the client, not a generic person. */
+  expertise: (
+    <>
+      <circle cx="9" cy="7.5" r="3" />
+      <path d="M3.5 20v-1.5A4.5 4.5 0 0 1 8 14h2a4.5 4.5 0 0 1 4.5 4.5V20" />
+      <path d="M16 5.2a3 3 0 0 1 0 5.6" />
+      <path d="M17.5 14.2A4.5 4.5 0 0 1 20.5 18.5V20" />
+    </>
+  ),
+  /* A run from first mark to final mark, with the stages between. */
+  endToEnd: (
+    <>
+      <circle cx="4.5" cy="12" r="2" />
+      <circle cx="19.5" cy="12" r="2" />
+      <path d="M6.5 12h11" />
+      <path d="M10 9.5v5M14 9.5v5" />
+    </>
+  ),
+  /* Elapsed time, not a stopwatch — the hand is short of the hour. */
+  turnaround: (
+    <>
+      <circle cx="12" cy="12.5" r="8" />
+      <path d="M12 8v4.5l3 2" />
+      <path d="M9.5 3h5" />
+    </>
+  ),
+  /* Nodes joined to a hub: the banking relationships. */
+  network: (
+    <>
+      <circle cx="12" cy="12" r="2.5" />
+      <circle cx="5" cy="5.5" r="2" />
+      <circle cx="19" cy="5.5" r="2" />
+      <circle cx="12" cy="20" r="2" />
+      <path d="m6.5 7 3.8 3.4M17.5 7l-3.8 3.4M12 14.5v3.5" />
+    </>
+  ),
+  /* A priced tag. The dot is the eyelet. */
+  value: (
+    <>
+      <path d="M3.5 11.2V4.5a1 1 0 0 1 1-1h6.7a1 1 0 0 1 .7.3l8 8a1 1 0 0 1 0 1.4l-6.7 6.7a1 1 0 0 1-1.4 0l-8-8a1 1 0 0 1-.3-.7Z" />
+      <circle cx="7.5" cy="7.5" r="1.2" />
     </>
   ),
 };

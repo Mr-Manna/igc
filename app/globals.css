@@ -330,6 +330,64 @@
   border-color: var(--rule-on-dark);
 }
 
+/** Hero scrim.
+
+    Angled, not flat. The copy column occupies the left ~42rem, so that edge is
+    held at 0.94 where white text has to survive whatever the photograph is
+    doing; the right side eases to 0.5 so the plant stays legible. A flat wash
+    dark enough for the headline turns the picture into a texture, which defeats
+    the point of having one.
+
+    Navy-deep rather than black: a neutral scrim over a warm industrial
+    photograph greys it out, and the page's dark surfaces are all navy. */
+@utility hero-scrim {
+  background: linear-gradient(
+    100deg,
+    color-mix(in srgb, var(--color-navy-deep) 94%, transparent) 0%,
+    color-mix(in srgb, var(--color-navy-deep) 86%, transparent) 42%,
+    color-mix(in srgb, var(--color-navy-deep) 50%, transparent) 100%
+  );
+}
+
+/** Label scrim for photographic tiles — bottom-weighted, so the top of the
+    picture is untouched and only the caption strip is darkened. */
+@utility tile-scrim {
+  background: linear-gradient(
+    to top,
+    color-mix(in srgb, var(--color-navy-deep) 88%, transparent) 0%,
+    color-mix(in srgb, var(--color-navy-deep) 40%, transparent) 42%,
+    transparent 72%
+  );
+}
+
+/* FAQ accordion.
+
+   Native <details>/<summary>, so a row opens on Enter and on Space, is exposed
+   as a disclosure without any ARIA, and works with JavaScript off. There is no
+   accordion component and nothing to hydrate — all the CSS does is drop the
+   default marker and turn the chevron over.
+
+   Plain classes rather than `@utility`, because `details[open] .faq-chevron` is
+   a descendant-state selector and has no utility form. Unlayered, so it beats
+   the base layer without `!important`. The Harbour spike carries its own copy
+   of these rules under `.theme-harbour`; the two are deliberately independent. */
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-chevron {
+  transition: transform 0.25s var(--ease-corporate);
+}
+
+.faq details[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
 /* ---------------------------------------------------------------------------
    Motion
 --------------------------------------------------------------------------- */

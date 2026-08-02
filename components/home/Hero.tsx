@@ -1,76 +1,104 @@
+import Image from "next/image";
+import Link from "next/link";
 import { Button } from "@/components/ui/Button";
-import { Media } from "@/components/ui/Media";
 import { Reveal } from "@/components/ui/Reveal";
 import { hero } from "@/content/home";
 
 /**
- * Two-column masthead: proposition on the left, facility photograph on the
- * right.
+ * Full-bleed photographic masthead.
  *
- * The previous hero ran the photo full-bleed behind the copy under a heavy
- * graphite scrim, which is a campaign device — it made the picture unreadable
- * and forced every word on top of it. Splitting the two lets the copy sit on a
- * clean surface at ordinary contrast and lets the plant actually be seen.
+ * An earlier revision split this into copy-left / photo-right, on the reasoning
+ * that a scrimmed full-bleed plate is a campaign device. The site is now built
+ * against a competitor whose hero is exactly this, and the structure is the
+ * point of the exercise — so the plate is back, with the two things that made
+ * the previous full-bleed attempt fail handled explicitly:
+ *
+ *  - Contrast. The scrim is a navy gradient, not a flat black wash: 0.92 at the
+ *    left edge where the copy sits, easing to 0.55 at the right where the plant
+ *    is meant to be legible. White on navy-deep at 0.92 over this photograph
+ *    measures well clear of AA, and the copy column stops before the scrim thins.
+ *  - Layout shift. Copy widths are capped in `rem`, never `ch`. A `ch` cap is
+ *    measured against whichever font is live, so the fallback and the loaded
+ *    Archivo wrap at different points and the swap moves the layout — that cost
+ *    0.052 CLS on this codebase before.
+ *
+ * `pb` is oversized because StatsBand is pulled up over this section's lower
+ * edge; the padding is what keeps the assurance list clear of the card.
  */
 export function Hero() {
   return (
-    <section className="relative overflow-hidden border-b rule-light bg-surface">
-      {/* Soft blue wash, top-right. The only decorative element on the page. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute top-[-14rem] right-[-10rem] h-[34rem] w-[34rem] rounded-full opacity-40 blur-3xl"
-        style={{
-          background:
-            "radial-gradient(circle, color-mix(in oklab, var(--color-blue) 22%, transparent) 0%, transparent 70%)",
-        }}
+    <section className="on-dark relative isolate overflow-hidden bg-navy-deep">
+      <Image
+        src={hero.image.src}
+        alt={hero.image.alt}
+        fill
+        priority
+        // The LCP element. `sizes` is 100vw because the plate is always full-bleed.
+        sizes="100vw"
+        className="-z-10 object-cover"
       />
+      <div aria-hidden="true" className="hero-scrim absolute inset-0 -z-10" />
 
-      <div className="shell relative grid items-center gap-12 py-14 lg:grid-cols-12 lg:gap-14 lg:py-24">
-        {/* 7/5 rather than an even split: the headline needs ~535px to hold
-            "Manufacturing Business" on one line, which a six-column cell does
-            not give at 1024–1280. */}
-        <div className="lg:col-span-7">
+      <div className="shell relative pt-16 pb-40 lg:pt-24 lg:pb-52">
+        <div className="max-w-[42rem]">
           <Reveal>
-            <p className="inline-flex items-center gap-2.5 rounded-full border rule-light bg-canvas py-1.5 pr-4 pl-2.5 text-[0.8125rem] font-medium text-navy">
-              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-blue" />
+            <p className="inline-flex items-center gap-2.5 rounded-full border border-[var(--rule-on-dark)] bg-white/10 py-1.5 pr-4 pl-2.5 text-[0.8125rem] font-medium text-white backdrop-blur-sm">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-blue-light" />
               {hero.eyebrow}
             </p>
           </Reveal>
 
-          {/* Caps line length on wide screens. Deliberately in rem, not ch: a ch
-              cap is measured against whatever font is active, so the fallback and
-              the loaded Archivo wrap at different points and the swap shifts
-              layout. */}
           <h1 className="display-hero mt-6 max-w-[35rem]">
             {hero.headline.map((line, index) => (
               <Reveal
                 as="span"
                 key={line.text}
                 delay={90 + index * 70}
-                className={`block ${line.accent ? "text-blue" : ""}`}
+                // `blue` is 2.2:1 on navy and fails; on a dark band the accent
+                // has to step up to `blue-light`. See globals.css.
+                className={`block ${line.accent ? "text-blue-light" : ""}`}
               >
                 {line.text}
               </Reveal>
             ))}
           </h1>
 
-          <Reveal as="p" delay={320} className="mt-6 max-w-[36rem] text-slate">
+          <Reveal as="p" delay={320} className="mt-6 max-w-[36rem] text-ink-invert">
             {hero.body}
           </Reveal>
 
           <Reveal delay={390} className="mt-9 flex flex-wrap gap-3">
             <Button href={hero.primaryCta.href}>{hero.primaryCta.label}</Button>
-            <Button href={hero.secondaryCta.href} variant="secondary">
+            <Button href={hero.secondaryCta.href} variant="secondary-on-dark">
               {hero.secondaryCta.label}
             </Button>
           </Reveal>
 
-          <Reveal delay={450} className="mt-10 border-t rule-light pt-6">
+          {/* The reference site runs a search field here. These are links, not a
+              search: IGC has no corpus to query, and a box that only ever
+              navigates is a worse version of the thing it imitates. */}
+          <Reveal delay={440} className="mt-9">
+            <p className="label text-ink-invert-muted">Popular requests</p>
+            <ul className="mt-3.5 flex flex-wrap gap-2">
+              {hero.quickLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="inline-block rounded-full border border-[var(--rule-on-dark)] bg-white/5 px-4 py-2 text-[0.875rem] font-medium text-white transition-colors duration-250 hover:border-blue-light hover:bg-white hover:text-navy"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={500} className="mt-10 border-t rule-dark pt-6">
             <ul className="flex flex-wrap gap-x-8 gap-y-3">
               {hero.assurances.map((item) => (
                 <li
                   key={item}
-                  className="flex items-center gap-2.5 text-[0.875rem] font-medium text-navy"
+                  className="flex items-center gap-2.5 text-[0.875rem] font-medium text-white"
                 >
                   <CheckMark />
                   {item}
@@ -79,24 +107,6 @@ export function Hero() {
             </ul>
           </Reveal>
         </div>
-
-        <Reveal delay={160} className="lg:col-span-5">
-          <div className="relative">
-            {/* Offset panel behind the photograph — depth without a drop shadow
-                heavy enough to read as a sticker. */}
-            <div
-              aria-hidden="true"
-              className="absolute -right-4 -bottom-4 h-[70%] w-[70%] rounded-card bg-blue/10"
-            />
-            <Media
-              src={hero.image.src}
-              alt={hero.image.alt}
-              priority
-              sizes="(max-width: 1024px) 100vw, 38vw"
-              className="relative aspect-[4/3] w-full shadow-card lg:aspect-[5/4]"
-            />
-          </div>
-        </Reveal>
       </div>
     </section>
   );
@@ -106,11 +116,11 @@ function CheckMark() {
   return (
     <span
       aria-hidden="true"
-      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-blue/10"
+      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/15"
     >
       <svg
         viewBox="0 0 16 16"
-        className="h-3 w-3 text-blue"
+        className="h-3 w-3 text-blue-light"
         fill="none"
         stroke="currentColor"
         strokeWidth="2.25"

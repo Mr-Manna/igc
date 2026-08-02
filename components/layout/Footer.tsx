@@ -8,6 +8,18 @@ import {
   telHref,
 } from "@/content/site";
 
+/** Plain text, not links: there are no city pages and there is no plan for any. */
+const cities = [
+  "Mumbai",
+  "Delhi",
+  "Pune",
+  "Ahmedabad",
+  "Bengaluru",
+  "Chennai",
+  "Hyderabad",
+  "Kolkata",
+];
+
 const socials = [
   { label: "LinkedIn", href: "#" },
   { label: "Facebook", href: "#" },
@@ -49,7 +61,9 @@ export function Footer() {
                   type="email"
                   required
                   placeholder="Your email address"
-                  className="w-full rounded-btn border border-[var(--rule-on-dark)] bg-white/5 px-4 py-2.5 text-[0.9375rem] text-white placeholder:text-ink-invert-muted focus:border-blue-light focus:outline-none"
+                  // No `focus:outline-none` — see the note in EnquiryForm. A
+                  // border tint is not a focus indicator.
+                  className="w-full rounded-btn border border-[var(--rule-on-dark)] bg-white/5 px-4 py-2.5 text-[0.9375rem] text-white placeholder:text-ink-invert-muted focus:border-blue-light"
                 />
                 <button
                   type="submit"
@@ -118,8 +132,18 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Reach. A consultancy's coverage is a real buying question and the
+            reference site answers it in one line rather than on a contact page
+            nobody opens. */}
+        <div className="mt-14 border-t rule-dark pt-7">
+          <p className="text-[0.875rem]">
+            <span className="font-semibold text-white">Across India:</span>{" "}
+            {cities.join(" · ")} — and 30+ other manufacturing centres.
+          </p>
+        </div>
+
         {/* Legal */}
-        <div className="mt-14 flex flex-col gap-4 border-t rule-dark pt-7 text-[0.8125rem] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-4 border-t rule-dark pt-7 text-[0.8125rem] sm:flex-row sm:items-center sm:justify-between">
           <p>
             © {new Date().getFullYear()} {site.fullName}. All rights reserved.
           </p>

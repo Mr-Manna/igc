@@ -52,9 +52,8 @@ export const primaryNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
-  { label: "Subsidies", href: "/subsidies" },
   { label: "Project Reports", href: "/project-reports" },
-  { label: "Machinery", href: "/machinery" },
+  // { label: "Machinery", href: "/machinery" },
   { label: "Success Stories", href: "/success-stories" },
 ];
 
@@ -63,7 +62,7 @@ export const footerQuickLinks: NavItem[] = [
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
   { label: "Project Reports", href: "/project-reports" },
-  { label: "Machinery", href: "/machinery" },
+  // { label: "Machinery", href: "/machinery" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
   { label: "FAQ", href: "/faq" },
@@ -84,10 +83,27 @@ export const legalLinks: NavItem[] = [
   { label: "Refund Policy", href: "/refund" },
 ];
 
-/** All non-home routes referenced anywhere in the shell. Used to generate stubs + sitemap. */
+/** All routes referenced anywhere in the shell. */
 export const allRoutes: string[] = [
   ...primaryNav.map((n) => n.href),
   ...footerQuickLinks.map((n) => n.href),
   ...footerServiceLinks.map((n) => n.href),
   ...legalLinks.map((n) => n.href),
 ].filter((href, i, all) => all.indexOf(href) === i);
+
+/**
+ * Routes that have a real page behind them.
+ *
+ * This is the single switch that ships a route: it keeps the path out of the
+ * `[...slug]` stub catch-all — two prerenders of the same path would otherwise
+ * collide at build time — and puts it into the sitemap, which the stubs are
+ * deliberately absent from because they are `noindex`.
+ *
+ * Add a route here the moment its page lands, and not before.
+ */
+export const builtRoutes: string[] = ["/", "/services", "/industries"];
+
+/** Everything the shell links to that is still a placeholder. */
+export const stubRoutes: string[] = allRoutes.filter(
+  (route) => !builtRoutes.includes(route),
+);

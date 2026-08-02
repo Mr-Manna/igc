@@ -40,6 +40,32 @@ export function ServicesIndex() {
 
                   <p className="mt-3 text-[0.9375rem] text-slate">{service.description}</p>
 
+                  {/* The deliverables, not features. This is what the reference
+                      site gets right: three concrete nouns per card do more than
+                      a second sentence of description. */}
+                  <ul className="mt-5 space-y-2 border-t rule-light pt-5">
+                    {service.points.map((point) => (
+                      <li
+                        key={point}
+                        className="flex items-center gap-2.5 text-[0.875rem] text-slate"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          viewBox="0 0 16 16"
+                          className="h-3 w-3 shrink-0 text-blue"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M6 3l5 5-5 5" />
+                        </svg>
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+
                   <span className="mt-auto flex items-center gap-2 pt-7 text-[0.875rem] font-semibold text-blue">
                     Learn more
                     <svg
