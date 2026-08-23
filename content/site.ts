@@ -101,7 +101,7 @@ export const allRoutes: string[] = [
  *
  * Add a route here the moment its page lands, and not before.
  */
-export const builtRoutes: string[] = ["/", "/services", "/industries"];
+export const builtRoutes: string[] = ["/", "/about", "/services", "/industries"];
 
 /** Everything the shell links to that is still a placeholder. */
 export const stubRoutes: string[] = allRoutes.filter(
