@@ -28,12 +28,6 @@ export function UtilityBar() {
             {contact.hours[0].days}, {contact.hours[0].time}
           </span>
           <Link
-            href="/about"
-            className="hidden text-[0.8125rem] whitespace-nowrap transition-colors hover:text-white sm:inline"
-          >
-            About Us
-          </Link>
-          <Link
             href="/contact"
             className="text-[0.8125rem] whitespace-nowrap transition-colors hover:text-white"
           >

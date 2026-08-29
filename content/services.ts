@@ -202,7 +202,7 @@ export const sectorStrip = {
   eyebrow: "Sectors",
   heading: "Where These Services Are Delivered",
   body:
-    "Every engagement is specified against the sector it is for — the process routes, the applicable norms and the machinery market all differ. These are the twelve we work in.",
+    "Every engagement is specified against the sector it is for — the process routes, the applicable norms and the machinery market all differ. These are the ten we work in.",
   cta: { label: "View All Industries", href: "/industries" },
 } as const;
 

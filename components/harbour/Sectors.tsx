@@ -5,7 +5,7 @@ import { ArrowLink } from "./ui/ArrowLink";
 import { TwoWeightHeading } from "./ui/TwoWeightHeading";
 
 /**
- * Twelve sectors in a dense hairline grid.
+ * Ten sectors in a dense hairline grid.
  *
  * No cards: structure comes from the rules between cells. Each cell is a link to
  * the sectors index rather than to a per-sector page, because those pages are

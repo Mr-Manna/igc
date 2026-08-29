@@ -34,9 +34,9 @@ export function ProjectsShowcase() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   /**
-   * A tablist is a single tab stop with arrow-key navigation inside it — a
-   * dozen sectors would otherwise be a dozen tabs to get past on the way to the
-   * carousel. Home/End included because with twelve options they earn their
+   * A tablist is a single tab stop with arrow-key navigation inside it — ten
+   * sectors would otherwise be ten tabs to get past on the way to the
+   * carousel. Home/End included because with that many options they earn their
    * keep.
    */
   function onKeyDown(event: React.KeyboardEvent, index: number) {

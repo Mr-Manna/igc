@@ -5,7 +5,7 @@ import { industries } from "@/content/home";
 import { sectorStrip } from "@/content/services";
 
 /**
- * The twelve sectors, as type.
+ * The ten sectors, as type.
  *
  * The homepage runs the same list as a photographic rail. Repeating that here
  * would be the same content twice at the same weight, and this page has already

@@ -12,7 +12,7 @@ import { industries, services, stats } from "@/content/home";
  * three section types the live page has no equivalent of.
  *
  * TODO(real-data): `insights` is entirely invented — four fabricated articles
- * with fabricated dates, written to fill a layout. IGC has published nothing.
+ * with fabricated dates, written to fill a layout. ICF has published nothing.
  * Delete the section or replace every item before this page is shown to anyone
  * outside the team. `content/home.ts` carries the same warning about its
  * testimonials, and `content/site.ts` about its contact details.
@@ -122,7 +122,7 @@ export const solutions = {
 export const sectors = {
   eyebrow: "Sectors",
   heading: {
-    bold: "Twelve industries",
+    bold: "Ten industries",
     light: "we have commissioned in",
   } satisfies TwoWeight,
   cta: { label: "All sectors", href: "/industries" },
@@ -222,7 +222,7 @@ export const faq = {
     },
     {
       q: "Which sectors do you take on?",
-      a: "Twelve, listed above. Polymer processing, food and beverage, chemical and packaging are where our work is deepest. If your sector is not on the list, ask — we will tell you honestly whether we are the right firm for it.",
+      a: "Ten, listed above. Polymer processing, food and beverage, chemical and packaging are where our work is deepest. If your sector is not on the list, ask — we will tell you honestly whether we are the right firm for it.",
     },
     {
       q: "Do you work outside your home state?",

@@ -18,7 +18,7 @@ import { site } from "@/content/site";
  * The reference competitor has no equivalent: they are a marketplace that
  * matches manufacturers to independent consultants, so their site is organised
  * by industry and their nav has no services menu at all. This page therefore
- * follows IGC's own information architecture rather than theirs.
+ * follows ICF's own information architecture rather than theirs.
  *
  * Order is argument, then process, then reassurance, then the ask, with the
  * questions a reader still has parked last where they cannot interrupt anyone

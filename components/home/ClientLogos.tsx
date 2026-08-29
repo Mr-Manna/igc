@@ -5,7 +5,7 @@ import { clients } from "@/content/home";
  * Client wordmarks drifting continuously.
  *
  * TODO(real-data): these are set in the display face rather than rendered from
- * image files, because IGC has no logo assets and no `public/` directory. When
+ * image files, because ICF has no logo assets and no `public/` directory. When
  * real logos arrive, swap the <span> for a `next/image` at a fixed height with
  * `grayscale` — the rail itself does not need to change.
  *

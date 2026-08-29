@@ -8,10 +8,10 @@
  */
 
 export const site = {
-  name: "IGC",
+  name: "ICF",
   legalName: "Industrial Consultancy Firm",
-  fullName: "Industrial Consultancy Firm (IGC)",
-  url: "https://igcindia.com",
+  fullName: "Industrial Consultancy Firm (ICF)",
+  url: "https://icfindia.com",
   founded: "2009",
   description:
     "Expert industrial consultancy for manufacturing industries, MSMEs, startups, and entrepreneurs. We help you establish profitable factories through complete project solutions.",
@@ -24,8 +24,8 @@ export const contact = {
   phoneSecondary: "+91 22 2345 6789",
   /** Digits only, for tel: and wa.me links. */
   phoneDigits: "919876543210",
-  emailPrimary: "info@igcindia.com",
-  emailSupport: "support@igcindia.com",
+  emailPrimary: "info@icfindia.com",
+  emailSupport: "support@icfindia.com",
   addressLine1: "101, Industrial Complex, MG Road",
   addressLine2: "Mumbai, Maharashtra 400001",
   addressLocality: "Mumbai",
@@ -37,7 +37,7 @@ export const contact = {
     { days: "Sunday", time: "Closed" },
   ],
   whatsappMessage:
-    "Hello IGC, I need consultation for my industrial project.",
+    "Hello ICF, I need consultation for my industrial project.",
 } as const;
 
 export const whatsappHref = `https://wa.me/${contact.phoneDigits}?text=${encodeURIComponent(
@@ -50,11 +50,13 @@ export type NavItem = { label: string; href: string };
 
 export const primaryNav: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Industries", href: "/industries" },
   { label: "Project Reports", href: "/project-reports" },
   // { label: "Machinery", href: "/machinery" },
-  { label: "Success Stories", href: "/success-stories" },
+  // { label: "Success Stories", href: "/success-stories" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export const footerQuickLinks: NavItem[] = [

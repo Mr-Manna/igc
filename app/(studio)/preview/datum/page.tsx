@@ -5,7 +5,7 @@ import { Space_Grotesk } from "next/font/google";
 /**
  * Design spike B — "Datum".
  *
- * Thesis: before the factory exists there is a drawing, and IGC is who makes it.
+ * Thesis: before the factory exists there is a drawing, and ICF is who makes it.
  * So the page is composed as a general-arrangement drawing — a title block
  * instead of a nav bar, a drafting field that breaks the text column, dimension
  * lines that measure the thing under them, and callout leaders that label real
@@ -45,7 +45,7 @@ const sheets = [
 ];
 
 /**
- * The four stages of a turnkey setup, each paired with the IGC service that acts
+ * The four stages of a turnkey setup, each paired with the ICF service that acts
  * on it. Drawn geometry and HTML annotations both read from this, so the SVG and
  * the labels under it can never drift apart.
  *
@@ -105,7 +105,7 @@ export default function DatumSpike() {
                 className="text-[1.0625rem] font-semibold tracking-[-0.02em]"
                 style={{ fontFamily: "var(--stack-grotesk)" }}
               >
-                IGC<span className="text-datum-line">·</span>GA
+                ICF<span className="text-datum-line">·</span>GA
               </Link>
             </TitleField>
 

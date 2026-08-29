@@ -5,7 +5,7 @@ import { Newsreader } from "next/font/google";
 /**
  * Design spike A — "The Sanction File".
  *
- * Thesis: IGC does not sell advice, it sells a document that makes a bank say
+ * Thesis: ICF does not sell advice, it sells a document that makes a bank say
  * yes. So the page borrows the logic of a bound technical report — numbered
  * clauses, a running head, a real schedule table, a marginal note — rather than
  * the logic of a marketing site. There are no cards and no icons here on
@@ -45,7 +45,7 @@ const clauses = [
 /**
  * Scheme maxima, not entitlements — the footnote under the table says so, and it
  * needs to stay there. Every figure is a published scheme ceiling; none of it is
- * an IGC claim.
+ * an ICF claim.
  */
 const schedule = [
   {
@@ -84,7 +84,7 @@ export default function SanctionFileSpike() {
               className="text-[1.375rem] leading-none font-semibold tracking-[-0.02em]"
               style={{ fontFamily: "var(--stack-newsreader)" }}
             >
-              IGC<span className="text-file-oxide">.</span>
+              ICF<span className="text-file-oxide">.</span>
             </span>
             <span className="file-mono hidden text-file-mute sm:inline">
               Industrial Consultancy Firm
@@ -212,7 +212,7 @@ export default function SanctionFileSpike() {
             <div className="mt-6 overflow-x-auto [scrollbar-width:thin]">
               <table className="w-full min-w-[40rem] border-collapse text-left">
                 <caption className="sr-only">
-                  Government schemes IGC maps into a detailed project report, with
+                  Government schemes ICF maps into a detailed project report, with
                   the maximum cover and ceiling published for each.
                 </caption>
                 <thead>

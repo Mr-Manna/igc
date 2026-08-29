@@ -1,6 +1,6 @@
-# IGC — Industrial Consultancy Firm
+# ICF — Industrial Consultancy Firm
 
-Rebuild of the IGC marketing site. Next.js 15 (App Router) + Tailwind v4, statically rendered.
+Rebuild of the ICF marketing site. Next.js 15 (App Router) + Tailwind v4, statically rendered.
 
 ```bash
 npm install
@@ -28,7 +28,7 @@ lives in `app/(corporate)/page.tsx` and the reasoning is in the comment there.
 
 `/services` has no counterpart on the reference site — they are a marketplace matching
 manufacturers to independent consultants, so their nav is organised by industry and has no
-services menu at all. That page follows IGC's own IA instead. See
+services menu at all. That page follows ICF's own IA instead. See
 `app/(corporate)/services/page.tsx`.
 
 ## ⚠️ Placeholder data
@@ -61,7 +61,7 @@ promises something the services page does not cover.
 ### About the photography
 
 Every image is a remote Pexels URL (whitelisted in `next.config.ts`); there are no local assets.
-The sector and project photographs are **library stock, not IGC sites**, so each `alt` describes
+The sector and project photographs are **library stock, not ICF sites**, so each `alt` describes
 what is in the frame rather than restating the sector or claiming to show the delivered plant.
 Project cards additionally carry a visible "Illustrative" marker — remove it in
 `components/home/ProjectsShowcase.tsx` when real project photography lands.

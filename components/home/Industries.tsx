@@ -8,9 +8,9 @@ import { industries } from "@/content/home";
 /**
  * Sectors as photographic tiles on a rail.
  *
- * The flat two-word tile grid this replaces was honest but inert — twelve
- * identical boxes gave a reader no reason to believe IGC had actually been
- * inside a textile mill or a pharma clean room. A picture per sector is the
+ * The flat two-word tile grid this replaces was honest but inert — ten
+ * identical boxes gave a reader no reason to believe ICF had actually been
+ * inside a textile mill or a chemical plant. A picture per sector is the
  * cheapest available evidence.
  *
  * Every tile links to the sector's block on /industries rather than to a

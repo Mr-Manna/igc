@@ -34,7 +34,7 @@ const instrument = Instrument_Sans({
 export const metadata: Metadata = {
   title: "Harbour",
   description:
-    "Design direction C for the IGC homepage. Not part of the live site.",
+    "Design direction C for the ICF homepage. Not part of the live site.",
   robots: { index: false, follow: false },
 };
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Marketing site for IGC (Industrial Consultancy Firm), a rebuild. Next.js 15 (App Router) +
+Marketing site for ICF (Industrial Consultancy Firm), a rebuild. Next.js 15 (App Router) +
 React 19 + Tailwind v4, statically rendered. No database, no CMS — all copy lives in `content/`.
 
 **`README.md` is the design and architecture spec and is kept current.** Read it before any

@@ -8,7 +8,7 @@ import { Plate } from "./ui/Plate";
  * The insights row.
  *
  * TODO(real-data): every article here is fabricated — invented headlines, tags
- * and dates, written to fill this layout. IGC has published nothing. Delete this
+ * and dates, written to fill this layout. ICF has published nothing. Delete this
  * section or replace all four items before the page is shown outside the team.
  * See the note at the top of `content/harbour.ts`.
  *

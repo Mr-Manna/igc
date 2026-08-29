@@ -37,7 +37,7 @@ export function HarbourHeader() {
       <div className="shell flex h-16 items-center gap-5">
         <Link href="/harbour" className="flex shrink-0 items-baseline gap-3">
           <span className="text-[1.5rem] leading-none font-bold tracking-[-0.05em] text-harbour-ink">
-            IGC
+            ICF
             <span className="text-harbour-moss">.</span>
           </span>
           <span className="harbour-micro hidden text-harbour-mute sm:inline">

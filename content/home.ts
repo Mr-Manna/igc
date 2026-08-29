@@ -24,7 +24,7 @@ export const hero = {
   secondaryCta: { label: "Request Project Report", href: "/project-reports" },
   assurances: ["Free Initial Consultation", "ISO Certified", "Pan India Service"],
   /**
-   * The reference site puts a search field here. IGC has no corpus to search, so
+   * The reference site puts a search field here. ICF has no corpus to search, so
    * the same slot carries the four things people actually arrive looking for.
    */
   quickLinks: [
@@ -180,7 +180,7 @@ export const whyChooseUs = {
   cta: { label: "Learn More About Us", href: "/about" },
   image: {
     src: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1000",
-    alt: "IGC consultants in a project planning session",
+    alt: "ICF consultants in a project planning session",
   },
 } as const satisfies {
   eyebrow: string;
@@ -210,12 +210,10 @@ export const industrySlugs = [
   "beverage",
   "chemical",
   "textile",
-  "pharmaceutical",
   "agriculture",
   "engineering",
   "packaging",
   "recycling",
-  "automobile",
   "steel-metal",
 ] as const;
 
@@ -234,7 +232,7 @@ export type Industry = {
  * asserting a rolling mill over a photograph of a laser cutter would be wrong
  * for a screen reader and wrong for search.
  *
- * These are library photographs standing in for sector imagery, not IGC sites.
+ * These are library photographs standing in for sector imagery, not ICF sites.
  * Replace them with plant photography from real engagements when it is cleared.
  */
 const sectorPhoto = (id: string) =>
@@ -267,11 +265,6 @@ export const industries: Industry[] = [
     image: { src: sectorPhoto("8246480"), alt: "Yarn production line in a textile factory" },
   },
   {
-    name: "Pharmaceutical",
-    slug: "pharmaceutical",
-    image: { src: sectorPhoto("34221993"), alt: "Automated machinery in an industrial plant" },
-  },
-  {
     name: "Agriculture",
     slug: "agriculture",
     image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
@@ -292,11 +285,6 @@ export const industries: Industry[] = [
     image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
   },
   {
-    name: "Automobile",
-    slug: "automobile",
-    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
-  },
-  {
     name: "Steel & Metal",
     slug: "steel-metal",
     image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
@@ -304,7 +292,7 @@ export const industries: Industry[] = [
 ];
 
 /**
- * TODO(real-data): invented company names. IGC has no logo assets and no
+ * TODO(real-data): invented company names. ICF has no logo assets and no
  * `public/` directory, so the strip renders wordmarks set in the display face
  * rather than images. Swap for real client logos — and clear permission to use
  * them — before launch.
@@ -326,7 +314,7 @@ export const clients: Client[] = [
 
 /**
  * TODO(real-data): every project below is fabricated. Titles, sectors and
- * investment figures are plausible for IGC's book of work but none are real.
+ * investment figures are plausible for ICF's book of work but none are real.
  * Replace with sanctioned projects — and confirm the client is content to have
  * the investment value published — before launch.
  *
@@ -370,12 +358,6 @@ export const projects: Project[] = [
     image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
   },
   {
-    title: "WHO-GMP oral solid dosage facility, greenfield",
-    sector: "Pharmaceutical",
-    investment: "₹40 Cr",
-    image: { src: sectorPhoto("34221993"), alt: "Automated machinery in an industrial plant" },
-  },
-  {
     title: "Ready-to-cook breakfast range — formulation and line setup",
     sector: "Food Processing",
     investment: "₹2.5 Cr",
@@ -406,12 +388,6 @@ export const projects: Project[] = [
     image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
   },
   {
-    title: "Auto component machining line for a Tier-2 supplier",
-    sector: "Automobile",
-    investment: "₹12 Cr",
-    image: { src: sectorPhoto("29988964"), alt: "Laser cutting machine running in a workshop" },
-  },
-  {
     title: "Induction furnace and rolling mill modernisation",
     sector: "Steel & Metal",
     investment: "₹25 Cr",
@@ -425,9 +401,9 @@ export const aboutSection = {
   paragraphs: [
     "Industrial Consultancy Firm has worked alongside Indian manufacturers since 2009, taking projects from a first conversation about an idea through to a plant running at rated output. We prepare the feasibility study, write the detailed project report, map the applicable subsidy scheme, arrange the term loan, specify and source the machinery, and stay on the project until it is commissioned.",
     "Most industrial projects do not fail on the factory floor. They fail earlier — on a feasibility study that will not survive a credit committee, on a subsidy claim filed against the wrong scheme, on a machine bought on price rather than on throughput. Our work is to close those gaps before they cost anything.",
-    "We work across twelve manufacturing sectors and hold working relationships with 50+ banks and financial institutions, which is why our project reports tend to clear appraisal on the first pass rather than the third.",
+    "We work across ten manufacturing sectors and hold working relationships with 50+ banks and financial institutions, which is why our project reports tend to clear appraisal on the first pass rather than the third.",
   ],
-  cta: { label: "More About IGC", href: "/about" },
+  cta: { label: "More About ICF", href: "/about" },
   form: {
     heading: "Register Your Query",
     body: "Tell us about the project. A consultant will get back to you within one working day.",
@@ -459,19 +435,19 @@ export type Testimonial = {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "IGC helped us set up our mineral water plant from scratch. Their expert guidance on machinery selection and government subsidies saved us over ₹50 lakhs. The DPR they prepared was approved by the bank within 15 days.",
+      "ICF helped us set up our mineral water plant from scratch. Their expert guidance on machinery selection and government subsidies saved us over ₹50 lakhs. The DPR they prepared was approved by the bank within 15 days.",
     name: "Rajesh Kumar",
     role: "Managing Director, AquaPure Industries Pvt Ltd",
   },
   {
     quote:
-      "The team at IGC has exceptional knowledge of the plastic industry. They helped us get CGTMSE loan for our injection moulding unit and guided us through the entire process. Highly professional and reliable.",
+      "The team at ICF has exceptional knowledge of the plastic industry. They helped us get CGTMSE loan for our injection moulding unit and guided us through the entire process. Highly professional and reliable.",
     name: "Priya Sharma",
     role: "CEO, PlastTech Solutions",
   },
   {
     quote:
-      "Starting a microbrewery seemed daunting until we connected with IGC. Their technical expertise and regulatory guidance made our dream project a reality. The plant is now running successfully for 3 years.",
+      "Starting a microbrewery seemed daunting until we connected with ICF. Their technical expertise and regulatory guidance made our dream project a reality. The plant is now running successfully for 3 years.",
     name: "Vijay Menon",
     role: "Founder, Craft Breweries India",
   },

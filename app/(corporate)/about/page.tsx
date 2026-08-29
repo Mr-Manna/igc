@@ -20,7 +20,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Industrial Consultancy Firm (IGC) is a team of industrial consultants, engineers, financial experts and market strategists building profitable, sustainable manufacturing businesses across India.",
+    "Industrial Consultancy Firm (ICF) is a team of industrial consultants, engineers, financial experts and market strategists building profitable, sustainable manufacturing businesses across India.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {

@@ -1,14 +1,14 @@
 import Link from "next/link";
 import { site } from "@/content/site";
 
-// No aria-label on the link: an accessible name that omits the visible "IGC"
+// No aria-label on the link: an accessible name that omits the visible "ICF"
 // text trips axe's label-content-name-mismatch rule. The visible text plus an
 // appended screen-reader-only "Home" forms the name instead.
 export function Wordmark({ className = "" }: { className?: string }) {
   return (
     <Link href="/" className={`group flex items-center gap-3 ${className}`}>
       <span className="font-display text-[1.625rem] leading-none font-bold tracking-[-0.03em] text-navy">
-        IGC
+        ICF
         <span className="text-blue">.</span>
       </span>
 

@@ -17,7 +17,7 @@ import { stats } from "@/content/home";
  */
 export function StatsBand() {
   return (
-    <section className="relative z-10 -mt-28 lg:-mt-32" aria-label="IGC by the numbers">
+    <section className="relative z-10 -mt-28 lg:-mt-32" aria-label="ICF by the numbers">
       <div className="shell">
         <div className="card px-6 py-10 shadow-lift sm:px-10 lg:py-12">
           <dl className="grid grid-cols-2 gap-y-10 lg:grid-cols-4">

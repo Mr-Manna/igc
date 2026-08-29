@@ -10,7 +10,7 @@ import { serviceStrip } from "@/content/industries";
  * the two axes of the same offer are one click apart in either direction.
  *
  * Chips rather than the homepage's icon cards. This page has already spent its
- * attention on twelve sectors and the services are the cross-reference, not a
+ * attention on ten sectors and the services are the cross-reference, not a
  * second headline act — and repeating the cards would be the same content at the
  * same weight on a third page.
  *

@@ -58,7 +58,7 @@ async function deliver(payload: EnquiryPayload): Promise<void> {
       name: payload.name,
       email: payload.email,
       phone: payload.phone,
-      source: "igc-homepage",
+      source: "icf-homepage",
       receivedAt: new Date().toISOString(),
     }),
   });

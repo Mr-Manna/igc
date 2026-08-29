@@ -4,7 +4,7 @@ import { industries } from "@/content/home";
 import { industryDetails } from "@/content/industries";
 
 /**
- * The twelve sectors at length — the substance of the page.
+ * The ten sectors at length — the substance of the page.
  *
  * The same column arrangement for every sector rather than an alternating
  * left/right rhythm. Alternation would give a long page some visual variety, but
@@ -99,8 +99,8 @@ export function IndustryDetails() {
 
                   <Reveal delay={250}>
                     {/* Points at the form on this page rather than at
-                        /industries/<slug>, which does not exist. Twelve of these
-                        would read as twelve identical links in a screen reader's
+                        /industries/<slug>, which does not exist. Ten of these
+                        would read as ten identical links in a screen reader's
                         link list, hence the off-screen qualifier. */}
                     <a
                       href="#enquiry"

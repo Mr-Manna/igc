@@ -44,7 +44,7 @@ export function Footer() {
           {/* Brand + newsletter */}
           <div className="lg:col-span-4">
             <div className="font-display text-[1.625rem] leading-none font-bold tracking-[-0.03em] text-white">
-              IGC<span className="text-blue-light">.</span>
+              ICF<span className="text-blue-light">.</span>
             </div>
             <p className="mt-3 text-[0.9375rem] font-medium text-white">{site.legalName}</p>
             <p className="measure mt-4 text-[0.9375rem] leading-relaxed">

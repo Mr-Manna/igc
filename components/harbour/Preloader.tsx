@@ -31,7 +31,7 @@ export function Preloader() {
             phase === "initial" ? "translate-y-3 opacity-0" : "translate-y-0 opacity-100"
           }`}
         >
-          IGC<span className="text-harbour-moss">.</span>
+          ICF<span className="text-harbour-moss">.</span>
         </span>
 
         <div className="h-px w-48 overflow-hidden bg-harbour-rule">

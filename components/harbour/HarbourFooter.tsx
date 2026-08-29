@@ -18,7 +18,7 @@ export function HarbourFooter() {
       <div className="shell py-16 lg:py-20">
         <div className="flex items-baseline gap-4">
           <span className="text-[1.5rem] leading-none font-bold tracking-[-0.05em] text-harbour-ink">
-            IGC
+            ICF
             <span className="text-harbour-moss">.</span>
           </span>
           <span className="harbour-micro text-harbour-mute">{site.legalName}</span>

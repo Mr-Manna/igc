@@ -8,7 +8,7 @@ import { industriesEnquiry } from "@/content/industries";
  * means the same thing on both pages.
  *
  * It reuses the homepage's `EnquiryForm` with its own framing. The copy answers
- * the objection this page specifically raises: twelve named sectors invite the
+ * the objection this page specifically raises: ten named sectors invite the
  * reader whose sector is not among them to close the tab, so the heading takes
  * that question rather than repeating the pitch.
  */

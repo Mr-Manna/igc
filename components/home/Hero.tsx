@@ -75,7 +75,7 @@ export function Hero() {
           </Reveal>
 
           {/* The reference site runs a search field here. These are links, not a
-              search: IGC has no corpus to query, and a box that only ever
+              search: ICF has no corpus to query, and a box that only ever
               navigates is a worse version of the thing it imitates. */}
           <Reveal delay={440} className="mt-9">
             <p className="label text-ink-invert-muted">Popular requests</p>

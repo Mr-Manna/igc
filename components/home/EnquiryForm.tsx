@@ -142,7 +142,7 @@ export function EnquiryForm({
             Mobile Number
           </label>
           <div className="mt-2.5 flex">
-            {/* A static prefix, not a country selector. IGC serves India; a
+            {/* A static prefix, not a country selector. ICF serves India; a
                 240-entry dropdown here would be theatre. */}
             <span
               aria-hidden="true"

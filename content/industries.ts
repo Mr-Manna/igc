@@ -24,7 +24,7 @@ export const industriesPage = {
   eyebrow: "Sectors",
   heading: "Industries We Serve",
   body:
-    "Twelve manufacturing sectors, each with its own process routes, statutory gates and machinery market. The engagement is the same; what changes is everything that decides whether the project clears.",
+    "Ten manufacturing sectors, each with its own process routes, statutory gates and machinery market. The engagement is the same; what changes is everything that decides whether the project clears.",
   primaryCta: { label: "Get Free Consultation", href: "/contact" },
   secondaryCta: { label: "Request Project Report", href: "/project-reports" },
   jumpLabel: "Jump to a sector",
@@ -165,24 +165,6 @@ export const industryDetails: Record<IndustrySlug, IndustryDetail> = {
     ],
   },
 
-  pharmaceutical: {
-    lede: "Formulation units across oral solids, liquids, injectables and topicals, plus nutraceutical and API intermediate plants.",
-    body: "A pharma plant is a building specified by its regulator. Classified areas, airlocks, pressure cascades, HVAC, water systems and the documentation regime are not fit-out decided after the shed goes up — they are the shed, and retrofitting them into a structure designed as a general industrial building costs multiples of designing them in. The revised Schedule M has raised that baseline for units that had been operating below it. Which markets you intend to supply is the question that sets the standard, and it has to be answered before the foundation, because a facility built to domestic requirements is not economically upgradeable to WHO-GMP later.",
-    units: [
-      "Oral solid dosage — tablets, capsules and granules",
-      "Liquid orals, syrups and suspensions",
-      "Injectable and sterile facilities",
-      "Ointment, cream and topical units",
-      "Nutraceutical, ayurvedic and API intermediate plants",
-    ],
-    gates: [
-      "State FDA manufacturing licence, with the premises approved before it issues",
-      "GMP compliance to the revised Schedule M, and WHO-GMP where exports are intended",
-      "Classified areas, HVAC and purified water systems designed into the building",
-      "Qualification, validation and documentation systems from commissioning onward",
-    ],
-  },
-
   agriculture: {
     lede: "Agro-processing, post-harvest infrastructure, cold chain, warehousing and farm input manufacturing.",
     body: "Agro projects live or die on procurement, and procurement is a catchment question. A unit sized above what its radius can supply spends the year buying at a premium from further out, which is a margin problem that no amount of plant efficiency fixes. Seasonality does the rest of the damage, and the projects that survive it are the ones designed for a second crop, a second product or a storage revenue line from the beginning. This is also the sector best served by central infrastructure funding, which materially changes the finance structure when the project is designed to qualify.",
@@ -255,24 +237,6 @@ export const industryDetails: Record<IndustrySlug, IndustryDetail> = {
     ],
   },
 
-  automobile: {
-    lede: "Auto component manufacture, tier supply, assemblies and aftermarket production.",
-    body: "Entering auto supply is a qualification project as much as a manufacturing one. The customer audit, the quality system, the metrology and the part approval process are prerequisites, not improvements to be made once production settles, and their cost sits in the project long before the first saleable part. The commercial structure is the other thing to go in with eyes open: tier supply means committed volumes against annual price-down expectations, so a plant whose cost per part is flat over its life is a plant whose margin shrinks every year by design. The aftermarket trades that certainty for higher margin and no floor.",
-    units: [
-      "Machined and forged component manufacture",
-      "Sheet metal pressings and welded assemblies",
-      "Rubber, plastic and moulded auto components",
-      "Sub-assembly and system integration units",
-      "Aftermarket and replacement part production",
-    ],
-    gates: [
-      "IATF 16949 and customer-specific quality requirements for tier supply",
-      "Part approval and validation, costed into the project rather than assumed",
-      "Metrology and inspection capability sized to the tolerance being held",
-      "Price-down expectations built into the projections from year one",
-    ],
-  },
-
   "steel-metal": {
     lede: "Rolling mills, induction furnaces, structural steel, wire products and non-ferrous processing.",
     body: "Metals is a conversion-margin business, which means the project is a bet on the spread between input and output prices rather than on volume, and it is exceptionally sensitive to two inputs: power and scrap. A tariff difference of a rupee a unit moves the viability of an induction furnace more than a percentage point of yield does, which is why the state and the connection matter as much as the plant. Where the output carries a mandatory standard, certification is not a marketing exercise either — it is the condition of selling into the construction market at all.",
@@ -296,7 +260,7 @@ export const serviceStrip = {
   eyebrow: "Services",
   heading: "What We Deliver Into These Sectors",
   body:
-    "The six engagements run across all twelve sectors. What changes between them is the process route, the statutory gate and the machinery market — which is the part that has to be got right per sector rather than per template.",
+    "The six engagements run across all ten sectors. What changes between them is the process route, the statutory gate and the machinery market — which is the part that has to be got right per sector rather than per template.",
   cta: { label: "View All Services", href: "/services" },
 } as const;
 
@@ -304,7 +268,7 @@ export const industriesEnquiry = {
   eyebrow: "Start Here",
   heading: "Your Sector Not Listed?",
   paragraphs: [
-    "The twelve above are where the bulk of our work sits, not the limit of it. Manufacturing projects share a structure — demand, route, capacity, site, machinery, finance — and the sector-specific part is the statutory regime and the supplier base, both of which are researched per project anyway.",
+    "The ten above are where the bulk of our work sits, not the limit of it. Manufacturing projects share a structure — demand, route, capacity, site, machinery, finance — and the sector-specific part is the statutory regime and the supplier base, both of which are researched per project anyway.",
     "Tell us what you intend to manufacture and where. If it is a sector we do not have depth in, we will say so rather than learn on your project.",
   ],
   form: {
@@ -332,7 +296,7 @@ export const industriesFaq = {
     {
       question: "We are in a sector you have not listed. Can you still help?",
       answer:
-        "Usually. The twelve listed are where our project history is deepest, not a boundary. What we will not do is take on a sector where the regulatory regime is specialised and we have no prior work — we will tell you that at the discovery call rather than after the engagement letter.",
+        "Usually. The ten listed are where our project history is deepest, not a boundary. What we will not do is take on a sector where the regulatory regime is specialised and we have no prior work — we will tell you that at the discovery call rather than after the engagement letter.",
     },
     {
       question: "Which sectors have the strongest subsidy support?",
