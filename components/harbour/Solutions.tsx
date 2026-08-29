@@ -8,14 +8,17 @@ import { ArrowLink } from "./ui/ArrowLink";
  * The services, as a ruled index rather than as a card grid.
  *
  * The reference sets one word at poster scale and hangs everything else off it.
- * The six services then read as an index — numbered rows on hairlines — which is
- * also the honest shape for the content: six equal-weight engagements, not six
- * things competing for a click.
+ * The core services then read as an index — numbered rows on hairlines — which is
+ * also the honest shape for the content: equal-weight engagements, not things
+ * competing for a click. Only the featured engagements list here; the
+ * sector-specific services are a live-site concern this spike does not carry.
  *
  * The sub-line under the poster word is `harbour-moss`, not sage. The reference
  * uses its pale accent there and it measures 1.3:1 on paper; see the contrast
  * note in `globals.css`.
  */
+const featuredServices = services.filter((service) => service.featured);
+
 export function Solutions() {
   return (
     <section className="shell py-24 lg:py-36" aria-labelledby="harbour-solutions">
@@ -42,7 +45,7 @@ export function Solutions() {
       </div>
 
       <ul className="mt-16 border-t harbour-rule lg:mt-24">
-        {services.map((service, index) => (
+        {featuredServices.map((service, index) => (
           <Reveal key={service.href} as="li" delay={(index % 3) * 60}>
             <Link
               href={service.href}

@@ -76,7 +76,7 @@ export const footerServiceLinks: NavItem[] = [
   { label: "Loan Consultancy", href: "/services/loan-consultancy" },
   { label: "Industrial Engineering", href: "/services/industrial-engineering" },
   { label: "Machinery Consultancy", href: "/services/machinery-consultancy" },
-  { label: "Business Consultancy", href: "/services/business-consultancy" },
+  { label: "Plastic Industry Consultancy", href: "/services/plastic-industry-consultancy" },
 ];
 
 export const legalLinks: NavItem[] = [

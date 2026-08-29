@@ -1,9 +1,9 @@
 /**
  * Line icons for the services grid and the "why choose us" row.
  *
- * Icon-led cards rather than photographic ones: the six services share only two
+ * Icon-led cards rather than photographic ones: the services share only two
  * stock photographs between them, so a picture header would have shown the same
- * plant three times over. A consistent 24px stroke set reads as a system.
+ * plant several times over. A consistent 24px stroke set reads as a system.
  *
  * Hand-authored rather than pulled from an icon package — the project carries no
  * icon dependency and every glyph on the site is drawn here or inline.
@@ -16,6 +16,10 @@ export type ServiceIconName =
   | "efficiency"
   | "machinery"
   | "polymer"
+  | "brewery"
+  | "coldStorage"
+  | "biogas"
+  | "waste"
   // Value propositions.
   | "expertise"
   | "endToEnd"
@@ -65,6 +69,39 @@ const paths: Record<ServiceIconName, React.ReactNode> = {
       <path d="M9.5 3v6.2L5 17.9A2 2 0 0 0 6.8 21h10.4a2 2 0 0 0 1.8-3.1L14.5 9.2V3" />
       <path d="M8 3h8" />
       <path d="M7 15.5h10" />
+    </>
+  ),
+  /* A closed fermentation vessel with a conical base. */
+  brewery: (
+    <>
+      <path d="M6 4h12v8l-6 7-6-7Z" />
+      <path d="M6 8.5h12" />
+      <path d="M10.5 3h3" />
+    </>
+  ),
+  /* An insulated store with a cold crystal inside. */
+  coldStorage: (
+    <>
+      <path d="M4 7 12 3l8 4v10l-8 4-8-4Z" />
+      <path d="M12 9.5v6M9.4 11l5.2 3M14.6 11l-5.2 3" />
+    </>
+  ),
+  /* A dome digester on a base with a captured flame. */
+  biogas: (
+    <>
+      <path d="M3 20h18" />
+      <path d="M5 20v-4a7 7 0 0 1 14 0v4" />
+      <path d="M12 20V9" />
+      <path d="M12 6c1.3-1 1.3-2.6 0-4-1.3 1.4-1.3 3 0 4Z" />
+    </>
+  ),
+  /* Two arrows chasing — the recovery loop, not a bin. */
+  waste: (
+    <>
+      <path d="M7 7a6 6 0 0 1 9-1l2 2" />
+      <path d="M18 6v3h-3" />
+      <path d="M17 15a6 6 0 0 1-9 1l-2-2" />
+      <path d="M6 18v-3h3" />
     </>
   ),
 

@@ -74,6 +74,10 @@ export const serviceSlugs = [
   "industrial-engineering",
   "machinery-consultancy",
   "plastic-industry-consultancy",
+  "brewery-distillery-consultancy",
+  "cold-storage-consultancy",
+  "biogas-consultancy",
+  "waste-management-consultancy",
 ] as const;
 
 export type ServiceSlug = (typeof serviceSlugs)[number];
@@ -89,6 +93,9 @@ export type Service = {
       every cell being the same height before `mt-auto` pins the footer. The
       full list lives in `content/services.ts`. */
   points: [string, string, string];
+  /** Shown in the homepage services grid. The sector-specific engagements below
+      the first six are `/services`-only, so the homepage stays two clean rows. */
+  featured: boolean;
 };
 
 const withHref = (service: Omit<Service, "href">): Service => ({
@@ -103,6 +110,7 @@ export const services: Service[] = [
     description: "Complete end-to-end consultancy for setting up manufacturing units",
     icon: "factory",
     points: ["Feasibility study", "Detailed project report", "Plant layout & commissioning"],
+    featured: true,
   }),
   withHref({
     title: "Government Subsidy Consultancy",
@@ -110,6 +118,7 @@ export const services: Service[] = [
     description: "Expert guidance on all government subsidies and incentives",
     icon: "subsidy",
     points: ["PMEGP & PMFME", "State capital subsidy", "Claim filing & follow-up"],
+    featured: true,
   }),
   withHref({
     title: "Loan Consultancy",
@@ -117,6 +126,7 @@ export const services: Service[] = [
     description: "Seamless project finance and loan assistance",
     icon: "finance",
     points: ["Term loan appraisal", "CGTMSE collateral-free", "Working capital limits"],
+    featured: true,
   }),
   withHref({
     title: "Industrial Engineering",
@@ -124,6 +134,7 @@ export const services: Service[] = [
     description: "Optimize your manufacturing processes for maximum efficiency",
     icon: "efficiency",
     points: ["Process improvement", "Capacity & line balancing", "Cost reduction"],
+    featured: true,
   }),
   withHref({
     title: "Machinery Consultancy",
@@ -131,6 +142,7 @@ export const services: Service[] = [
     description: "Expert guidance on machinery selection and procurement",
     icon: "machinery",
     points: ["Technical specification", "Vendor evaluation", "Import & installation"],
+    featured: true,
   }),
   withHref({
     title: "Plastic Industry Consultancy",
@@ -138,6 +150,39 @@ export const services: Service[] = [
     description: "Specialized consultancy for plastic manufacturing units",
     icon: "polymer",
     points: ["Injection & blow moulding", "Recycling units", "Product development"],
+    featured: true,
+  }),
+  withHref({
+    title: "Brewery & Distillery Consultancy",
+    slug: "brewery-distillery-consultancy",
+    description: "Specialised consultancy for breweries, IMFL and distillery units",
+    icon: "brewery",
+    points: ["Brewhouse & fermentation", "IMFL blending & bottling", "State excise licensing"],
+    featured: false,
+  }),
+  withHref({
+    title: "Cold Storage Consultancy",
+    slug: "cold-storage-consultancy",
+    description: "Specialised consultancy for cold chain and controlled-atmosphere storage",
+    icon: "coldStorage",
+    points: ["Single & multi-commodity", "Refrigeration & insulation", "NHB / PMKSY subsidy"],
+    featured: false,
+  }),
+  withHref({
+    title: "Biogas Plant Consultancy",
+    slug: "biogas-consultancy",
+    description: "Specialised consultancy for biogas, Bio-CNG and compressed biogas plants",
+    icon: "biogas",
+    points: ["Feedstock assessment", "Digester & gas upgrading", "SATAT / CBG offtake"],
+    featured: false,
+  }),
+  withHref({
+    title: "Waste Management Consultancy",
+    slug: "waste-management-consultancy",
+    description: "Specialised consultancy for recycling, C&D and waste-processing plants",
+    icon: "waste",
+    points: ["MSW & dry-waste sorting", "Plastic & C&D recycling", "CPCB / EPR compliance"],
+    featured: false,
   }),
 ];
 
