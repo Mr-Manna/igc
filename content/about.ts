@@ -13,7 +13,7 @@
 export const aboutPage = {
   eyebrow: "About Us",
   heading: "Fifteen Years Inside India's Factory Floors",
-  body: "Industrial Growth Consultancy takes manufacturing projects from a first conversation about an idea through to a plant running at rated output — feasibility, DPR, subsidy, finance, machinery and commissioning under one roof.",
+  body: "Industrial Consultancy Firm takes manufacturing projects from a first conversation about an idea through to a plant running at rated output — feasibility, DPR, subsidy, finance, machinery and commissioning under one roof.",
   primaryCta: { label: "Get Free Consultation", href: "/contact" },
   secondaryCta: { label: "Explore Our Services", href: "/services" },
 } as const;

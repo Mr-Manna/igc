@@ -9,8 +9,8 @@
 
 export const site = {
   name: "IGC",
-  legalName: "Industrial Growth Consultancy",
-  fullName: "Industrial Growth Consultancy (IGC)",
+  legalName: "Industrial Consultancy Firm",
+  fullName: "Industrial Consultancy Firm (IGC)",
   url: "https://igcindia.com",
   founded: "2009",
   description:

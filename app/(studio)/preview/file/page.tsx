@@ -87,7 +87,7 @@ export default function SanctionFileSpike() {
               IGC<span className="text-file-oxide">.</span>
             </span>
             <span className="file-mono hidden text-file-mute sm:inline">
-              Industrial Growth Consultancy
+              Industrial Consultancy Firm
             </span>
           </Link>
 

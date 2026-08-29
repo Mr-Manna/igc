@@ -1,4 +1,4 @@
-# IGC — Industrial Growth Consultancy
+# IGC — Industrial Consultancy Firm
 
 Rebuild of the IGC marketing site. Next.js 15 (App Router) + Tailwind v4, statically rendered.
 

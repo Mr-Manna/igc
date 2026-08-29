@@ -51,7 +51,7 @@ export async function generateMetadata({
   const title = labelFor(`/${slug.join("/")}`);
   return {
     title,
-    description: `${title} — Industrial Growth Consultancy. This page is in production.`,
+    description: `${title} — Industrial Consultancy Firm. This page is in production.`,
     robots: { index: false, follow: true },
   };
 }
