@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { ClosingCTA } from "@/components/home/ClosingCTA";
+import { FaqSection } from "@/components/faq/FaqSection";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
 import { aboutPage, ourMission, ourVision, whoWeAre } from "@/content/about";
+import { generalFaq } from "@/content/faq";
 import { site } from "@/content/site";
 
 /**
@@ -18,7 +20,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Industrial Growth Consultancy (IGC) is a team of industrial consultants, engineers, financial experts and market strategists building profitable, sustainable manufacturing businesses across India.",
+    "Industrial Consultancy Firm (IGC) is a team of industrial consultants, engineers, financial experts and market strategists building profitable, sustainable manufacturing businesses across India.",
   alternates: { canonical: "/about" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -61,6 +63,11 @@ export default function AboutPage() {
 
       <WhoWeAre />
       <MissionVision />
+      <FaqSection
+        eyebrow={generalFaq.eyebrow}
+        heading={generalFaq.heading}
+        items={generalFaq.items}
+      />
       <ClosingCTA />
 
       <script

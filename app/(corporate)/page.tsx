@@ -9,6 +9,8 @@ import { ServicesIndex } from "@/components/home/ServicesIndex";
 import { StatsBand } from "@/components/home/StatsBand";
 import { Testimonials } from "@/components/home/Testimonials";
 import { WhyChooseUs } from "@/components/home/WhyChooseUs";
+import { FaqSection } from "@/components/faq/FaqSection";
+import { generalFaq } from "@/content/faq";
 
 /**
  * Order matters more than any individual section here.
@@ -33,6 +35,11 @@ export default function HomePage() {
       <SeoNarrative />
       <ProjectsShowcase />
       <Testimonials />
+      <FaqSection
+        eyebrow={generalFaq.eyebrow}
+        heading={generalFaq.heading}
+        items={generalFaq.items}
+      />
       <ClosingCTA />
     </>
   );
