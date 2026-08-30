@@ -4,7 +4,7 @@ import { services } from "@/content/home";
 import { serviceDetails } from "@/content/services";
 
 /**
- * The six services at length — the substance of the page.
+ * The services at length — the substance of the page.
  *
  * Same layout for every one, not an alternating left/right rhythm. Alternation
  * reads as decoration when there is no photography to alternate, and it costs a
@@ -61,8 +61,8 @@ export function ServiceDetails() {
 
                   <Reveal delay={230}>
                     {/* Points at the form on this page rather than at
-                        /services/<slug>, which is still a stub. Six of these
-                        would otherwise read as six identical links in a screen
+                        /services/<slug>, which is still a stub. Each of these
+                        would otherwise read as an identical link in a screen
                         reader's link list, hence the off-screen qualifier. */}
                     <a
                       href="#enquiry"

@@ -260,7 +260,7 @@ export const serviceStrip = {
   eyebrow: "Services",
   heading: "What We Deliver Into These Sectors",
   body:
-    "The six engagements run across all ten sectors. What changes between them is the process route, the statutory gate and the machinery market — which is the part that has to be got right per sector rather than per template.",
+    "The six core engagements run across all ten sectors. What changes between them is the process route, the statutory gate and the machinery market — which is the part that has to be got right per sector rather than per template.",
   cta: { label: "View All Services", href: "/services" },
 } as const;
 

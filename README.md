@@ -53,10 +53,8 @@ Two things are deliberately missing from `content/services.ts` and should only b
 business has committed to them: **turnaround times** in days or weeks, and **fees**. A page
 cannot promise a date it has not scoped, and pricing is quoted per engagement.
 
-`footerServiceLinks` in `content/site.ts` advertises a seventh service, Business Consultancy,
-that does not exist in `services` and so is absent from `/services`. Either add it to
-`content/home.ts` and `content/services.ts` or drop the footer link — right now the footer
-promises something the services page does not cover.
+`footerServiceLinks` in `content/site.ts` is hand-maintained and lists a curated six — it is
+not derived from `services`, so keep the two in step by hand if the footer list should change.
 
 ### About the photography
 
@@ -131,18 +129,23 @@ move and select, Home/End, and wrap-around.
 
 ## The services page
 
-`/services` runs: navy masthead with in-page anchors → the six services at length → the
+`/services` runs: navy masthead with in-page anchors → every service at length → the
 five-stage process → sector chips → enquiry form → FAQ → closing CTA.
 
 `content/home.ts` exports a closed `ServiceSlug` union and `content/services.ts` keys its
 long-form copy by it, so adding a service without writing its detail is a **type error rather
 than an empty block** in the browser. `Service.href` is derived from the slug in the same file;
-the two cannot drift.
+the two cannot drift. `Service.featured` splits the list: the six core engagements are
+`featured` and show in the homepage grid, the harbour spike and the `/industries` service
+strip; the sector-specific services (plastics, brewery & distillery, cold storage, biogas,
+waste management) are `/services`-only.
 
-The six `/services/<slug>` detail routes are still stubs. The depth that will eventually live on
-them is on this page, anchored by slug — `/services#loan-consultancy` works today and keeps
-working when those pages ship. Every per-service CTA points at `#enquiry` on the same page
-rather than at its own stub, because the form there is real and the stub is not.
+The `/services/<slug>` detail routes are still stubs — only the ones in `footerServiceLinks`
+actually resolve, the rest 404 (nothing links them; the jump nav uses `#<slug>` anchors). The
+depth that will eventually live on them is on this page, anchored by slug —
+`/services#loan-consultancy` works today and keeps working when those pages ship. Every
+per-service CTA points at `#enquiry` on the same page rather than at its own stub, because the
+form there is real and the stub is not.
 
 `components/ui/PageHeader.tsx` is the interior-page masthead and is meant to be reused. It is
 solid navy with a radial wash, not the homepage's photographic plate: the homepage has to stop a
@@ -223,14 +226,15 @@ unless something genuinely cannot be built in a hundred lines.
 
 Against the production build (`npm run build && npm run start`):
 
-- Build clean, 29 static pages; **127 kB** first-load JS on `/` and **112 kB** on `/services`,
+- Build clean, 26 static pages; **128 kB** first-load JS on `/` and **112 kB** on `/services`,
   both prerendered static, `/api/enquiry` dynamic
 - Lighthouse mobile on **both** `/` and `/services`: accessibility 100, best practices 100,
   SEO 100, agentic browsing 100, **0 failed audits**
 - CLS 0.00 on both, measured with a `layout-shift` observer
 - No horizontal overflow at 375 / 768 / 1440 / 1920; shell caps at 1480px. The only element
   outside the viewport is the form honeypot, deliberately
-- Every scroll reveal fires — 59 on `/`, 74 on `/services`; no element left hidden
+- Every scroll reveal fires — 59 on `/`, 98 on `/services` (ten service blocks); no element
+  left hidden
 - Enquiry API: field-level 400s, honeypot silently 200s, valid submit delivers and logs, phone
   normalised to digits, 429 after 5 *valid* submissions per hour, invalid submissions do not
   consume quota
@@ -243,7 +247,7 @@ Against the production build (`npm run build && npm run start`):
   links land 96px down, clear of the 73px sticky header; FAQ rows open on Enter and close on
   Space; all eight answers are in the server HTML, so the `FAQPage` schema matches text a
   crawler can actually read
-- Structured data on `/services`: `BreadcrumbList`, `ItemList` of six `Service` items, `FAQPage`
+- Structured data on `/services`: `BreadcrumbList`, `ItemList` of ten `Service` items, `FAQPage`
   with eight questions
 - `/harbour`, `/preview/file`, `/preview/datum` still render; unknown paths still 404
 - Mobile menu traps focus, closes on Escape, restores focus and body scroll

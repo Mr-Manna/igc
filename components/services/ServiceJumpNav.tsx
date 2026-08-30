@@ -3,7 +3,7 @@ import { services } from "@/content/home";
 import { servicesPage } from "@/content/services";
 
 /**
- * In-page anchors to the six service blocks, rendered inside the navy masthead
+ * In-page anchors to the service blocks, rendered inside the navy masthead
  * in the slot the homepage hero gives its "Popular requests" chips.
  *
  * Anchors rather than links to `/services/<slug>`: those routes are still stubs,

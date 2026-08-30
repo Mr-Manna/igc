@@ -116,7 +116,7 @@ export const solutions = {
   sub: "Industrial consultancy",
   cta: { label: "All services", href: "/services" },
   body:
-    "Six engagements. Taken together they cover a project from the first feasibility question to the day the line runs at rated output.",
+    "Six core engagements. Taken together they cover a project from the first feasibility question to the day the line runs at rated output.",
 } as const;
 
 export const sectors = {

@@ -17,7 +17,12 @@ import { serviceStrip } from "@/content/industries";
  * These go to real anchors, unlike the sector chips they mirror: /services
  * carries a block per service keyed by the same slug, so each chip lands on the
  * detail rather than at the top of an index.
+ *
+ * Only the featured (core) engagements are listed — the sector-specific services
+ * are themselves sector-shaped and would double up the argument this strip makes.
  */
+const featuredServices = services.filter((service) => service.featured);
+
 export function ServiceStrip() {
   return (
     <section className="border-y rule-light bg-canvas">
@@ -47,7 +52,7 @@ export function ServiceStrip() {
 
         <Reveal delay={200}>
           <ul className="mt-10 flex flex-wrap gap-2.5">
-            {services.map((service) => (
+            {featuredServices.map((service) => (
               <li key={service.slug}>
                 <Link
                   href={`/services#${service.slug}`}

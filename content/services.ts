@@ -18,7 +18,7 @@ export const servicesPage = {
   eyebrow: "What We Do",
   heading: "Industrial Consultancy Services",
   body:
-    "Six engagements that between them take a manufacturing project from a first feasibility question to a line running at rated output. Most clients start with one and add the others as the project moves.",
+    "The engagements that between them take a manufacturing project from a first feasibility question to a line running at rated output — the core consultancy sequence, plus work specific to a few sectors and facility types. Most clients start with one and add the others as the project moves.",
   primaryCta: { label: "Get Free Consultation", href: "/contact" },
   secondaryCta: { label: "Request Project Report", href: "/project-reports" },
   jumpLabel: "Jump to a service",
@@ -142,6 +142,74 @@ export const serviceDetails: Record<ServiceSlug, ServiceDetail> = {
     bestFor:
       "Processors and converters across injection moulding, blow moulding, extrusion, and PET or PP recycling.",
   },
+
+  "brewery-distillery-consultancy": {
+    overview: [
+      "Sector work for alcoholic-beverage manufacture — breweries, IMFL blending and bottling units, and grain or molasses distilleries — covering process design, plant selection and the licensing regime that governs all of it.",
+      "Alcohol is a licensed trade before it is a manufacturing one. State excise policy sets who may hold a licence, at what capacity, and with what bonded-store and measurement controls, and it varies enough between states that the same plant is viable in one and not the next. A unit built to a generic beverage layout and fitted with excise controls afterwards pays for the building twice — the metering, bonded areas and effluent load have to be in the first drawing.",
+    ],
+    deliverables: [
+      "Process route for beer, IMFL or potable spirit, with capacity sized to the licence",
+      "Brewhouse, fermentation, distillation or blending-and-bottling plant specification",
+      "State excise licensing route, bonded store and measurement compliance",
+      "Effluent, spent-wash and ETP design to pollution-board norms",
+      "Utilities load — steam, refrigeration, CO2 recovery and water treatment",
+      "Detailed project report to appraisal standard, with the duty structure modelled",
+    ],
+    bestFor:
+      "Promoters entering brewing or distilling, and existing units adding an IMFL bottling or craft-beer line.",
+  },
+
+  "cold-storage-consultancy": {
+    overview: [
+      "Sector work for cold-chain infrastructure — single- and multi-commodity cold stores, controlled-atmosphere chambers, ripening units and reefer-backed distribution hubs — from commodity mix and chamber sizing through to the refrigeration and subsidy structure.",
+      "A cold store earns its return on load management, not on capacity. The commodity decides the temperature band, the storage life and therefore the throughput a chamber can turn over in a year, so a store sized on floor area rather than on a realistic filling and offtake pattern spends the season part-empty and still carries the full refrigeration and interest cost. Insulation, door discipline and refrigeration selection separate the rated running cost from the real one.",
+    ],
+    deliverables: [
+      "Commodity mix, chamber configuration and capacity sizing on a real offtake pattern",
+      "Refrigeration system selection — ammonia, freon or CA — with running-cost modelling",
+      "Insulation, PUF panel and vapour-barrier specification",
+      "Subsidy mapping — NHB, PMKSY / Integrated Cold Chain, state horticulture schemes",
+      "Power, DG backup and thermal-storage sizing against tariff and outage risk",
+      "Detailed project report and bank appraisal support",
+    ],
+    bestFor:
+      "Farmer producer organisations, traders and logistics operators building standalone or distribution-linked cold storage.",
+  },
+
+  "biogas-consultancy": {
+    overview: [
+      "Sector work for anaerobic digestion plants — biogas for captive power or thermal use, and compressed biogas (CBG / Bio-CNG) for the SATAT offtake route — covering feedstock, digester design, gas upgrading and the offtake contract.",
+      "A biogas plant is a feedstock contract with a digester attached. The tonnage, moisture and seasonality of press mud, cattle dung, napier grass or food waste set the gas yield and every downstream number, so a plant sized above what its catchment can reliably feed runs below nameplate for most of the year. The digestate is not a by-product to settle later either — its handling, storage and fertiliser value belong in the economics from the start.",
+    ],
+    deliverables: [
+      "Feedstock availability, characterisation and tie-up assessment",
+      "Digester type and sizing, with gas-yield and mass-balance modelling",
+      "Gas upgrading and compression specification for CBG / Bio-CNG",
+      "Offtake route — SATAT / OMC agreement, captive power or thermal substitution",
+      "Digestate handling, FOM / LFOM processing and the fertiliser revenue line",
+      "Detailed project report with CBG viability-gap funding and subsidy structure modelled",
+    ],
+    bestFor:
+      "Sugar mills, dairies, municipalities and agri-entrepreneurs setting up CBG or captive biogas plants.",
+  },
+
+  "waste-management-consultancy": {
+    overview: [
+      "Sector work for waste-processing and recycling plants — municipal solid waste, dry-waste material recovery, plastic and C&D recycling, and industrial or hazardous-waste handling — covering the process line, the regulatory regime and the offtake for every output stream.",
+      "A waste plant has two customers and both have to be secured before it is built: the one paying a tipping or gate fee to hand the waste over, and the one buying the recovered material or RDF at the other end. Projects fail when either side is assumed rather than contracted. The applicable rules — SWM, Plastic Waste Management, C&D or Hazardous Waste — decide the authorisations, the siting and much of the plant itself.",
+    ],
+    deliverables: [
+      "Waste-stream characterisation, quantity assessment and gate-fee structure",
+      "Process line — segregation, MRF, shredding, RDF, composting or recycling",
+      "Regulatory route under the applicable Waste Management Rules, with CPCB / SPCB consent",
+      "EPR and co-processing tie-ups, and offtake contracts for each output stream",
+      "Siting, buffer-zone and environmental-clearance assessment",
+      "Detailed project report with viability under realistic tipping-fee and sales assumptions",
+    ],
+    bestFor:
+      "Urban local bodies, industrial estates and recyclers setting up MSW, plastic, C&D or hazardous-waste processing.",
+  },
 };
 
 export type ProcessStep = {
@@ -155,7 +223,7 @@ export const engagementProcess = {
   eyebrow: "How We Work",
   heading: "What an Engagement Actually Looks Like",
   body:
-    "The same five stages whether the engagement is one service or all six. Nothing moves to the next stage until the last one has an answer you have signed off on.",
+    "The same five stages whether the engagement is one service or several. Nothing moves to the next stage until the last one has an answer you have signed off on.",
   steps: [
     {
       no: "01",
@@ -189,7 +257,7 @@ export const servicesEnquiry = {
   eyebrow: "Start Here",
   heading: "Not Sure Which Service You Need?",
   paragraphs: [
-    "Most projects do not arrive knowing whether they need a feasibility study, a project report or a subsidy filing — they arrive knowing what they want to manufacture. Working out which of the six engagements the project actually needs, and in what order, is the first conversation, and it does not cost anything.",
+    "Most projects do not arrive knowing whether they need a feasibility study, a project report or a subsidy filing — they arrive knowing what they want to manufacture. Working out which of the engagements the project actually needs, and in what order, is the first conversation, and it does not cost anything.",
     "Send us the outline and a consultant will come back to you with a straight answer, including the case where the answer is that you do not need us yet.",
   ],
   form: {

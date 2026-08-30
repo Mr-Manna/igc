@@ -22,7 +22,7 @@ import { site } from "@/content/site";
  *
  * Order is argument, then process, then reassurance, then the ask, with the
  * questions a reader still has parked last where they cannot interrupt anyone
- * who is already convinced. The six detail routes under `/services/<slug>` are
+ * who is already convinced. The detail routes under `/services/<slug>` are
  * still stubs; the depth that will eventually live on them is here, anchored by
  * slug, so `/services#loan-consultancy` works today and keeps working after.
  */
@@ -30,7 +30,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Industrial Consultancy Services",
   description:
-    "Six industrial consultancy services for Indian manufacturers: project consultancy and DPR, government subsidy (PMEGP, PMFME, CGTMSE), loan and project finance, industrial engineering, machinery sourcing and plastic industry consultancy.",
+    "Industrial consultancy services for Indian manufacturers: project consultancy and DPR, government subsidy (PMEGP, PMFME, CGTMSE), loan and project finance, industrial engineering, machinery sourcing, and sector-specific consultancy for plastics, breweries and distilleries, cold storage, biogas and waste management.",
   alternates: { canonical: "/services" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: site.legalName,
     title: `Industrial Consultancy Services | ${site.name}`,
     description:
-      "Project consultancy, government subsidy, loan assistance, industrial engineering, machinery sourcing and plastic industry consultancy for Indian manufacturers.",
+      "Project consultancy, government subsidy, loan assistance, industrial engineering and machinery sourcing, plus sector-specific consultancy for plastics, breweries and distilleries, cold storage, biogas and waste management.",
   },
 };
 

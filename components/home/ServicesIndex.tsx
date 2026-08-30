@@ -12,7 +12,12 @@ import { services } from "@/content/home";
  * treatment gave every service the same visual weight as a navigation item and
  * hid the descriptions until the cursor arrived. A card states the offer, the
  * summary and the next step at rest.
+ *
+ * Only the featured (core) engagements show here — the sector-specific ones live
+ * on /services alone, so this grid stays two clean rows of three.
  */
+const featuredServices = services.filter((service) => service.featured);
+
 export function ServicesIndex() {
   return (
     <section className="bg-canvas">
@@ -25,7 +30,7 @@ export function ServicesIndex() {
         />
 
         <ul className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
+          {featuredServices.map((service, index) => (
             <li key={service.href} className="flex">
               <Reveal delay={(index % 3) * 70} className="flex w-full">
                 <Link
