@@ -13,10 +13,15 @@ in it is required to run the site.
 
 ## Status
 
-**Four pages are built: `/`, `/about`, `/services` and `/sectors`.** Every other route the
-shell links to resolves to a placeholder (`app/(corporate)/[...slug]/page.tsx`) so navigation
-never 404s; genuinely unknown paths still return a real 404. `/industries` is the former path
-of `/sectors` and 308-redirects to it (`next.config.ts`).
+**Five pages are built: `/`, `/about`, `/services`, `/sectors` and `/partners`.** Every other
+route the shell links to resolves to a placeholder (`app/(corporate)/[...slug]/page.tsx`) so
+navigation never 404s; genuinely unknown paths still return a real 404. `/industries` is the
+former path of `/sectors` and 308-redirects to it (`next.config.ts`).
+
+The `(corporate)` layout renders `components/partners/PartnersBand.tsx` directly above the
+footer, so the "Delivery partners" band (Quiet Seven and Substrate, ICF's design and
+engineering delivery partners) appears on every live route. Copy lives in `content/partners.ts`;
+the band links to the full `/partners` page.
 
 Shipping a page is one edit: add its path to `builtRoutes` in `content/site.ts`. That array is
 the single switch — it removes the path from the stub catch-all (two prerenders of the same
@@ -261,8 +266,12 @@ unless something genuinely cannot be built in a hundred lines.
 
 Against the production build (`npm run build && npm run start`):
 
-- Build clean, 26 static pages; **129 kB** first-load JS on `/` and **113 kB** on `/services`,
+- Build clean, 27 static pages; **129 kB** first-load JS on `/` and **113 kB** on `/services`,
   both prerendered static, `/api/enquiry` dynamic
+- Lighthouse mobile on `/partners`: accessibility / best practices / SEO / agentic browsing
+  100, 0 failed audits. The site-wide `PartnersBand` is an `<aside>` (a labelled complementary
+  landmark) so content outside `<main>` is not stranded, and its two "Visit" links are plain
+  `<a target="_blank" rel="noopener noreferrer">` with an sr-only "(opens in a new tab)"
 - Lighthouse mobile on `/services`: accessibility 100, best practices 100, SEO 100, agentic
   browsing 100, **0 failed audits**. On `/`: accessibility / SEO / agentic browsing 100; the only
   best-practices failure was an `errors-in-console` from prefetching the unbuilt `/subsidies`
