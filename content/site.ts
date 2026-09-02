@@ -53,8 +53,8 @@ export const primaryNav: NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Sectors", href: "/sectors" },
-  { label: "Partners", href: "/partners" },
   { label: "Project Reports", href: "/project-reports" },
+  // { label: "Partners", href: "/partners" },  // hidden for now
   // { label: "Machinery", href: "/machinery" },
   // { label: "Success Stories", href: "/success-stories" },
   { label: "Blog", href: "/blog" },
@@ -64,8 +64,8 @@ export const footerQuickLinks: NavItem[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Sectors", href: "/sectors" },
-  { label: "Partners", href: "/partners" },
   { label: "Project Reports", href: "/project-reports" },
+  // { label: "Partners", href: "/partners" },  // hidden for now
   // { label: "Machinery", href: "/machinery" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
@@ -110,7 +110,9 @@ export const builtRoutes: string[] = [
   "/about",
   "/services",
   "/sectors",
-  "/partners",
+  // "/partners" — page still exists at app/(corporate)/partners/ but is hidden
+  // for now: unlinked from the nav/footer, kept out of the sitemap, and the
+  // page itself is noindex. Re-add here to ship it again.
 ];
 
 /** Everything the shell links to that is still a placeholder. */
