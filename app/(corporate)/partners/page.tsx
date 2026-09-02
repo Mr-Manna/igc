@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { ClosingCTA } from "@/components/home/ClosingCTA";
-import { FaqSection } from "@/components/faq/FaqSection";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Reveal } from "@/components/ui/Reveal";
-import { partners, partnersFaq, partnersPage } from "@/content/partners";
+import { partners, partnersPage } from "@/content/partners";
 import { site } from "@/content/site";
 
 /**
@@ -76,11 +75,6 @@ export default function PartnersPage() {
       />
 
       <PartnerDetails />
-      <FaqSection
-        eyebrow={partnersFaq.eyebrow}
-        heading={partnersFaq.heading}
-        items={partnersFaq.items}
-      />
       <ClosingCTA />
 
       <script
