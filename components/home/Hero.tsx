@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { HeroBackdrop } from "@/components/home/HeroBackdrop";
 import { Reveal } from "@/components/ui/Reveal";
 import { hero } from "@/content/home";
 
@@ -22,22 +22,17 @@ import { hero } from "@/content/home";
  *    Archivo wrap at different points and the swap moves the layout — that cost
  *    0.052 CLS on this codebase before.
  *
+ * The plate itself is `HeroBackdrop` — a crossfading slideshow of manufacturing
+ * processes that degrades to a single static image (slide 0, the LCP element)
+ * under `prefers-reduced-motion` or with JavaScript off.
+ *
  * `pb` is oversized because StatsBand is pulled up over this section's lower
  * edge; the padding is what keeps the assurance list clear of the card.
  */
 export function Hero() {
   return (
     <section className="on-dark relative isolate overflow-hidden bg-navy-deep">
-      <Image
-        src={hero.image.src}
-        alt={hero.image.alt}
-        fill
-        priority
-        // The LCP element. `sizes` is 100vw because the plate is always full-bleed.
-        sizes="100vw"
-        className="-z-10 object-cover"
-      />
-      <div aria-hidden="true" className="hero-scrim absolute inset-0 -z-10" />
+      <HeroBackdrop slides={hero.slides} />
 
       <div className="shell relative pt-16 pb-40 lg:pt-24 lg:pb-52">
         <div className="max-w-[42rem]">

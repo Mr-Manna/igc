@@ -33,12 +33,47 @@ export const hero = {
     { label: "Machinery Sourcing", href: "/services/machinery-consultancy" },
     { label: "Factory Setup", href: "/services/factory-setup-consultancy" },
   ],
-  image: {
-    /* w=2000 because this now runs full-bleed as the hero plate; the old w=1200
-       source was being upscaled past 1200px viewports. */
-    src: "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg?auto=compress&cs=tinysrgb&w=2000",
-    alt: "Modern manufacturing facility with process piping and storage vessels",
-  },
+  /**
+   * The hero backdrop is a slow crossfading slideshow, one frame per manufacturing
+   * process. Slide 0 is server-rendered as the LCP plate exactly as the old single
+   * image was; the rest are mounted after first paint (see `HeroBackdrop`), and
+   * under `prefers-reduced-motion` or with JavaScript off only slide 0 shows.
+   *
+   * `w=2000` because these run full-bleed. `alt` describes the frame (per README
+   * "About the photography"); `label` is the short process name shown in the pill.
+   *
+   * TODO(real-data): these are library stock, not ICF sites. The ids other than
+   * 257700 are reused from `sectors` below, so they are known-good on Pexels but
+   * generic — swap for dedicated hero photography (a moulding line, a control room)
+   * once it is cleared.
+   */
+  slides: [
+    {
+      src: "https://images.pexels.com/photos/257700/pexels-photo-257700.jpeg?auto=compress&cs=tinysrgb&w=2000",
+      alt: "Modern manufacturing facility with process piping and storage vessels",
+      label: "Process piping & vessels",
+    },
+    {
+      src: "https://images.pexels.com/photos/29988988/pexels-photo-29988988.jpeg?auto=compress&cs=tinysrgb&w=2000",
+      alt: "Laser cutting head working through sheet metal",
+      label: "Sheet-metal cutting",
+    },
+    {
+      src: "https://images.pexels.com/photos/34221997/pexels-photo-34221997.jpeg?auto=compress&cs=tinysrgb&w=2000",
+      alt: "Industrial machine running in a production hall",
+      label: "Machining & production",
+    },
+    {
+      src: "https://images.pexels.com/photos/5532664/pexels-photo-5532664.jpeg?auto=compress&cs=tinysrgb&w=2000",
+      alt: "Automated canning and packaging line",
+      label: "Packaging & filling",
+    },
+    {
+      src: "https://images.pexels.com/photos/18631424/pexels-photo-18631424.jpeg?auto=compress&cs=tinysrgb&w=2000",
+      alt: "Bottles moving along an automated conveyor",
+      label: "Bottling line",
+    },
+  ],
 } as const;
 
 export type Stat = {
