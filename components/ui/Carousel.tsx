@@ -3,6 +3,7 @@
 import AutoScroll from "embla-carousel-auto-scroll";
 import useEmblaCarousel from "embla-carousel-react";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 type CarouselProps = {
   children: ReactNode;
@@ -149,24 +150,4 @@ function CarouselButton({
       </svg>
     </button>
   );
-}
-
-/**
- * Read once on mount and kept in sync. Embla takes its options at init, so the
- * value has to be known before `useEmblaCarousel` runs rather than applied after.
- */
-function usePrefersReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(false);
-
-  useEffect(() => {
-    if (typeof window.matchMedia !== "function") return;
-    const query = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduced(query.matches);
-
-    const onChange = (event: MediaQueryListEvent) => setReduced(event.matches);
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, []);
-
-  return reduced;
 }

@@ -118,6 +118,17 @@ The hero is a full-bleed photographic masthead under `hero-scrim`, an *angled* n
 94% at the left edge where the copy sits, easing to 50% at the right so the plant stays legible.
 A flat wash dark enough for the headline turns the photograph into a texture.
 
+The plate is `components/home/HeroBackdrop.tsx`, a crossfading slideshow — one frame per
+manufacturing process, copy in `hero.slides` (`content/home.ts`). It is progressively enhanced
+so the verified LCP/CLS numbers hold: the server renders **slide 0 only**, as the same
+`<Image priority>` element the hero always had (the LCP); the rest mount a tick after
+hydration and only when motion is allowed, so they never join the LCP fetch and never
+download under `prefers-reduced-motion` or with JS off — either case leaves one static plate.
+Every slide is `absolute inset-0`, so frame swaps cannot shift layout. Auto-advance (~6s)
+carries a pause/play control top-right (WCAG 2.2.2) beside a pill naming the current process,
+and stops while the tab is hidden. `usePrefersReducedMotion` moved to `lib/` — `Carousel`
+uses the same hook.
+
 `StatsBand` is pulled up over the hero's lower edge with a negative margin. The hero carries
 matching oversized bottom padding — change one and you must change the other.
 
