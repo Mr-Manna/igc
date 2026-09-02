@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { industriesFaq } from "@/content/industries";
+import { sectorsFaq } from "@/content/sectors";
 import { contact } from "@/content/site";
 
 /**
@@ -8,18 +8,18 @@ import { contact } from "@/content/site";
  * for the same reason: markup a crawler reads and text a visitor reads that map
  * over one object cannot drift apart.
  *
- * The questions here are deliberately disjoint from the eight on /services. Two
+ * The questions here are deliberately disjoint from those on /services. Two
  * `FAQPage` blocks on one domain answering the same question with the same words
  * is two pages competing for one result, and only one of them can win it.
  *
  * No JavaScript: `<details>` is already a keyboard-operable disclosure widget.
  * See the `.faq` rules in globals.css, which only remove the default marker.
  */
-export function IndustriesFaq() {
+export function SectorsFaq() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: industriesFaq.items.map((item) => ({
+    mainEntity: sectorsFaq.items.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: { "@type": "Answer", text: item.answer },
@@ -33,12 +33,12 @@ export function IndustriesFaq() {
           <Reveal>
             <p className="label flex items-center gap-3 text-blue">
               <span aria-hidden="true" className="h-px w-6 bg-current" />
-              {industriesFaq.eyebrow}
+              {sectorsFaq.eyebrow}
             </p>
           </Reveal>
 
           <Reveal delay={70}>
-            <h2 className="display-lg mt-4">{industriesFaq.heading}</h2>
+            <h2 className="display-lg mt-4">{sectorsFaq.heading}</h2>
           </Reveal>
 
           <Reveal delay={120}>
@@ -56,7 +56,7 @@ export function IndustriesFaq() {
         </div>
 
         <div className="faq lg:col-span-8">
-          {industriesFaq.items.map((item, index) => (
+          {sectorsFaq.items.map((item, index) => (
             <Reveal key={item.question} delay={index < 4 ? index * 50 : 0}>
               <details className="group border-b rule-light">
                 <summary className="flex items-start justify-between gap-6 py-5 text-[1.0625rem] font-semibold text-navy transition-colors hover:text-blue">

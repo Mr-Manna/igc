@@ -52,7 +52,7 @@ export const primaryNav: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Industries", href: "/industries" },
+  { label: "Sectors", href: "/sectors" },
   { label: "Project Reports", href: "/project-reports" },
   // { label: "Machinery", href: "/machinery" },
   // { label: "Success Stories", href: "/success-stories" },
@@ -62,7 +62,7 @@ export const primaryNav: NavItem[] = [
 export const footerQuickLinks: NavItem[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
-  { label: "Industries", href: "/industries" },
+  { label: "Sectors", href: "/sectors" },
   { label: "Project Reports", href: "/project-reports" },
   // { label: "Machinery", href: "/machinery" },
   { label: "Blog", href: "/blog" },
@@ -72,11 +72,11 @@ export const footerQuickLinks: NavItem[] = [
 
 export const footerServiceLinks: NavItem[] = [
   { label: "Project Consultancy", href: "/services/industrial-project-consultancy" },
-  { label: "Subsidy Consultancy", href: "/services/government-subsidy-consultancy" },
-  { label: "Loan Consultancy", href: "/services/loan-consultancy" },
-  { label: "Industrial Engineering", href: "/services/industrial-engineering" },
+  { label: "Project Reports (DPR)", href: "/services/detailed-project-report" },
+  { label: "Loan & Subsidy", href: "/services/government-loan-subsidy-consultancy" },
   { label: "Machinery Consultancy", href: "/services/machinery-consultancy" },
-  { label: "Plastic Industry Consultancy", href: "/services/plastic-industry-consultancy" },
+  { label: "Factory Setup", href: "/services/factory-setup-consultancy" },
+  { label: "AI Consultancy", href: "/services/ai-consultancy" },
 ];
 
 export const legalLinks: NavItem[] = [
@@ -103,7 +103,7 @@ export const allRoutes: string[] = [
  *
  * Add a route here the moment its page lands, and not before.
  */
-export const builtRoutes: string[] = ["/", "/about", "/services", "/industries"];
+export const builtRoutes: string[] = ["/", "/about", "/services", "/sectors"];
 
 /** Everything the shell links to that is still a placeholder. */
 export const stubRoutes: string[] = allRoutes.filter(

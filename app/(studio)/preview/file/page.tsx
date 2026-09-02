@@ -35,10 +35,10 @@ export const viewport: Viewport = {
 /** Rendered as clauses in the running head. Real routes — nothing dead. */
 const clauses = [
   { no: "01", label: "Scope", href: "/services" },
-  { no: "02", label: "Schemes", href: "/subsidies" },
-  { no: "03", label: "Finance", href: "/services/loan-consultancy" },
+  { no: "02", label: "Schemes", href: "/services/government-loan-subsidy-consultancy" },
+  { no: "03", label: "Finance", href: "/services/government-loan-subsidy-consultancy" },
   { no: "04", label: "Machinery", href: "/machinery" },
-  { no: "05", label: "Sectors", href: "/industries" },
+  { no: "05", label: "Sectors", href: "/sectors" },
   { no: "06", label: "Record", href: "/success-stories" },
 ];
 
@@ -169,7 +169,7 @@ export default function SanctionFileSpike() {
                   Request a project report
                 </Link>
                 <Link
-                  href="/subsidies"
+                  href="/services/government-loan-subsidy-consultancy"
                   className="file-mono border border-file-ink px-6 py-3.5 text-file-ink transition-colors duration-200 hover:bg-file-ink hover:text-file-paper"
                 >
                   Check scheme eligibility

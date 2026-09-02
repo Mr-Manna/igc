@@ -9,8 +9,8 @@ import { servicesEnquiry } from "@/content/services";
  * It reuses the homepage's `EnquiryForm` with its own framing copy rather than
  * reusing `AboutEnquiry` wholesale. Shipping the same three paragraphs of
  * company history on two pages is duplicate content that helps neither of them,
- * and a reader who has just worked through six service descriptions does not
- * need the firm introduced again — they need to know what to do next.
+ * and a reader who has just worked through the service catalogue does not need
+ * the firm introduced again — they need to know what to do next.
  */
 export function ServicesEnquiry() {
   return (

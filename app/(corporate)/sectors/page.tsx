@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { ClosingCTA } from "@/components/home/ClosingCTA";
-import { IndustriesEnquiry } from "@/components/industries/IndustriesEnquiry";
-import { IndustriesFaq } from "@/components/industries/IndustriesFaq";
-import { IndustryDetails } from "@/components/industries/IndustryDetails";
-import { IndustryJumpNav } from "@/components/industries/IndustryJumpNav";
-import { SectorApproach } from "@/components/industries/SectorApproach";
-import { ServiceStrip } from "@/components/industries/ServiceStrip";
+import { SectorsEnquiry } from "@/components/sectors/SectorsEnquiry";
+import { SectorsFaq } from "@/components/sectors/SectorsFaq";
+import { SectorDetails } from "@/components/sectors/SectorDetails";
+import { SectorJumpNav } from "@/components/sectors/SectorJumpNav";
+import { SectorApproach } from "@/components/sectors/SectorApproach";
+import { ServiceStrip } from "@/components/sectors/ServiceStrip";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { industries } from "@/content/home";
-import { industriesPage } from "@/content/industries";
+import { sectors } from "@/content/home";
+import { sectorsPage } from "@/content/sectors";
 import { site } from "@/content/site";
 
 /**
- * The sectors index — the third page built out, after the homepage and
+ * The sectors index — the fourth page built out, after the homepage, /about and
  * /services, and the second axis of the same offer.
  *
  * Where /services is organised by what we do, this is organised by what the
@@ -23,42 +23,42 @@ import { site } from "@/content/site";
  * categories, while this one has to argue that sector knowledge is the thing
  * being bought.
  *
- * Hence the order: the argument first, then the ten sectors, then the
+ * Hence the order: the argument first, then the sectors, then the
  * cross-reference back to services, then the ask, with the remaining questions
  * parked last where they cannot interrupt anyone already convinced. The
- * `/industries/<slug>` routes do not exist; the depth they would carry is here,
- * anchored by slug, so `/industries#chemical` works today and keeps
+ * `/sectors/<slug>` routes do not exist; the depth they would carry is here,
+ * anchored by slug, so `/sectors#food-processing` works today and keeps
  * working after they ship.
  */
 
 export const metadata: Metadata = {
-  title: "Industries We Serve",
+  title: "Sectors We Serve",
   description:
-    "Industrial consultancy across ten manufacturing sectors in India — plastic, food processing, beverage, chemical, textile, agriculture, engineering, packaging, recycling and steel. Sector-specific process routes, approvals and machinery.",
-  alternates: { canonical: "/industries" },
+    "Industrial consultancy across 20+ manufacturing, processing and infrastructure sectors in India — food processing, dairy, beverage, plastics, packaging, cold chain, poultry, engineering, textile and more. Sector-specific project lists, machinery and DPR support.",
+  alternates: { canonical: "/sectors" },
   robots: { index: true, follow: true },
   openGraph: {
     type: "website",
-    url: `${site.url}/industries`,
+    url: `${site.url}/sectors`,
     siteName: site.legalName,
-    title: `Industries We Serve | ${site.name}`,
+    title: `Sectors We Serve | ${site.name}`,
     description:
-      "Manufacturing project consultancy across ten sectors, each with its own process routes, statutory approvals and machinery market.",
+      "Manufacturing project consultancy across 20+ sectors, each with its own process routes, applicable norms and machinery market.",
   },
 };
 
 const breadcrumb = [
   { label: "Home", href: "/" },
-  { label: "Industries", href: "/industries" },
+  { label: "Sectors", href: "/sectors" },
 ];
 
 /**
  * Breadcrumb plus the sector list. The `FAQPage` block for this page is emitted
- * by `IndustriesFaq` from the same array it renders; this one is generated from
- * `industries` for the same reason — neither can drift from what is on screen.
+ * by `SectorsFaq` from the same array it renders; this one is generated from
+ * `sectors` for the same reason — neither can drift from what is on screen.
  *
  * Each sector is a plain `ListItem` with a name and its in-page anchor rather
- * than a `Service`. There is no `/industries/<slug>` to point at yet, and typing
+ * than a `Service`. There is no `/sectors/<slug>` to point at yet, and typing
  * a sector as a service would assert a product that does not have a page.
  */
 const jsonLd = [
@@ -75,36 +75,36 @@ const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: industriesPage.heading,
-    numberOfItems: industries.length,
-    itemListElement: industries.map((industry, index) => ({
+    name: sectorsPage.heading,
+    numberOfItems: sectors.length,
+    itemListElement: sectors.map((sector, index) => ({
       "@type": "ListItem",
       position: index + 1,
-      name: industry.name,
-      url: `${site.url}/industries#${industry.slug}`,
+      name: sector.name,
+      url: `${site.url}/sectors#${sector.slug}`,
     })),
   },
 ];
 
-export default function IndustriesPage() {
+export default function SectorsPage() {
   return (
     <>
       <PageHeader
         breadcrumb={breadcrumb}
-        eyebrow={industriesPage.eyebrow}
-        heading={industriesPage.heading}
-        body={industriesPage.body}
-        primaryCta={industriesPage.primaryCta}
-        secondaryCta={industriesPage.secondaryCta}
+        eyebrow={sectorsPage.eyebrow}
+        heading={sectorsPage.heading}
+        body={sectorsPage.body}
+        primaryCta={sectorsPage.primaryCta}
+        secondaryCta={sectorsPage.secondaryCta}
       >
-        <IndustryJumpNav />
+        <SectorJumpNav />
       </PageHeader>
 
       <SectorApproach />
-      <IndustryDetails />
+      <SectorDetails />
       <ServiceStrip />
-      <IndustriesEnquiry />
-      <IndustriesFaq />
+      <SectorsEnquiry />
+      <SectorsFaq />
       <ClosingCTA />
 
       <script

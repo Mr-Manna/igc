@@ -5,7 +5,7 @@ export type FaqItem = { question: string; answer: string };
 
 /**
  * Shared FAQ section for pages that carry the general questions — the
- * homepage and /about. Page-specific sets (services, industries) keep their
+ * homepage and /about. Page-specific sets (services, sectors) keep their
  * own components because their copy and layout differ; the rendering here is
  * the same pattern: native `<details>` rows plus `FAQPage` structured data
  * generated from the same array, so markup and schema cannot drift.

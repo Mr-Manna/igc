@@ -1,13 +1,13 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { sectorApproach } from "@/content/industries";
+import { sectorApproach } from "@/content/sectors";
 
 /**
  * The argument for the page, placed before the sector list rather than after it.
  *
  * A reader who arrives from a sector query scrolls to their sector and leaves;
- * this section is for the other reader, the one deciding whether sector
- * knowledge is worth paying for at all. Four numbered points, because the claim
- * is specifically that there are four distinct things the sector changes — a
+ * this section is for the other reader, the one deciding whether ICF can take a
+ * project the whole way. Four numbered points covering the arc of an
+ * engagement — planning, finance, plant setup, then production and growth — a
  * prose paragraph would let them blur into one.
  *
  * `<h2>` here and on every sector block below: the page `<h1>` in the masthead

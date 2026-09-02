@@ -12,17 +12,105 @@ import type { ServiceSlug } from "@/content/home";
  * days or weeks, because a page cannot promise a date it has not scoped; and
  * there are no fee figures, because pricing is quoted per engagement. Both are
  * things to add only when the business has committed to them in writing.
+ *
+ * The catalogue is the client's full twenty-service list. `serviceGroups` below
+ * splits it into five themed sections; `/services` renders and navigates by
+ * that grouping, and `serviceDetails` — keyed by the closed `ServiceSlug` union
+ * — carries the block copy for every one.
  */
 
 export const servicesPage = {
   eyebrow: "What We Do",
   heading: "Industrial Consultancy Services",
   body:
-    "The engagements that between them take a manufacturing project from a first feasibility question to a line running at rated output — the core consultancy sequence, plus work specific to a few sectors and facility types. Most clients start with one and add the others as the project moves.",
+    "One consultancy across the whole life of a manufacturing project — idea and feasibility, project report, finance and subsidy, machinery, factory setup, production, and the automation, AI and marketing that come after. Most clients start with one engagement and add the others as the project moves.",
   primaryCta: { label: "Get Free Consultation", href: "/contact" },
   secondaryCta: { label: "Request Project Report", href: "/project-reports" },
   jumpLabel: "Jump to a service",
 } as const;
+
+export type ServiceGroup = {
+  id: string;
+  heading: string;
+  /** One line under the group heading — the thread the services in it share. */
+  blurb: string;
+  slugs: readonly ServiceSlug[];
+};
+
+/**
+ * The five themed sections of the services page, in render order. `/services`
+ * iterates this to lay the page out and `ServiceJumpNav` to build the grouped
+ * anchor nav; `content/home.ts` keeps `services[]` in the same order.
+ *
+ * `as const satisfies` keeps the slug literals, which the compile guard below
+ * uses to prove every service sits in exactly one group.
+ */
+export const serviceGroups = [
+  {
+    id: "project-feasibility",
+    heading: "Project & Feasibility",
+    blurb: "From a business idea to a plan a bank will fund.",
+    slugs: [
+      "industrial-project-consultancy",
+      "manufacturing-business-consultancy",
+      "market-research-opportunity-analysis",
+      "detailed-project-report",
+    ],
+  },
+  {
+    id: "finance-subsidy",
+    heading: "Finance & Subsidy",
+    blurb: "Funding the project, and proving the numbers it turns on.",
+    slugs: [
+      "government-loan-subsidy-consultancy",
+      "project-costing-financial-analysis",
+      "working-capital-financial-management",
+      "product-costing-consultancy",
+    ],
+  },
+  {
+    id: "factory-machinery",
+    heading: "Factory & Machinery",
+    blurb: "Specifying the plant, sourcing it, and building it right the first time.",
+    slugs: [
+      "machinery-consultancy",
+      "factory-setup-consultancy",
+      "plant-layout-production-planning",
+      "vendor-supplier-development",
+      "licensing-compliance-guidance",
+    ],
+  },
+  {
+    id: "production-turnaround",
+    heading: "Production & Turnaround",
+    blurb: "Getting more out of a plant that is already running.",
+    slugs: [
+      "production-process-improvement",
+      "factory-machinery-expansion",
+      "business-turnaround-cost-reduction",
+      "industrial-project-implementation-management",
+    ],
+  },
+  {
+    id: "automation-ai-growth",
+    heading: "Automation, AI & Growth",
+    blurb: "Modernising how the business produces and sells.",
+    slugs: [
+      "industrial-automation-consultancy",
+      "ai-consultancy",
+      "digital-marketing",
+    ],
+  },
+] as const satisfies readonly ServiceGroup[];
+
+/**
+ * Compile guard: every `ServiceSlug` must appear in exactly one group above. Add
+ * a service to `serviceSlugs` without slotting it into a group and `Ungrouped`
+ * stops being `never`, which fails this assignment.
+ */
+type Ungrouped = Exclude<ServiceSlug, (typeof serviceGroups)[number]["slugs"][number]>;
+const _everyServiceGrouped: [Ungrouped] extends [never] ? true : Ungrouped = true;
+void _everyServiceGrouped;
 
 export type ServiceDetail = {
   /**
@@ -41,74 +129,145 @@ export type ServiceDetail = {
  * writing its detail here fails the build rather than rendering an empty block.
  */
 export const serviceDetails: Record<ServiceSlug, ServiceDetail> = {
+  // ── Group 1 — Project & Feasibility ─────────────────────────────────────────
   "industrial-project-consultancy": {
     overview: [
       "The full arc of setting up a manufacturing unit: what to make, at what capacity, on what site, with what process route, financed how — worked in that order, because each answer constrains the next.",
       "The expensive mistakes in a greenfield project are nearly all made in the first eight weeks, when nothing has been built and everything still looks reversible. A capacity figure picked without a demand study, a plot taken before checking the effluent norms for the sector, a process route chosen around a machine someone has already been quoted for: each of those is cheap to correct now and structural later.",
     ],
     deliverables: [
-      "Market and demand assessment for the product",
+      "Business idea and product evaluation",
+      "Market and demand assessment",
       "Capacity sizing and process route selection",
-      "Site evaluation against sector-specific norms",
-      "Plant layout, material flow and utility schedule",
-      "Detailed project report to appraisal standard",
-      "Approvals map and commissioning support",
+      "Investment estimate and profitability projections",
+      "Break-even, ROI and risk assessment",
+      "Project implementation plan",
     ],
     bestFor:
       "First-time promoters, and established manufacturers adding a line or a second unit.",
   },
 
-  "government-subsidy-consultancy": {
+  "manufacturing-business-consultancy": {
     overview: [
-      "Mapping a project to the central and state incentives it actually qualifies for, then filing and following the claim through to disbursement.",
-      "Subsidy is where projects lose money quietly. PMEGP, CGTMSE, PMFME and the state capital investment schemes each carry their own eligibility tests, ceilings and claim windows, and they are not interchangeable. A unit that would have qualified comfortably under one is regularly filed under another and rejected on a technicality — often after the first invoice has been raised, which is the point past which several schemes stop being available at all.",
+      "Turning a decision to manufacture into an operating plan: the business model, the cost of making one unit, and the capacity, manpower and layout that plan implies.",
+      "A project can clear its feasibility study and still fail on the shop floor because the numbers it was approved on were never converted into an operating plan. Production cost is estimated rather than built up line by line, capacity is quoted at nameplate rather than at a realistic utilisation, and the manpower and utility loads are settled after the machines are ordered. Each gap is invisible until the plant is running and the margin is not there.",
+    ],
+    deliverables: [
+      "Manufacturing business model and product costing",
+      "Production capacity and capacity-utilisation plan",
+      "Raw-material, manpower and utility planning",
+      "Factory layout plan",
+      "Production-cost and selling-price calculation",
+      "Profit-margin and expansion analysis",
+    ],
+    bestFor:
+      "Entrepreneurs setting up a first manufacturing operation, and owners formalising one that grew without a plan.",
+  },
+
+  "market-research-opportunity-analysis": {
+    overview: [
+      "The questions that come before a feasibility study: what to manufacture, who buys it, how much they need, what the competition looks like, and how quickly the money comes back.",
+      "Most projects are chosen from a shortlist of one — a product the promoter already has a reason to like — and a market study that starts after that choice tends to confirm it. Done first, it is the cheapest way to find out that the demand is regional and already served, that the margin is thin, or that a nearby unit has just doubled capacity.",
+    ],
+    deliverables: [
+      "Market size and demand analysis",
+      "Competitor and customer-segment analysis",
+      "Product pricing and distribution-channel study",
+      "Raw-material availability assessment",
+      "Regional and export opportunity mapping",
+      "Market-trend outlook for the product",
+    ],
+    bestFor:
+      "Promoters weighing more than one product, and investors screening a sector before committing.",
+  },
+
+  "detailed-project-report": {
+    overview: [
+      "The bankable Detailed Project Report: the single document that carries a project through appraisal, sanction and disbursement, written to the standard a credit desk reads it at.",
+      "A DPR is read as an argument, not a form. Where the working-capital cycle is understated, capacity utilisation ramps unrealistically in year one, or the debt service coverage is thin in the repayment years, the file goes back — and each return costs weeks. A report that anticipates those questions clears on the first pass.",
+    ],
+    deliverables: [
+      "Promoter profile, product and market sections",
+      "Manufacturing process, machinery and utilities schedule",
+      "Project cost and means of finance",
+      "Sales, production and profit-and-loss projections",
+      "Cash-flow and balance-sheet projections",
+      "Break-even, DSCR, IRR and risk analysis",
+    ],
+    bestFor:
+      "Any project raising a bank term loan or applying for a subsidy that needs an appraisal-standard report.",
+  },
+
+  // ── Group 2 — Finance & Subsidy ────────────────────────────────────────────
+  "government-loan-subsidy-consultancy": {
+    overview: [
+      "Mapping a project to the central and state loan and subsidy schemes it actually qualifies for, then structuring the finance and taking both through to sanction and disbursement.",
+      "Subsidy is where projects lose money quietly. PMEGP, AHIDF, PMKSY, the National Livestock Mission and the state capital-investment schemes each carry their own eligibility tests, ceilings and claim windows, and they are not interchangeable. A unit that would have qualified comfortably under one is regularly filed under another and rejected on a technicality — often after the first invoice has been raised, which is the point past which several schemes close entirely.",
     ],
     deliverables: [
       "Eligibility screen across central and state schemes",
       "Scheme selection, with the trade-offs set out",
-      "Application drafting and filing",
-      "Coordination with DIC, KVIC and the lending bank",
-      "Claim documentation and disbursement follow-up",
-      "Post-sanction compliance and reporting",
+      "Project structuring and DPR preparation",
+      "Bank proposal and loan documentation",
+      "Filing and coordination with DIC, KVIC and the lending bank",
+      "Subsidy claim, disbursement follow-up and post-sanction compliance",
     ],
     bestFor:
       "MSMEs still at the planning stage — the earlier the better, and before capital is committed.",
   },
 
-  "loan-consultancy": {
+  "project-costing-financial-analysis": {
     overview: [
-      "Structuring the finance for a project and taking it through bank appraisal: cost of project, means of finance, projections, and the answers to the questions the credit desk will ask.",
-      "A bank reads a project report as an argument, not as a formality. Where the working capital cycle is understated, the capacity utilisation ramps unrealistically in year one, or the debt service coverage is thin in the repayment years, the file goes back — and each return costs weeks. Having taken proposals to a standing network of banks and financial institutions, we know how differently they read the same numbers.",
+      "Building the actual economics of a proposed project from the ground up: every cost line from land to pre-operative expenses, then the production cost, the selling price and the returns that follow.",
+      "A project costed in round figures is a project whose margin is a guess. The gap between a machinery quotation and the installed, wired, running cost of that machine is routinely 20 to 40 per cent; working capital is the line most often left out; and a selling price set from the market rather than from the cost base hides a loss until volume exposes it.",
     ],
     deliverables: [
-      "Cost of project and means of finance",
-      "Financial projections and DSCR modelling",
-      "CMA data preparation",
-      "Lender shortlisting and proposal submission",
-      "Appraisal query handling through to sanction",
-      "Term loan and working capital limits structured together",
+      "Land, building, machinery and installation cost",
+      "Electrical, utility and pre-operative expenses",
+      "Working capital requirement",
+      "Production cost per unit and selling price",
+      "Gross profit, net profit and EBITDA",
+      "Break-even point, ROI and payback period",
     ],
     bestFor:
-      "Projects raising term debt, with or without collateral, including CGTMSE-backed proposals.",
+      "Promoters pressure-testing a project's numbers before the DPR, and anyone comparing two projects on returns.",
   },
 
-  "industrial-engineering": {
+  "working-capital-financial-management": {
     overview: [
-      "Work on a plant that already runs: finding where the output is actually being lost and closing the gap between rated capacity and what comes off the line.",
-      "A unit rarely underperforms for the reason its owner assumes. The bottleneck is usually one station in a sequence, an inventory norm nobody has revisited since commissioning, or a rejection rate that has been absorbed into the standard cost so long that it no longer registers as a loss. Measuring the line before changing it is most of the value.",
+      "Working out how much working capital a business actually needs to run, and where the cash sits tied up while it waits.",
+      "Under-assessed working capital is the most common reason a fully sanctioned project stalls after commissioning: the term loan builds the plant, and then there is nothing to buy the first three months of raw material with. The cycle — raw material in, goods out, payment received, suppliers paid — has to be measured for the specific business, not taken from a norm.",
     ],
     deliverables: [
-      "Time and motion study across the line",
-      "Line balancing and de-bottlenecking plan",
-      "Layout and material flow revision",
-      "Inventory norms and stores rationalisation",
-      "Rejection and rework root-cause analysis",
-      "Energy and utility cost reduction",
+      "Raw-material and finished-goods inventory norms",
+      "Receivables and payables assessment",
+      "Working-capital cycle calculation",
+      "Cash requirement and cash-flow plan",
+      "Bank working-capital finance requirement",
+      "A monitoring framework for the cycle",
     ],
     bestFor:
-      "Running units where output has plateaued below rated capacity, or margin is thinning without an obvious cause.",
+      "Projects sizing their working-capital limit, and running units where cash is tight despite profitable sales.",
   },
 
+  "product-costing-consultancy": {
+    overview: [
+      "Establishing the true cost of making one unit — raw material, power, labour, packaging, maintenance, overhead and finance — and the price chain that has to sit on top of it.",
+      "Manufacturers routinely price from what the market pays and discover the margin only at year-end. When the per-unit cost is built up properly, the questions that matter become answerable: which products to push, which to drop, where a wholesale and distributor margin still leaves a viable retail price, and how much a power-tariff change actually costs.",
+    ],
+    deliverables: [
+      "Per-unit manufacturing cost breakdown",
+      "Overhead and finance-cost allocation",
+      "Manufacturing cost to wholesale to distributor to retail price chain",
+      "Profit-margin analysis by product",
+      "Cost sensitivity to material and power prices",
+      "The costing model handed over for reuse",
+    ],
+    bestFor:
+      "Plastic, packaging, disposable, food and engineering-component makers running several products off one line.",
+  },
+
+  // ── Group 3 — Factory & Machinery ──────────────────────────────────────────
   "machinery-consultancy": {
     overview: [
       "Specifying, sourcing and commissioning plant and machinery — domestic or imported — against what the line has to produce rather than against what is on offer.",
@@ -116,99 +275,203 @@ export const serviceDetails: Record<ServiceSlug, ServiceDetail> = {
     ],
     deliverables: [
       "Technical specification written to your output target",
-      "Supplier shortlisting, Indian and imported",
-      "Quotation comparison on rated output and cost per unit",
-      "Pre-dispatch inspection and factory acceptance",
-      "Import documentation, duty position and logistics",
+      "Capacity selection and Indian-versus-imported comparison",
+      "Supplier shortlisting and multiple-quotation comparison",
+      "Price negotiation and supplier verification",
+      "Pre-dispatch inspection and import documentation",
       "Installation, trial runs and commissioning oversight",
     ],
     bestFor:
       "Anyone about to commit capital to plant and machinery, and units replacing or expanding an existing line.",
   },
 
-  "plastic-industry-consultancy": {
+  "factory-setup-consultancy": {
     overview: [
-      "Sector-specific work for polymer processors: product and material selection, process route, tooling, and the compliance regime that comes with it.",
-      "Polymer processing is unusually unforgiving of decisions made in the wrong order. The polymer grade constrains the process, the process constrains the tooling, and the tooling is the part that cannot be revised once cut. Get the sequence right and the same capital buys a line that can take a second product later; get it wrong and every subsequent change is a new mould.",
+      "The physical build of the plant: land, building, utilities, installation, trial production and the path to commercial production, planned as one sequence.",
+      "A factory built to a generic layout and then fitted to the process pays for the building twice. Effluent load, electrical capacity, water and drainage, storage and material flow all have to be in the first drawing — retrofitting any of them once the shed is up means breaking concrete.",
     ],
     deliverables: [
-      "Product design review and polymer grade selection",
-      "Process selection: injection, blow, extrusion or thermoforming",
-      "Mould and tooling specification and vendor selection",
-      "Recycling and reprocessing line configuration",
-      "In-house testing and quality protocols",
-      "BIS, food-grade and export compliance",
+      "Land-area and site-suitability assessment",
+      "Factory building requirement and plant layout",
+      "Electrical, water and drainage planning",
+      "Raw-material and finished-goods warehouse planning",
+      "Loading, office and worker-facility planning",
+      "Safety planning and commissioning support",
     ],
     bestFor:
-      "Processors and converters across injection moulding, blow moulding, extrusion, and PET or PP recycling.",
+      "Promoters at the land-acquisition or building-design stage of a greenfield unit.",
   },
 
-  "brewery-distillery-consultancy": {
+  "plant-layout-production-planning": {
     overview: [
-      "Sector work for alcoholic-beverage manufacture — breweries, IMFL blending and bottling units, and grain or molasses distilleries — covering process design, plant selection and the licensing regime that governs all of it.",
-      "Alcohol is a licensed trade before it is a manufacturing one. State excise policy sets who may hold a licence, at what capacity, and with what bonded-store and measurement controls, and it varies enough between states that the same plant is viable in one and not the next. A unit built to a generic beverage layout and fitted with excise controls afterwards pays for the building twice — the metering, bonded areas and effluent load have to be in the first drawing.",
+      "The arrangement of machines, stores, people and utilities on the floor, worked out so material moves the shortest distance and the line is not waiting on itself.",
+      "Layout is decided once and lived with for the life of the plant. A metre of unnecessary travel per unit, a warehouse on the wrong side of the line, or a utility run that blocks an expansion bay is a cost that compounds every shift — and it is nearly free to fix on paper and expensive to fix in steel.",
     ],
     deliverables: [
-      "Process route for beer, IMFL or potable spirit, with capacity sized to the licence",
-      "Brewhouse, fermentation, distillation or blending-and-bottling plant specification",
-      "State excise licensing route, bonded store and measurement compliance",
-      "Effluent, spent-wash and ETP design to pollution-board norms",
-      "Utilities load — steam, refrigeration, CO2 recovery and water treatment",
-      "Detailed project report to appraisal standard, with the duty structure modelled",
+      "Factory and production-line layout",
+      "Machinery positioning and material-handling plan",
+      "Raw-material and finished-product flow",
+      "Warehouse and utility layout",
+      "Worker movement and safety zones",
+      "Expansion provisions built into the plan",
     ],
     bestFor:
-      "Promoters entering brewing or distilling, and existing units adding an IMFL bottling or craft-beer line.",
+      "New plants at the design stage, and running units losing output to movement and congestion.",
   },
 
-  "cold-storage-consultancy": {
+  "vendor-supplier-development": {
     overview: [
-      "Sector work for cold-chain infrastructure — single- and multi-commodity cold stores, controlled-atmosphere chambers, ripening units and reefer-backed distribution hubs — from commodity mix and chamber sizing through to the refrigeration and subsidy structure.",
-      "A cold store earns its return on load management, not on capacity. The commodity decides the temperature band, the storage life and therefore the throughput a chamber can turn over in a year, so a store sized on floor area rather than on a realistic filling and offtake pattern spends the season part-empty and still carries the full refrigeration and interest cost. Insulation, door discipline and refrigeration selection separate the rated running cost from the real one.",
+      "Finding and qualifying the vendors a plant depends on — machinery, raw materials, spares and services — and benchmarking what they quote.",
+      "A single-source supplier chosen in a hurry at project stage becomes a permanent cost: price rises are hard to challenge, quality slips are hard to escalate, and a delayed spare stops the line. Building two or three qualified sources per critical input before commissioning is far cheaper than doing it under pressure later.",
     ],
     deliverables: [
-      "Commodity mix, chamber configuration and capacity sizing on a real offtake pattern",
-      "Refrigeration system selection — ammonia, freon or CA — with running-cost modelling",
-      "Insulation, PUF panel and vapour-barrier specification",
-      "Subsidy mapping — NHB, PMKSY / Integrated Cold Chain, state horticulture schemes",
-      "Power, DG backup and thermal-storage sizing against tariff and outage risk",
-      "Detailed project report and bank appraisal support",
+      "Supplier identification for machinery, materials and services",
+      "Vendor comparison and evaluation",
+      "Technical quotation comparison",
+      "Price benchmarking",
+      "Negotiation assistance",
+      "Procurement plan and spare-parts sourcing",
     ],
     bestFor:
-      "Farmer producer organisations, traders and logistics operators building standalone or distribution-linked cold storage.",
+      "Projects building their supplier base before commissioning, and units over-dependent on a single vendor.",
   },
 
-  "biogas-consultancy": {
+  "licensing-compliance-guidance": {
     overview: [
-      "Sector work for anaerobic digestion plants — biogas for captive power or thermal use, and compressed biogas (CBG / Bio-CNG) for the SATAT offtake route — covering feedstock, digester design, gas upgrading and the offtake contract.",
-      "A biogas plant is a feedstock contract with a digester attached. The tonnage, moisture and seasonality of press mud, cattle dung, napier grass or food waste set the gas yield and every downstream number, so a plant sized above what its catchment can reliably feed runs below nameplate for most of the year. The digestate is not a by-product to settle later either — its handling, storage and fertiliser value belong in the economics from the start.",
+      "Identifying the registrations, licences and approvals a specific project needs — by state, location, product and plant capacity — and the order to obtain them in.",
+      "Approvals have dependencies and lead times that do not forgive a late start. A consent to establish that should have been filed at land stage, an FSSAI licence that gates dispatch, a boiler approval that gates commissioning: each can hold a finished plant idle for months. The list is knowable at the start of the project, and most of it is not obvious.",
     ],
     deliverables: [
-      "Feedstock availability, characterisation and tie-up assessment",
-      "Digester type and sizing, with gas-yield and mass-balance modelling",
-      "Gas upgrading and compression specification for CBG / Bio-CNG",
-      "Offtake route — SATAT / OMC agreement, captive power or thermal substitution",
-      "Digestate handling, FOM / LFOM processing and the fertiliser revenue line",
-      "Detailed project report with CBG viability-gap funding and subsidy structure modelled",
+      "An applicable-approvals list for the specific project",
+      "Udyam registration, GST and factory approvals",
+      "Pollution-control and fire-safety requirements",
+      "FSSAI, BIS and legal-metrology requirements",
+      "Boiler, electrical and local-authority permissions",
+      "A sequencing plan against the project schedule",
     ],
     bestFor:
-      "Sugar mills, dairies, municipalities and agri-entrepreneurs setting up CBG or captive biogas plants.",
+      "Every new manufacturing project — the earlier the approvals map is drawn, the fewer surprises gate commissioning.",
   },
 
-  "waste-management-consultancy": {
+  // ── Group 4 — Production & Turnaround ──────────────────────────────────────
+  "production-process-improvement": {
     overview: [
-      "Sector work for waste-processing and recycling plants — municipal solid waste, dry-waste material recovery, plastic and C&D recycling, and industrial or hazardous-waste handling — covering the process line, the regulatory regime and the offtake for every output stream.",
-      "A waste plant has two customers and both have to be secured before it is built: the one paying a tipping or gate fee to hand the waste over, and the one buying the recovered material or RDF at the other end. Projects fail when either side is assumed rather than contracted. The applicable rules — SWM, Plastic Waste Management, C&D or Hazardous Waste — decide the authorisations, the siting and much of the plant itself.",
+      "Work on a plant that already runs: finding where the output is actually being lost and closing the gap between rated capacity and what comes off the line.",
+      "A unit rarely underperforms for the reason its owner assumes. The bottleneck is usually one station in a sequence, an inventory norm nobody has revisited since commissioning, or a rejection rate that has been absorbed into the standard cost so long that it no longer registers as a loss. Measuring the line before changing it is most of the value.",
     ],
     deliverables: [
-      "Waste-stream characterisation, quantity assessment and gate-fee structure",
-      "Process line — segregation, MRF, shredding, RDF, composting or recycling",
-      "Regulatory route under the applicable Waste Management Rules, with CPCB / SPCB consent",
-      "EPR and co-processing tie-ups, and offtake contracts for each output stream",
-      "Siting, buffer-zone and environmental-clearance assessment",
-      "Detailed project report with viability under realistic tipping-fee and sales assumptions",
+      "Production-efficiency and cycle-time study",
+      "Material-wastage and rejection root-cause analysis",
+      "Machine-utilisation and downtime reduction",
+      "Line balancing and production planning",
+      "Quality improvement and inventory management",
+      "Preventive-maintenance planning",
     ],
     bestFor:
-      "Urban local bodies, industrial estates and recyclers setting up MSW, plastic, C&D or hazardous-waste processing.",
+      "Running units where output has plateaued below rated capacity, or margin is thinning without an obvious cause.",
+  },
+
+  "factory-machinery-expansion": {
+    overview: [
+      "For an established unit, the case for growing: how much more the plant can produce, what it would cost, and what the additional output actually returns.",
+      "Expansion is often reached for when the real constraint is a single bottleneck that a fraction of the capital would clear. The order that pays is diagnosis first — where the line actually stops — then automation and de-bottlenecking, and only then new capacity, because a second line behind the same bottleneck buys nothing.",
+    ],
+    deliverables: [
+      "Capacity-expansion study",
+      "Production-bottleneck analysis",
+      "New machinery selection and automation opportunities",
+      "Additional product-line planning",
+      "Manpower and energy optimisation",
+      "Plant-expansion plan with ROI analysis",
+    ],
+    bestFor:
+      "Profitable units at or near capacity, and owners deciding between de-bottlenecking and a new line.",
+  },
+
+  "business-turnaround-cost-reduction": {
+    overview: [
+      "A structured health check of an existing or struggling factory — sales, production, costs, labour, inventory, debt and profitability — followed by a costed recovery plan.",
+      "A unit in trouble usually knows it is losing money without knowing where. The loss is spread across a rejection rate, an idle machine, an over-stretched working-capital line and a product that has been sold below cost for a year. Naming the largest few, in order, is what turns a vague problem into a plan.",
+    ],
+    deliverables: [
+      "A business and factory health check",
+      "Sales, expense and production review",
+      "Labour, electricity and raw-material analysis",
+      "Inventory, rejection and machine-utilisation review",
+      "Debt and working-capital assessment",
+      "A cost-reduction and profit-improvement plan",
+    ],
+    bestFor:
+      "Existing units whose margin or cash position has deteriorated, and promoters or lenders reviewing a stressed unit.",
+  },
+
+  "industrial-project-implementation-management": {
+    overview: [
+      "End-to-end coordination of a project through every stage — feasibility, DPR, finance, land, machinery, installation, trial and commercial production — as a single managed sequence.",
+      "A project with a different adviser for each stage loses time in the handovers, where the DPR's assumptions quietly diverge from what is being built and the subsidy claim is filed against a scope that has moved. One party holding the whole roadmap keeps the plant that gets commissioned the same as the one that was appraised.",
+    ],
+    deliverables: [
+      "Stage-wise project roadmap and schedule",
+      "Feasibility, DPR and finance coordination",
+      "Land, building and machinery procurement oversight",
+      "Installation and trial-production management",
+      "Commercial-production handover",
+      "Marketing, sales and expansion planning",
+    ],
+    bestFor:
+      "Promoters who want a single point of accountability from idea to running plant.",
+  },
+
+  // ── Group 5 — Automation, AI & Growth ──────────────────────────────────────
+  "industrial-automation-consultancy": {
+    overview: [
+      "Identifying where automation earns its cost in an MSME plant — handling, weighing, filling, packaging, inspection and monitoring — and where it does not.",
+      "Automation sold as a package tends to automate the visible station rather than the constraining one. The value is in the assessment first: which manual steps actually limit throughput or quality, what a sensor or a conveyor there returns, and which are cheaper left as they are.",
+    ],
+    deliverables: [
+      "An automation-opportunity assessment across the line",
+      "Automatic handling, weighing, filling and packaging",
+      "Conveyor and PLC automation specification",
+      "Sensor-based and robotic-handling systems",
+      "Automatic inspection and production monitoring",
+      "Digital inventory and machine-monitoring systems",
+    ],
+    bestFor:
+      "MSME manufacturers scaling volume or tightening quality who want automation targeted rather than wholesale.",
+  },
+
+  "ai-consultancy": {
+    overview: [
+      "Putting AI to work on the parts of a manufacturing business where it pays back quickly — lead handling, forecasting, quality, maintenance and reporting.",
+      "AI in a factory fails when it is bought as a platform and left to find a use. It works when it is pointed at a named problem: quotations that take a day to turn around, a demand forecast that is really a guess, a maintenance schedule that is calendar-based while the machine fails on hours run.",
+    ],
+    deliverables: [
+      "Sales lead generation and follow-up automation",
+      "Quotation generation and WhatsApp customer support",
+      "Demand, production and inventory forecasting",
+      "AI-assisted quality inspection",
+      "Predictive maintenance",
+      "MIS reporting, dashboards and document automation",
+    ],
+    bestFor:
+      "Manufacturers and MSMEs with a specific bottleneck in sales, planning, quality or reporting to point AI at.",
+  },
+
+  "digital-marketing": {
+    overview: [
+      "Lead generation for industrial companies and machinery manufacturers — the channels, the assets and the follow-up system that turn enquiries into orders.",
+      "Industrial marketing spend is usually scattered across channels with no way to tell which produced an enquiry, and the leads that do arrive go cold because nothing owns the follow-up. A single system — the right channels for a considered purchase, proper product collateral, and a CRM that nurtures — is what makes the spend measurable.",
+    ],
+    deliverables: [
+      "Website, landing pages and industrial SEO",
+      "Google, Meta and LinkedIn ad campaigns",
+      "Product brochures, company profiles and industrial video",
+      "Lead-generation campaigns",
+      "CRM implementation",
+      "A lead-nurturing system",
+    ],
+    bestFor:
+      "Machinery manufacturers and industrial suppliers that need a measurable pipeline rather than scattered spend.",
   },
 };
 
@@ -247,8 +510,8 @@ export const engagementProcess = {
     },
     {
       no: "05",
-      title: "Procurement and commissioning",
-      body: "Machinery specified, quoted, inspected and installed; layout and utilities executed; trial runs held. We stay on the project until the line holds rated output, not until the last invoice is paid.",
+      title: "Procurement to commissioning",
+      body: "Machinery specified, quoted, inspected and installed; layout and utilities executed; trial runs held and the line taken to commercial production. Where the engagement continues, automation, AI and marketing follow. We stay until the line holds rated output, not until the last invoice is paid.",
     },
   ] satisfies ProcessStep[],
 } as const;
@@ -270,8 +533,8 @@ export const sectorStrip = {
   eyebrow: "Sectors",
   heading: "Where These Services Are Delivered",
   body:
-    "Every engagement is specified against the sector it is for — the process routes, the applicable norms and the machinery market all differ. These are the ten we work in.",
-  cta: { label: "View All Industries", href: "/industries" },
+    "Every engagement is specified against the sector it is for — the process routes, the applicable norms and the machinery market all differ. These are the sectors we work in.",
+  cta: { label: "View All Sectors", href: "/sectors" },
 } as const;
 
 export type Faq = { question: string; answer: string };
@@ -291,6 +554,11 @@ export const servicesFaq = {
         "Resolves the questions that decide whether a plant works while they are still cheap to answer — what to make, at what capacity, on what site, with which machines, financed how. The work is concentrated at the start of a project, which is where nearly all of a project's cost is committed and almost none of it has yet been spent.",
     },
     {
+      question: "Do you only cover project setup, or also automation, AI and marketing?",
+      answer:
+        "The full arc. The core engagements take a project from feasibility to a commissioned line; beyond that we work on industrial automation, AI for forecasting, quality and reporting, and lead generation for industrial companies. Most clients begin with one engagement and bring in the others as the plant moves from build to running to growth.",
+    },
+    {
       question: "At what stage should we bring you in?",
       answer:
         "Before land and machinery are committed. Both decisions constrain everything downstream — subsidy eligibility, loan structure, layout, cost per unit — and both are expensive to reverse. Several incentive schemes also close to a project once the first invoice has been raised.",
@@ -301,9 +569,9 @@ export const servicesFaq = {
         "No. The discovery call is free and carries no obligation. Fees are quoted per engagement once the scope is clear, and they are quoted directly rather than recovered through vendor or machinery commissions.",
     },
     {
-      question: "Which subsidy schemes do you work with?",
+      question: "Which loan and subsidy schemes do you work with?",
       answer:
-        "The central schemes an MSME manufacturer is most likely to qualify under — PMEGP, CGTMSE and PMFME among them — alongside the state industrial policy that applies where you are building. Which combination is worth pursuing depends on sector, location and investment size, and it is decided per project rather than from a template.",
+        "Loans and subsidies are handled as one engagement. On the subsidy side, the central schemes an MSME manufacturer is most likely to qualify under — PMEGP, CGTMSE, PMFME, AHIDF, PMKSY and the National Livestock Mission among them — alongside the state industrial policy that applies where you are building. On the finance side, term loans and working-capital limits structured together and taken through appraisal. Which combination is worth pursuing is decided per project rather than from a template, and approval always rests with the scheme authority and the bank — the work is to make the application as strong as the guidelines allow.",
     },
     {
       question: "Do you help with the bank, or only with the paperwork?",

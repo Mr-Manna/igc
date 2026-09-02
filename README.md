@@ -13,9 +13,10 @@ in it is required to run the site.
 
 ## Status
 
-**Two pages are built: `/` and `/services`.** Every other route the shell links to resolves to a
-placeholder (`app/(corporate)/[...slug]/page.tsx`) so navigation never 404s; genuinely unknown
-paths still return a real 404.
+**Four pages are built: `/`, `/about`, `/services` and `/sectors`.** Every other route the
+shell links to resolves to a placeholder (`app/(corporate)/[...slug]/page.tsx`) so navigation
+never 404s; genuinely unknown paths still return a real 404. `/industries` is the former path
+of `/sectors` and 308-redirects to it (`next.config.ts`).
 
 Shipping a page is one edit: add its path to `builtRoutes` in `content/site.ts`. That array is
 the single switch — it removes the path from the stub catch-all (two prerenders of the same
@@ -45,7 +46,7 @@ marked `TODO(real-data)`. Before pointing a public domain at this build, replace
 - `clients` in `content/home.ts` — invented company names, rendered as type because there are
   no logo assets and no `public/` directory. Real logos need clearance to use.
 
-The service, industry, statistics and SEO-narrative copy is legitimate domain content and can
+The service, sector, statistics and SEO-narrative copy is legitimate domain content and can
 stay, as is everything in `content/services.ts` — it describes the work rather than attributing
 anything to a named client, so it carries no `TODO(real-data)`.
 
@@ -53,8 +54,10 @@ Two things are deliberately missing from `content/services.ts` and should only b
 business has committed to them: **turnaround times** in days or weeks, and **fees**. A page
 cannot promise a date it has not scoped, and pricing is quoted per engagement.
 
-`footerServiceLinks` in `content/site.ts` is hand-maintained and lists a curated six — it is
-not derived from `services`, so keep the two in step by hand if the footer list should change.
+`footerServiceLinks` in `content/site.ts` is hand-maintained and lists the six `featured`
+services (project consultancy, DPR, loan & subsidy, machinery, factory setup, AI) — it is not
+derived from `services`, so keep the two in step by hand if the footer list should change.
+These six slugs are also the only `/services/<slug>` stubs that resolve; the rest 404.
 
 ### About the photography
 
@@ -129,23 +132,55 @@ move and select, Home/End, and wrap-around.
 
 ## The services page
 
-`/services` runs: navy masthead with in-page anchors → every service at length → the
-five-stage process → sector chips → enquiry form → FAQ → closing CTA.
+The catalogue is the client's full **twenty-service list** — project consultancy, market
+research and DPR; government loan and subsidy; project and product costing; machinery, factory
+setup and plant layout; production improvement, expansion and turnaround; industrial automation,
+AI and digital marketing. There are no sector-specific services (the earlier plastics / brewery
+/ cold storage / biogas / waste entries were dropped) — sector nuance lives on `/sectors`.
+
+`/services` runs: navy masthead with a grouped in-page anchor nav → the twenty services in
+**five themed sections** → the five-stage process → sector chips → enquiry form → FAQ → closing
+CTA. `serviceGroups` in `content/services.ts` is the grouping source of truth: it lists the
+sections and the slugs in each, `ServiceDetails` and `ServiceJumpNav` render from it, and a
+compile guard fails the build if a `ServiceSlug` is missing from every group.
 
 `content/home.ts` exports a closed `ServiceSlug` union and `content/services.ts` keys its
-long-form copy by it, so adding a service without writing its detail is a **type error rather
-than an empty block** in the browser. `Service.href` is derived from the slug in the same file;
-the two cannot drift. `Service.featured` splits the list: the six core engagements are
-`featured` and show in the homepage grid, the harbour spike and the `/industries` service
-strip; the sector-specific services (plastics, brewery & distillery, cold storage, biogas,
-waste management) are `/services`-only.
+long-form copy by it (a `Record<ServiceSlug, ServiceDetail>` total map), so adding a service
+without writing its detail is a **type error rather than an empty block** in the browser.
+`Service.href` is derived from the slug in the same file; the two cannot drift. `Service.featured`
+splits the list: the **six** shown in the homepage grid, the harbour spike and the `/sectors`
+service strip are `featured` (project consultancy, DPR, loan & subsidy, machinery, factory setup,
+AI); the other fourteen are `/services`-only.
 
 The `/services/<slug>` detail routes are still stubs — only the ones in `footerServiceLinks`
-actually resolve, the rest 404 (nothing links them; the jump nav uses `#<slug>` anchors). The
-depth that will eventually live on them is on this page, anchored by slug —
-`/services#loan-consultancy` works today and keeps working when those pages ship. Every
-per-service CTA points at `#enquiry` on the same page rather than at its own stub, because the
-form there is real and the stub is not.
+(the same six as `featured`) actually resolve, the rest 404 (nothing links them; the jump nav
+uses `#<slug>` anchors). The depth that will eventually live on them is on this page, anchored by
+slug — `/services#detailed-project-report` works today and keeps working when those pages ship.
+Every per-service CTA points at `#enquiry` on the same page rather than at its own stub, because
+the form there is real and the stub is not.
+
+## The sectors page
+
+`/sectors` is the second axis of the same offer: `/services` is organised by what ICF does,
+this page by what the client makes. It runs: navy masthead with a sector jump-nav → the
+"from concept to commercial production" intro → every sector at length → services cross-strip
+→ enquiry form → FAQ → closing CTA.
+
+The sector list and the per-sector copy follow the client's own **"Sectors We Serve"**
+document — ~22 sectors, in that document's order. `content/home.ts` exports the closed
+`SectorSlug` union (`sectorSlugs`) and `content/sectors.ts` keys `sectorDetails` by
+it, so a sector without its detail copy is a type error. Each sector detail is deliberately
+thin: `lede` (the document's one-line intro), `body` (its consultancy sentence) and `units`
+(its project list, verbatim where possible) — no analytical "what decides viability" column.
+
+There are no `/sectors/<slug>` routes; every sector is an in-page `#<slug>` anchor, and the
+`ItemList` JSON-LD lists them as `ListItem`, not `Service`. The page copy is count-neutral
+("the sectors", not "the ten sectors") so the list can grow without a copy sweep. Sector
+photos are a small reused pool of stock URLs — more sectors than photographs, so some repeat;
+each `alt` still describes the frame.
+
+The page was `/industries` until the rename; `next.config.ts` permanently redirects the old
+path (and `/industries/*`) to `/sectors`.
 
 `components/ui/PageHeader.tsx` is the interior-page masthead and is meant to be reused. It is
 solid navy with a radial wash, not the homepage's photographic plate: the homepage has to stop a
@@ -209,8 +244,8 @@ site: `/preview/file` ("The Sanction File"), `/preview/datum` ("Datum"), and `/h
 `.theme-file` / `.theme-datum` / `.theme-harbour` in `globals.css`, outside `@layer base` so it
 wins on layer order without `!important`. Deleting a route group deletes its font downloads too.
 
-`content/harbour.ts` re-exports `stats`, `services` and `industries` from `content/home.ts` —
-those are single-source-of-truth. Changing the shape of `industries` means updating
+`content/harbour.ts` re-exports `stats`, `services` and `sectors` from `content/home.ts` —
+those are single-source-of-truth. Changing the shape of `sectors` means updating
 `components/harbour/Sectors.tsx` as well.
 
 ## Dependencies
@@ -226,28 +261,33 @@ unless something genuinely cannot be built in a hundred lines.
 
 Against the production build (`npm run build && npm run start`):
 
-- Build clean, 26 static pages; **128 kB** first-load JS on `/` and **112 kB** on `/services`,
+- Build clean, 26 static pages; **129 kB** first-load JS on `/` and **113 kB** on `/services`,
   both prerendered static, `/api/enquiry` dynamic
-- Lighthouse mobile on **both** `/` and `/services`: accessibility 100, best practices 100,
-  SEO 100, agentic browsing 100, **0 failed audits**
+- Lighthouse mobile on `/services`: accessibility 100, best practices 100, SEO 100, agentic
+  browsing 100, **0 failed audits**. On `/`: accessibility / SEO / agentic browsing 100; the only
+  best-practices failure was an `errors-in-console` from prefetching the unbuilt `/subsidies`
+  route, now removed from the hero quick-links and closing CTA. Re-run the `/` audit to reconfirm
+  best practices 100 — note `Testimonials` still links the unbuilt `/success-stories`, below the
+  fold so it did not trip the audit, but worth resolving with the rest of the stub routes
 - CLS 0.00 on both, measured with a `layout-shift` observer
 - No horizontal overflow at 375 / 768 / 1440 / 1920; shell caps at 1480px. The only element
   outside the viewport is the form honeypot, deliberately
-- Every scroll reveal fires — 59 on `/`, 98 on `/services` (ten service blocks); no element
-  left hidden
+- Every scroll reveal fires on `/services` (twenty service blocks in five groups) with
+  rAF-paced scrolling; nothing left at opacity 0. A tight scroll loop outruns the
+  `IntersectionObserver` and looks like a defect — see the Testing note
 - Enquiry API: field-level 400s, honeypot silently 200s, valid submit delivers and logs, phone
   normalised to digits, 429 after 5 *valid* submissions per hour, invalid submissions do not
   consume quota
 - Enquiry form on both pages: empty submit shows four inline errors, moves focus to the first
   invalid field, wires `aria-invalid` / `aria-describedby`, swaps to an announced success state,
   and every field carries a visible focus ring
-- Focus ring present on every focusable element: 46 stops inside `<main>` on `/services`, 87
-  across the whole document including the shell
-- `/services`: one `<h1>` and a clean `h2`/`h3` outline; jump anchors and per-service `#enquiry`
-  links land 96px down, clear of the 73px sticky header; FAQ rows open on Enter and close on
-  Space; all eight answers are in the server HTML, so the `FAQPage` schema matches text a
-  crawler can actually read
-- Structured data on `/services`: `BreadcrumbList`, `ItemList` of ten `Service` items, `FAQPage`
-  with eight questions
+- Focus ring present on every focusable element; ~85 focus stops inside `<main>` on `/services`
+  (grouped 20-chip jump nav, 20 "Discuss this service" links, 9 FAQ summaries)
+- `/services`: one `<h1>` and a clean outline — `h2` per group, `h3` per service, `h4` for the
+  card labels, no skips; jump anchors and per-service `#enquiry` links land clear of the sticky
+  header; FAQ rows open on Enter and close on Space; every answer is in the server HTML, so the
+  `FAQPage` schema matches text a crawler can actually read
+- Structured data on `/services`: `BreadcrumbList`, `ItemList` of **twenty** `Service` items,
+  `FAQPage` with **nine** questions
 - `/harbour`, `/preview/file`, `/preview/datum` still render; unknown paths still 404
 - Mobile menu traps focus, closes on Escape, restores focus and body scroll

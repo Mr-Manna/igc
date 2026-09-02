@@ -1,10 +1,10 @@
 import { contact, type NavItem } from "@/content/site";
-import { industries, services, stats } from "@/content/home";
+import { sectors, services, stats } from "@/content/home";
 
 /**
  * Copy for the second homepage at /harbour.
  *
- * The facts are the same facts. `stats`, `services` and `industries` are
+ * The facts are the same facts. `stats`, `services` and `sectors` are
  * re-exported straight from `content/home.ts` rather than copied, so a figure
  * corrected there is corrected on both pages. What lives here is the copy this
  * layout needs and the live homepage does not: a headline written to be set in
@@ -18,14 +18,14 @@ import { industries, services, stats } from "@/content/home";
  * testimonials, and `content/site.ts` about its contact details.
  */
 
-export { stats, services, industries };
+export { stats, services, sectors };
 
 /** Lowercase, because the nav is set lowercase. Kept short — four items, not the
     seven the live header carries; this layout has no room for seven and the
     reference uses three. */
 export const harbourNav: NavItem[] = [
   { label: "services", href: "/services" },
-  { label: "sectors", href: "/industries" },
+  { label: "sectors", href: "/sectors" },
   { label: "about us", href: "/about" },
   { label: "contact", href: "/contact" },
 ];
@@ -119,13 +119,13 @@ export const solutions = {
     "Six core engagements. Taken together they cover a project from the first feasibility question to the day the line runs at rated output.",
 } as const;
 
-export const sectors = {
+export const sectorIndex = {
   eyebrow: "Sectors",
   heading: {
-    bold: "Ten industries",
+    bold: "The sectors",
     light: "we have commissioned in",
   } satisfies TwoWeight,
-  cta: { label: "All sectors", href: "/industries" },
+  cta: { label: "All sectors", href: "/sectors" },
 };
 
 export type Insight = {
@@ -222,7 +222,7 @@ export const faq = {
     },
     {
       q: "Which sectors do you take on?",
-      a: "Ten, listed above. Polymer processing, food and beverage, chemical and packaging are where our work is deepest. If your sector is not on the list, ask — we will tell you honestly whether we are the right firm for it.",
+      a: "The sectors listed above. Food and beverage processing, polymer and packaging, and agro-processing are where our work is deepest. If your sector is not on the list, ask — we will tell you honestly whether we are the right firm for it.",
     },
     {
       q: "Do you work outside your home state?",

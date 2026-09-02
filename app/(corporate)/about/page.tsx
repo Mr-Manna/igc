@@ -9,7 +9,7 @@ import { site } from "@/content/site";
 
 /**
  * The company page — the fourth route built out, after the homepage,
- * /services and /industries.
+ * /services and /sectors.
  *
  * Sections render as distinct blocks under their own headings rather than one
  * flat paragraph run: Who We Are carries the argument at full width, while

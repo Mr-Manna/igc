@@ -1,25 +1,36 @@
 /**
  * Line icons for the services grid and the "why choose us" row.
  *
- * Icon-led cards rather than photographic ones: the services share only two
- * stock photographs between them, so a picture header would have shown the same
- * plant several times over. A consistent 24px stroke set reads as a system.
+ * Icon-led cards rather than photographic ones: the services share only a couple
+ * of stock photographs between them, so a picture header would have shown the
+ * same plant several times over. A consistent 24px stroke set reads as a system.
  *
  * Hand-authored rather than pulled from an icon package — the project carries no
  * icon dependency and every glyph on the site is drawn here or inline.
  */
 
 export type ServiceIconName =
+  // Services — one per entry in `content/home.ts` `services[]`.
   | "factory"
+  | "blueprint"
+  | "research"
+  | "report"
   | "subsidy"
   | "finance"
-  | "efficiency"
+  | "workingCapital"
+  | "costing"
   | "machinery"
-  | "polymer"
-  | "brewery"
-  | "coldStorage"
-  | "biogas"
-  | "waste"
+  | "siteSetup"
+  | "layout"
+  | "supplier"
+  | "compliance"
+  | "efficiency"
+  | "expansion"
+  | "recovery"
+  | "roadmap"
+  | "automation"
+  | "ai"
+  | "marketing"
   // Value propositions.
   | "expertise"
   | "endToEnd"
@@ -33,6 +44,31 @@ const paths: Record<ServiceIconName, React.ReactNode> = {
       <path d="M2 21h20" />
       <path d="M4 21V10l5 3.2V10l5 3.2V10l5 3.2V21" />
       <path d="M9.5 21v-3.6h4V21" />
+    </>
+  ),
+  /* A spec sheet with a gear — turning a plan into an operating business. */
+  blueprint: (
+    <>
+      <path d="M6 3h8l4 4v14H6z" />
+      <path d="M14 3v4h4" />
+      <circle cx="11.5" cy="14" r="2.1" />
+      <path d="M11.5 10.2v1.4M11.5 16.4v1.4M7.9 14h1.4M13.7 14h1.4" />
+    </>
+  ),
+  /* A magnifier over a small bar chart — sizing a market. */
+  research: (
+    <>
+      <circle cx="10" cy="10" r="6" />
+      <path d="m14.5 14.5 5 5" />
+      <path d="M8 11.5V9.5M10 11.5v-4M12 11.5v-2" />
+    </>
+  ),
+  /* A bound report with a chart on the cover. */
+  report: (
+    <>
+      <path d="M6 3h9l3 3v15H6z" />
+      <path d="M6 3v18" />
+      <path d="M9.5 16v-4M12 16v-6M14.5 16v-2" />
     </>
   ),
   subsidy: (
@@ -49,12 +85,22 @@ const paths: Record<ServiceIconName, React.ReactNode> = {
       <path d="M3 21h18" />
     </>
   ),
-  efficiency: (
+  /* The working-capital cycle — a loop turning around a coin. */
+  workingCapital: (
     <>
-      <path d="M3 19V5" />
-      <path d="M3 19h18" />
-      <path d="m6.5 15.5 4-4.5 3.5 3 5-6" />
-      <path d="M15.5 8h3.5v3.5" />
+      <path d="M12 4.5a7.5 7.5 0 0 1 7.2 5.4" />
+      <path d="M12 19.5a7.5 7.5 0 0 1-7.2-5.4" />
+      <path d="M19.5 4.5v4h-4" />
+      <path d="M4.5 19.5v-4h4" />
+      <circle cx="12" cy="12" r="2.4" />
+    </>
+  ),
+  /* A calculator — building the cost per unit. */
+  costing: (
+    <>
+      <rect x="6" y="3" width="12" height="18" rx="1.5" />
+      <path d="M9 7h6" />
+      <path d="M9.2 11h1.4M13.4 11h1.4M9.2 14h1.4M13.4 14h1.4M9.2 17h1.4M13.4 17h1.4" />
     </>
   ),
   machinery: (
@@ -64,44 +110,96 @@ const paths: Record<ServiceIconName, React.ReactNode> = {
       <path d="m5.6 5.6 1.9 1.9M16.5 16.5l1.9 1.9M18.4 5.6l-1.9 1.9M7.5 16.5l-1.9 1.9" />
     </>
   ),
-  polymer: (
+  /* A shed rising on a site — the physical build. */
+  siteSetup: (
     <>
-      <path d="M9.5 3v6.2L5 17.9A2 2 0 0 0 6.8 21h10.4a2 2 0 0 0 1.8-3.1L14.5 9.2V3" />
-      <path d="M8 3h8" />
-      <path d="M7 15.5h10" />
+      <path d="M3 21h18" />
+      <path d="M5 21V10l7-4 7 4v11" />
+      <path d="M9 21v-6h6v6" />
+      <path d="M12 3v3" />
+      <path d="M10.5 4.5h3" />
     </>
   ),
-  /* A closed fermentation vessel with a conical base. */
-  brewery: (
+  /* A partitioned floor plan. */
+  layout: (
     <>
-      <path d="M6 4h12v8l-6 7-6-7Z" />
-      <path d="M6 8.5h12" />
-      <path d="M10.5 3h3" />
+      <rect x="3" y="4" width="18" height="16" rx="1" />
+      <path d="M3 12h10M13 4v16M13 12h8" />
     </>
   ),
-  /* An insulated store with a cold crystal inside. */
-  coldStorage: (
+  /* A delivery truck — vendors and supply. */
+  supplier: (
     <>
-      <path d="M4 7 12 3l8 4v10l-8 4-8-4Z" />
-      <path d="M12 9.5v6M9.4 11l5.2 3M14.6 11l-5.2 3" />
+      <path d="M3 7h11v8H3z" />
+      <path d="M14 10h4l3 3v2h-7z" />
+      <circle cx="7" cy="17" r="1.6" />
+      <circle cx="17" cy="17" r="1.6" />
     </>
   ),
-  /* A dome digester on a base with a captured flame. */
-  biogas: (
+  /* A shield with a check — licences and approvals. */
+  compliance: (
     <>
-      <path d="M3 20h18" />
-      <path d="M5 20v-4a7 7 0 0 1 14 0v4" />
-      <path d="M12 20V9" />
-      <path d="M12 6c1.3-1 1.3-2.6 0-4-1.3 1.4-1.3 3 0 4Z" />
+      <path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z" />
+      <path d="m9 12 2 2 4-4" />
     </>
   ),
-  /* Two arrows chasing — the recovery loop, not a bin. */
-  waste: (
+  efficiency: (
     <>
-      <path d="M7 7a6 6 0 0 1 9-1l2 2" />
-      <path d="M18 6v3h-3" />
-      <path d="M17 15a6 6 0 0 1-9 1l-2-2" />
-      <path d="M6 18v-3h3" />
+      <path d="M3 19V5" />
+      <path d="M3 19h18" />
+      <path d="m6.5 15.5 4-4.5 3.5 3 5-6" />
+      <path d="M15.5 8h3.5v3.5" />
+    </>
+  ),
+  /* Corner brackets pushing outward — capacity expansion. */
+  expansion: (
+    <>
+      <path d="M10 10H5V5" />
+      <path d="M14 10h5V5" />
+      <path d="M10 14H5v5" />
+      <path d="M14 14h5v5" />
+      <path d="m5 5 4 4M19 5l-4 4M5 19l4-4M19 19l-4-4" />
+    </>
+  ),
+  /* A health-check pulse line — turnaround. */
+  recovery: (
+    <>
+      <path d="M3 12h4l2-5 3 10 2-6 2 3h5" />
+    </>
+  ),
+  /* A winding path with milestones — implementation management. */
+  roadmap: (
+    <>
+      <path d="M7 20c0-4 10-4 10-8s-10-4-10-8" />
+      <circle cx="7" cy="4" r="1.6" />
+      <circle cx="17" cy="12" r="1.6" />
+      <circle cx="7" cy="20" r="1.6" />
+    </>
+  ),
+  /* A robotic arm on a base. */
+  automation: (
+    <>
+      <path d="M4 21h16" />
+      <path d="M6 21v-4h4v4" />
+      <path d="M8 17V9" />
+      <circle cx="8" cy="7" r="2" />
+      <path d="m9.6 6 5.2-1.7" />
+      <path d="M14.5 3.6 18 5.6l-1.2 3.6-3.5-2z" />
+    </>
+  ),
+  /* A processor die with pins — AI. */
+  ai: (
+    <>
+      <rect x="7" y="7" width="10" height="10" rx="1.5" />
+      <circle cx="12" cy="12" r="2" />
+      <path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4" />
+    </>
+  ),
+  /* A megaphone with a signal — lead generation. */
+  marketing: (
+    <>
+      <path d="M4 10v4h4l7 5V5l-7 5z" />
+      <path d="M18 9a4 4 0 0 1 0 6" />
     </>
   ),
 

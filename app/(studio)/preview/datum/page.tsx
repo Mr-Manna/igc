@@ -37,8 +37,8 @@ export const viewport: Viewport = {
 
 const sheets = [
   { no: "01", label: "Services", href: "/services" },
-  { no: "02", label: "Industries", href: "/industries" },
-  { no: "03", label: "Subsidies", href: "/subsidies" },
+  { no: "02", label: "Sectors", href: "/sectors" },
+  { no: "03", label: "Subsidies", href: "/services/government-loan-subsidy-consultancy" },
   { no: "04", label: "Reports", href: "/project-reports" },
   { no: "05", label: "Machinery", href: "/machinery" },
   { no: "06", label: "Record", href: "/success-stories" },

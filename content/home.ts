@@ -29,9 +29,9 @@ export const hero = {
    */
   quickLinks: [
     { label: "Detailed Project Report", href: "/project-reports" },
-    { label: "PMEGP Subsidy", href: "/subsidies" },
+    { label: "Loan & Subsidy", href: "/services/government-loan-subsidy-consultancy" },
     { label: "Machinery Sourcing", href: "/services/machinery-consultancy" },
-    { label: "Loan Assistance", href: "/services/loan-consultancy" },
+    { label: "Factory Setup", href: "/services/factory-setup-consultancy" },
   ],
   image: {
     /* w=2000 because this now runs full-bleed as the hero plate; the old w=1200
@@ -57,27 +57,47 @@ export const stats: Stat[] = [
 ];
 
 /**
- * The six services carried only two distinct stock photographs between them, so
- * the cards are icon-led instead — see `components/ui/ServiceIcon.tsx`. The
- * `image` field the previous hover-thumbnail used has been dropped with it.
+ * Service cards are icon-led, not photographic — there is no distinct stock
+ * photo per service and twenty near-identical plant shots would be worse than
+ * none. See `components/ui/ServiceIcon.tsx`.
  */
 /**
+ * The client's full twenty-service catalogue, in the render order used by
+ * `/services` and its jump nav. Grouped into five themed sections by
+ * `serviceGroups` in `content/services.ts`.
+ *
  * The slug set is a closed union rather than plain strings so that
  * `content/services.ts` can be checked for completeness at build time: a service
  * added here without the long-form copy the services page needs is a type error,
- * not a gap discovered in the browser.
+ * not a gap discovered in the browser. The same file's compile guard also fails
+ * the build if the new slug is not placed in a group.
  */
 export const serviceSlugs = [
+  // Group 1 — Project & Feasibility
   "industrial-project-consultancy",
-  "government-subsidy-consultancy",
-  "loan-consultancy",
-  "industrial-engineering",
+  "manufacturing-business-consultancy",
+  "market-research-opportunity-analysis",
+  "detailed-project-report",
+  // Group 2 — Finance & Subsidy
+  "government-loan-subsidy-consultancy",
+  "project-costing-financial-analysis",
+  "working-capital-financial-management",
+  "product-costing-consultancy",
+  // Group 3 — Factory & Machinery
   "machinery-consultancy",
-  "plastic-industry-consultancy",
-  "brewery-distillery-consultancy",
-  "cold-storage-consultancy",
-  "biogas-consultancy",
-  "waste-management-consultancy",
+  "factory-setup-consultancy",
+  "plant-layout-production-planning",
+  "vendor-supplier-development",
+  "licensing-compliance-guidance",
+  // Group 4 — Production & Turnaround
+  "production-process-improvement",
+  "factory-machinery-expansion",
+  "business-turnaround-cost-reduction",
+  "industrial-project-implementation-management",
+  // Group 5 — Automation, AI & Growth
+  "industrial-automation-consultancy",
+  "ai-consultancy",
+  "digital-marketing",
 ] as const;
 
 export type ServiceSlug = (typeof serviceSlugs)[number];
@@ -93,8 +113,9 @@ export type Service = {
       every cell being the same height before `mt-auto` pins the footer. The
       full list lives in `content/services.ts`. */
   points: [string, string, string];
-  /** Shown in the homepage services grid. The sector-specific engagements below
-      the first six are `/services`-only, so the homepage stays two clean rows. */
+  /** Shown in the homepage services grid — six `featured`, so the homepage stays
+      two clean rows of three. The other fourteen are `/services`-only, where the
+      full twenty are grouped into themed sections (see `serviceGroups`). */
   featured: boolean;
 };
 
@@ -104,84 +125,173 @@ const withHref = (service: Omit<Service, "href">): Service => ({
 });
 
 export const services: Service[] = [
+  // ── Group 1 — Project & Feasibility ─────────────────────────────────────────
   withHref({
     title: "Industrial Project Consultancy",
     slug: "industrial-project-consultancy",
-    description: "Complete end-to-end consultancy for setting up manufacturing units",
+    description: "Turn a business idea into a commercially viable industrial project",
     icon: "factory",
-    points: ["Feasibility study", "Detailed project report", "Plant layout & commissioning"],
+    points: ["Feasibility & product selection", "Investment & ROI projections", "Implementation planning"],
     featured: true,
   }),
   withHref({
-    title: "Government Subsidy Consultancy",
-    slug: "government-subsidy-consultancy",
-    description: "Expert guidance on all government subsidies and incentives",
+    title: "Manufacturing Business Consultancy",
+    slug: "manufacturing-business-consultancy",
+    description: "Set up and improve a manufacturing business, from model to margins",
+    icon: "blueprint",
+    points: ["Business model & product costing", "Capacity & manpower planning", "Factory layout & utilities"],
+    featured: false,
+  }),
+  withHref({
+    title: "Market Research & Opportunity Analysis",
+    slug: "market-research-opportunity-analysis",
+    description: "Decide what to make, who buys it and what it earns before you invest",
+    icon: "research",
+    points: ["Market size & demand analysis", "Competitor & pricing study", "Regional & export opportunities"],
+    featured: false,
+  }),
+  withHref({
+    title: "Detailed Project Report (DPR)",
+    slug: "detailed-project-report",
+    description: "Bankable Detailed Project Reports for industrial and MSME projects",
+    icon: "report",
+    points: ["Technical & market sections", "P&L, cash-flow & balance sheet", "DSCR, IRR & risk analysis"],
+    featured: true,
+  }),
+
+  // ── Group 2 — Finance & Subsidy ────────────────────────────────────────────
+  withHref({
+    title: "Government Loan & Subsidy Consultancy",
+    slug: "government-loan-subsidy-consultancy",
+    description: "Identify and apply for the government financing and subsidy schemes you qualify for",
     icon: "subsidy",
-    points: ["PMEGP & PMFME", "State capital subsidy", "Claim filing & follow-up"],
+    points: ["Scheme identification & eligibility", "PMEGP, AHIDF, PMKSY & state schemes", "Bank proposal & claim support"],
     featured: true,
   }),
   withHref({
-    title: "Loan Consultancy",
-    slug: "loan-consultancy",
-    description: "Seamless project finance and loan assistance",
+    title: "Project Costing & Financial Analysis",
+    slug: "project-costing-financial-analysis",
+    description: "Calculate the actual economics of a proposed manufacturing project",
     icon: "finance",
-    points: ["Term loan appraisal", "CGTMSE collateral-free", "Working capital limits"],
-    featured: true,
+    points: ["Full project cost build-up", "Production cost & selling price", "EBITDA, break-even & payback"],
+    featured: false,
   }),
   withHref({
-    title: "Industrial Engineering",
-    slug: "industrial-engineering",
-    description: "Optimize your manufacturing processes for maximum efficiency",
-    icon: "efficiency",
-    points: ["Process improvement", "Capacity & line balancing", "Cost reduction"],
-    featured: true,
+    title: "Working Capital & Financial Management",
+    slug: "working-capital-financial-management",
+    description: "Work out how much working capital a business actually requires",
+    icon: "workingCapital",
+    points: ["Inventory & receivables cycle", "Cash-flow planning", "Bank-finance requirement"],
+    featured: false,
   }),
   withHref({
-    title: "Machinery Consultancy",
+    title: "Product Costing Consultancy",
+    slug: "product-costing-consultancy",
+    description: "Determine the true manufacturing cost per unit, and the price it supports",
+    icon: "costing",
+    points: ["Per-unit manufacturing cost", "Wholesale to retail price chain", "Profit-margin analysis"],
+    featured: false,
+  }),
+
+  // ── Group 3 — Factory & Machinery ──────────────────────────────────────────
+  withHref({
+    title: "Machinery Selection & Procurement",
     slug: "machinery-consultancy",
-    description: "Expert guidance on machinery selection and procurement",
+    description: "Independent machinery selection and procurement, Indian or imported",
     icon: "machinery",
-    points: ["Technical specification", "Vendor evaluation", "Import & installation"],
+    points: ["Specification & capacity selection", "Quotation comparison & negotiation", "Installation & commissioning"],
     featured: true,
   }),
   withHref({
-    title: "Plastic Industry Consultancy",
-    slug: "plastic-industry-consultancy",
-    description: "Specialized consultancy for plastic manufacturing units",
-    icon: "polymer",
-    points: ["Injection & blow moulding", "Recycling units", "Product development"],
+    title: "Factory Setup Consultancy",
+    slug: "factory-setup-consultancy",
+    description: "Complete guidance for establishing a manufacturing facility, land to production",
+    icon: "siteSetup",
+    points: ["Site suitability & building", "Electrical, water & drainage", "Storage, safety & facilities"],
     featured: true,
   }),
   withHref({
-    title: "Brewery & Distillery Consultancy",
-    slug: "brewery-distillery-consultancy",
-    description: "Specialised consultancy for breweries, IMFL and distillery units",
-    icon: "brewery",
-    points: ["Brewhouse & fermentation", "IMFL blending & bottling", "State excise licensing"],
+    title: "Plant Layout & Production Planning",
+    slug: "plant-layout-production-planning",
+    description: "An efficient layout that cuts material movement, manpower and production losses",
+    icon: "layout",
+    points: ["Machinery positioning & line layout", "Material & worker flow", "Utility layout & expansion room"],
     featured: false,
   }),
   withHref({
-    title: "Cold Storage Consultancy",
-    slug: "cold-storage-consultancy",
-    description: "Specialised consultancy for cold chain and controlled-atmosphere storage",
-    icon: "coldStorage",
-    points: ["Single & multi-commodity", "Refrigeration & insulation", "NHB / PMKSY subsidy"],
+    title: "Vendor & Supplier Development",
+    slug: "vendor-supplier-development",
+    description: "Identify suitable vendors for machinery, raw materials and industrial services",
+    icon: "supplier",
+    points: ["Supplier identification & evaluation", "Technical quotation comparison", "Price benchmarking & negotiation"],
     featured: false,
   }),
   withHref({
-    title: "Biogas Plant Consultancy",
-    slug: "biogas-consultancy",
-    description: "Specialised consultancy for biogas, Bio-CNG and compressed biogas plants",
-    icon: "biogas",
-    points: ["Feedstock assessment", "Digester & gas upgrading", "SATAT / CBG offtake"],
+    title: "Licensing & Compliance Guidance",
+    slug: "licensing-compliance-guidance",
+    description: "Guidance on the registrations, licences and approvals a project needs",
+    icon: "compliance",
+    points: ["Udyam, GST & factory approvals", "Pollution, fire & FSSAI", "BIS, metrology & boiler"],
+    featured: false,
+  }),
+
+  // ── Group 4 — Production & Turnaround ──────────────────────────────────────
+  withHref({
+    title: "Production & Process Improvement",
+    slug: "production-process-improvement",
+    description: "Improve productivity and reduce manufacturing cost on a plant that already runs",
+    icon: "efficiency",
+    points: ["Cycle-time & wastage reduction", "Machine utilisation & downtime", "Quality & inventory management"],
     featured: false,
   }),
   withHref({
-    title: "Waste Management Consultancy",
-    slug: "waste-management-consultancy",
-    description: "Specialised consultancy for recycling, C&D and waste-processing plants",
-    icon: "waste",
-    points: ["MSW & dry-waste sorting", "Plastic & C&D recycling", "CPCB / EPR compliance"],
+    title: "Factory & Machinery Expansion",
+    slug: "factory-machinery-expansion",
+    description: "For existing manufacturers, analyse how to increase production and profitability",
+    icon: "expansion",
+    points: ["Capacity expansion study", "Bottleneck & automation analysis", "ROI analysis for expansion"],
+    featured: false,
+  }),
+  withHref({
+    title: "Business Turnaround & Cost Reduction",
+    slug: "business-turnaround-cost-reduction",
+    description: "A business and factory health check for struggling units, then a recovery plan",
+    icon: "recovery",
+    points: ["Sales, cost & production review", "Working-capital & debt analysis", "Cost-reduction & profit plan"],
+    featured: false,
+  }),
+  withHref({
+    title: "Project Implementation Management",
+    slug: "industrial-project-implementation-management",
+    description: "End-to-end coordination from business idea to commercial production and expansion",
+    icon: "roadmap",
+    points: ["Stage-wise project roadmap", "Procurement to trial production", "Marketing, sales & expansion"],
+    featured: false,
+  }),
+
+  // ── Group 5 — Automation, AI & Growth ──────────────────────────────────────
+  withHref({
+    title: "Industrial Automation Consultancy",
+    slug: "industrial-automation-consultancy",
+    description: "Identify where automation can improve productivity in an MSME plant",
+    icon: "automation",
+    points: ["Handling, filling & packaging", "PLC & sensor-based systems", "Production & machine monitoring"],
+    featured: false,
+  }),
+  withHref({
+    title: "AI Consultancy for Manufacturing",
+    slug: "ai-consultancy",
+    description: "Put AI to work across sales, forecasting, quality inspection and reporting",
+    icon: "ai",
+    points: ["Lead generation & follow-up", "Demand & production forecasting", "Predictive maintenance & MIS"],
+    featured: true,
+  }),
+  withHref({
+    title: "Digital Marketing for Industrial Businesses",
+    slug: "digital-marketing",
+    description: "Generate qualified leads for machinery manufacturers and industrial companies",
+    icon: "marketing",
+    points: ["Industrial SEO & paid ads", "Landing pages & company profiles", "CRM & lead nurturing"],
     featured: false,
   }),
 ];
@@ -237,87 +347,92 @@ export const whyChooseUs = {
 };
 
 /**
- * Sectors carry a photograph now that `Industries` renders as image tiles.
+ * Sectors carry a photograph now that `Sectors` renders as image tiles.
  *
  * This is the single source of truth for the sector list — `content/harbour.ts`
  * re-exports it, so changing the shape here means updating
  * `components/harbour/Sectors.tsx` too. Do not fork a second list.
  */
 /**
- * Declared as a tuple so `IndustrySlug` is a union rather than `string`. That is
- * what makes `industryDetails` in `content/industries.ts` a total map: adding a
- * sector below without writing its detail fails the build instead of rendering
- * an empty block. Same arrangement as `serviceSlugs` above.
+ * Declared as a tuple so `SectorSlug` is a union rather than `string`. That is
+ * what makes `sectorDetails` in `content/sectors.ts` a total map: adding a
+ * sector here without writing its detail fails the build instead of rendering
+ * an empty block. Same arrangement as `serviceSlugs` above. Order is the order
+ * the sectors render on /sectors, following the client's sector document.
  */
-export const industrySlugs = [
-  "plastic",
+export const sectorSlugs = [
   "food-processing",
+  "dairy",
   "beverage",
-  "chemical",
-  "textile",
-  "agriculture",
-  "engineering",
+  "plastic",
+  "pet-packaging",
   "packaging",
+  "paper-disposables",
+  "poultry-livestock",
+  "fishery-aquaculture",
+  "agriculture",
+  "cold-chain",
+  "bakery-confectionery",
+  "rice-grain-flour",
+  "feed-manufacturing",
+  "bio-cng",
   "recycling",
-  "steel-metal",
+  "engineering",
+  "electrical-equipment",
+  "textile",
+  "construction-material",
+  "alcohol-beverage",
+  "green-manufacturing",
 ] as const;
 
-export type IndustrySlug = (typeof industrySlugs)[number];
+export type SectorSlug = (typeof sectorSlugs)[number];
 
-export type Industry = {
+export type Sector = {
   name: string;
-  slug: IndustrySlug;
+  slug: SectorSlug;
   image: { src: string; alt: string };
 };
 
 /**
  * Every id below has been checked to resolve, and every `alt` describes what is
  * actually in the frame rather than restating the sector name. That distinction
- * matters: the tile's visible label already says "Steel & Metal", and alt text
- * asserting a rolling mill over a photograph of a laser cutter would be wrong
- * for a screen reader and wrong for search.
+ * matters: the tile's visible label already says "Textile & Garment", and alt
+ * text asserting a loom over a photograph of a yarn line would be wrong for a
+ * screen reader and wrong for search.
  *
+ * There are more sectors than photographs, so a handful of ids are reused across
+ * related sectors — the `alt` still describes the frame, not the sector on it.
  * These are library photographs standing in for sector imagery, not ICF sites.
  * Replace them with plant photography from real engagements when it is cleared.
  */
 const sectorPhoto = (id: string) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800`;
 
-export const industries: Industry[] = [
-  {
-    name: "Plastic",
-    slug: "plastic",
-    image: { src: sectorPhoto("18631423"), alt: "Plastic bottle on a factory bottling line" },
-  },
+export const sectors: Sector[] = [
   {
     name: "Food Processing",
     slug: "food-processing",
     image: { src: sectorPhoto("4820840"), alt: "Industrial sealing machine closing a foil pack" },
   },
   {
-    name: "Beverage",
+    name: "Dairy & Milk Processing",
+    slug: "dairy",
+    image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
+  },
+  {
+    name: "Beverage & Packaged Water",
     slug: "beverage",
     image: { src: sectorPhoto("18631424"), alt: "Bottles moving along an automated conveyor" },
   },
   {
-    name: "Chemical",
-    slug: "chemical",
+    name: "Plastic & Polymer",
+    slug: "plastic",
     image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
   },
   {
-    name: "Textile",
-    slug: "textile",
-    image: { src: sectorPhoto("8246480"), alt: "Yarn production line in a textile factory" },
-  },
-  {
-    name: "Agriculture",
-    slug: "agriculture",
-    image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
-  },
-  {
-    name: "Engineering",
-    slug: "engineering",
-    image: { src: sectorPhoto("29988964"), alt: "Laser cutting machine running in a workshop" },
+    name: "PET Preform & Bottle",
+    slug: "pet-packaging",
+    image: { src: sectorPhoto("18631423"), alt: "Plastic bottle on a factory bottling line" },
   },
   {
     name: "Packaging",
@@ -325,14 +440,84 @@ export const industries: Industry[] = [
     image: { src: sectorPhoto("5532664"), alt: "Automated canning and packaging line" },
   },
   {
-    name: "Recycling",
+    name: "Paper & Disposables",
+    slug: "paper-disposables",
+    image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
+  },
+  {
+    name: "Poultry & Livestock",
+    slug: "poultry-livestock",
+    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
+  },
+  {
+    name: "Fishery & Aquaculture",
+    slug: "fishery-aquaculture",
+    image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
+  },
+  {
+    name: "Agriculture & Agro-Processing",
+    slug: "agriculture",
+    image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
+  },
+  {
+    name: "Cold Storage & Cold Chain",
+    slug: "cold-chain",
+    image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
+  },
+  {
+    name: "Bakery & Confectionery",
+    slug: "bakery-confectionery",
+    image: { src: sectorPhoto("5532664"), alt: "Automated canning and packaging line" },
+  },
+  {
+    name: "Rice, Grain & Flour",
+    slug: "rice-grain-flour",
+    image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
+  },
+  {
+    name: "Feed Manufacturing",
+    slug: "feed-manufacturing",
+    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
+  },
+  {
+    name: "Bio-CNG & Renewable Energy",
+    slug: "bio-cng",
+    image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
+  },
+  {
+    name: "Recycling & Waste Management",
     slug: "recycling",
     image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
   },
   {
-    name: "Steel & Metal",
-    slug: "steel-metal",
+    name: "Engineering & Fabrication",
+    slug: "engineering",
+    image: { src: sectorPhoto("29988964"), alt: "Laser cutting machine running in a workshop" },
+  },
+  {
+    name: "Electrical & Industrial Equipment",
+    slug: "electrical-equipment",
     image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
+  },
+  {
+    name: "Textile & Garment",
+    slug: "textile",
+    image: { src: sectorPhoto("8246480"), alt: "Yarn production line in a textile factory" },
+  },
+  {
+    name: "Construction Material",
+    slug: "construction-material",
+    image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
+  },
+  {
+    name: "Beverage Alcohol",
+    slug: "alcohol-beverage",
+    image: { src: sectorPhoto("18631424"), alt: "Bottles moving along an automated conveyor" },
+  },
+  {
+    name: "Green & Sustainable Manufacturing",
+    slug: "green-manufacturing",
+    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
   },
 ];
 
@@ -370,7 +555,7 @@ export const clients: Client[] = [
  */
 export type Project = {
   title: string;
-  /** Must match an `Industry.name`; the tab filter compares on this. */
+  /** Must match a `Sector.name`; the tab filter compares on this. */
   sector: string;
   /** Rendered verbatim, so the unit stays with the figure. */
   investment: string;
@@ -380,7 +565,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: "Turnkey setup of a 12,000 LPH packaged drinking water plant",
-    sector: "Beverage",
+    sector: "Beverage & Packaged Water",
     investment: "₹4 Cr",
     image: { src: sectorPhoto("18631424"), alt: "Bottles moving along an automated conveyor" },
   },
@@ -392,13 +577,13 @@ export const projects: Project[] = [
   },
   {
     title: "PET preform and closure unit with in-house tooling",
-    sector: "Plastic",
+    sector: "PET Preform & Bottle",
     investment: "₹8 Cr",
     image: { src: sectorPhoto("18631423"), alt: "Plastic bottle on a factory bottling line" },
   },
   {
     title: "Specialty resin blending plant with effluent treatment",
-    sector: "Chemical",
+    sector: "Plastic & Polymer",
     investment: "₹30 Cr",
     image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
   },
@@ -416,25 +601,25 @@ export const projects: Project[] = [
   },
   {
     title: "PP woven sack unit — circular looms and lamination",
-    sector: "Textile",
+    sector: "Textile & Garment",
     investment: "₹5.5 Cr",
     image: { src: sectorPhoto("38357014"), alt: "Textile machinery running large spools of yarn" },
   },
   {
     title: "PET bottle-to-flake washing and recycling line",
-    sector: "Recycling",
+    sector: "Recycling & Waste Management",
     investment: "₹3.5 Cr",
     image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
   },
   {
     title: "Sheet metal fabrication unit with CNC press brakes",
-    sector: "Engineering",
+    sector: "Engineering & Fabrication",
     investment: "₹7 Cr",
     image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
   },
   {
     title: "Induction furnace and rolling mill modernisation",
-    sector: "Steel & Metal",
+    sector: "Engineering & Fabrication",
     investment: "₹25 Cr",
     image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
   },
@@ -446,7 +631,7 @@ export const aboutSection = {
   paragraphs: [
     "Industrial Consultancy Firm has worked alongside Indian manufacturers since 2009, taking projects from a first conversation about an idea through to a plant running at rated output. We prepare the feasibility study, write the detailed project report, map the applicable subsidy scheme, arrange the term loan, specify and source the machinery, and stay on the project until it is commissioned.",
     "Most industrial projects do not fail on the factory floor. They fail earlier — on a feasibility study that will not survive a credit committee, on a subsidy claim filed against the wrong scheme, on a machine bought on price rather than on throughput. Our work is to close those gaps before they cost anything.",
-    "We work across ten manufacturing sectors and hold working relationships with 50+ banks and financial institutions, which is why our project reports tend to clear appraisal on the first pass rather than the third.",
+    "We work across manufacturing, processing and infrastructure sectors and hold working relationships with 50+ banks and financial institutions, which is why our project reports tend to clear appraisal on the first pass rather than the third.",
   ],
   cta: { label: "More About ICF", href: "/about" },
   form: {
@@ -503,5 +688,5 @@ export const closingCta = {
   body:
     "Get free consultation from our expert industrial consultants. We'll help you navigate the entire process from planning to production.",
   primaryCta: { label: "Get Free Consultation", href: "/contact" },
-  secondaryCta: { label: "Check Subsidy Eligibility", href: "/subsidies" },
+  secondaryCta: { label: "Check Subsidy Eligibility", href: "/services/government-loan-subsidy-consultancy" },
 } as const;

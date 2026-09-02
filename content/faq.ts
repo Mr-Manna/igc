@@ -1,7 +1,7 @@
 /**
  * The general questions every visitor asks, answered once and rendered on both
  * the homepage and /about via `components/faq/FaqSection`. Page-specific
- * questions stay with their own pages (`servicesFaq`, `industriesFaq`) rather
+ * questions stay with their own pages (`servicesFaq`, `sectorsFaq`) rather
  * than moving here, so a crawler never sees the same question answered twice
  * on one page.
  */
