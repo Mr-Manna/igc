@@ -8,10 +8,10 @@ import { industries } from "@/content/home";
 /**
  * Sectors as photographic tiles on a rail.
  *
- * The flat two-word tile grid this replaces was honest but inert — ten
+ * The flat two-word tile grid this replaces was honest but inert — a wall of
  * identical boxes gave a reader no reason to believe ICF had actually been
- * inside a textile mill or a chemical plant. A picture per sector is the
- * cheapest available evidence.
+ * inside a textile mill or a dairy plant. A picture per sector is the cheapest
+ * available evidence.
  *
  * Every tile links to the sector's block on /industries rather than to a
  * per-sector page: those routes do not exist, and the index carries the detail

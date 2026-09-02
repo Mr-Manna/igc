@@ -246,20 +246,33 @@ export const whyChooseUs = {
 /**
  * Declared as a tuple so `IndustrySlug` is a union rather than `string`. That is
  * what makes `industryDetails` in `content/industries.ts` a total map: adding a
- * sector below without writing its detail fails the build instead of rendering
- * an empty block. Same arrangement as `serviceSlugs` above.
+ * sector here without writing its detail fails the build instead of rendering
+ * an empty block. Same arrangement as `serviceSlugs` above. Order is the order
+ * the sectors render on /industries, following the client's sector document.
  */
 export const industrySlugs = [
-  "plastic",
   "food-processing",
+  "dairy",
   "beverage",
-  "chemical",
-  "textile",
-  "agriculture",
-  "engineering",
+  "plastic",
+  "pet-packaging",
   "packaging",
+  "paper-disposables",
+  "poultry-livestock",
+  "fishery-aquaculture",
+  "agriculture",
+  "cold-chain",
+  "bakery-confectionery",
+  "rice-grain-flour",
+  "feed-manufacturing",
+  "bio-cng",
   "recycling",
-  "steel-metal",
+  "engineering",
+  "electrical-equipment",
+  "textile",
+  "construction-material",
+  "alcohol-beverage",
+  "green-manufacturing",
 ] as const;
 
 export type IndustrySlug = (typeof industrySlugs)[number];
@@ -273,10 +286,12 @@ export type Industry = {
 /**
  * Every id below has been checked to resolve, and every `alt` describes what is
  * actually in the frame rather than restating the sector name. That distinction
- * matters: the tile's visible label already says "Steel & Metal", and alt text
- * asserting a rolling mill over a photograph of a laser cutter would be wrong
- * for a screen reader and wrong for search.
+ * matters: the tile's visible label already says "Textile & Garment", and alt
+ * text asserting a loom over a photograph of a yarn line would be wrong for a
+ * screen reader and wrong for search.
  *
+ * There are more sectors than photographs, so a handful of ids are reused across
+ * related sectors — the `alt` still describes the frame, not the sector on it.
  * These are library photographs standing in for sector imagery, not ICF sites.
  * Replace them with plant photography from real engagements when it is cleared.
  */
@@ -285,39 +300,29 @@ const sectorPhoto = (id: string) =>
 
 export const industries: Industry[] = [
   {
-    name: "Plastic",
-    slug: "plastic",
-    image: { src: sectorPhoto("18631423"), alt: "Plastic bottle on a factory bottling line" },
-  },
-  {
     name: "Food Processing",
     slug: "food-processing",
     image: { src: sectorPhoto("4820840"), alt: "Industrial sealing machine closing a foil pack" },
   },
   {
-    name: "Beverage",
+    name: "Dairy & Milk Processing",
+    slug: "dairy",
+    image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
+  },
+  {
+    name: "Beverage & Packaged Water",
     slug: "beverage",
     image: { src: sectorPhoto("18631424"), alt: "Bottles moving along an automated conveyor" },
   },
   {
-    name: "Chemical",
-    slug: "chemical",
+    name: "Plastic & Polymer",
+    slug: "plastic",
     image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
   },
   {
-    name: "Textile",
-    slug: "textile",
-    image: { src: sectorPhoto("8246480"), alt: "Yarn production line in a textile factory" },
-  },
-  {
-    name: "Agriculture",
-    slug: "agriculture",
-    image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
-  },
-  {
-    name: "Engineering",
-    slug: "engineering",
-    image: { src: sectorPhoto("29988964"), alt: "Laser cutting machine running in a workshop" },
+    name: "PET Preform & Bottle",
+    slug: "pet-packaging",
+    image: { src: sectorPhoto("18631423"), alt: "Plastic bottle on a factory bottling line" },
   },
   {
     name: "Packaging",
@@ -325,14 +330,84 @@ export const industries: Industry[] = [
     image: { src: sectorPhoto("5532664"), alt: "Automated canning and packaging line" },
   },
   {
-    name: "Recycling",
+    name: "Paper & Disposables",
+    slug: "paper-disposables",
+    image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
+  },
+  {
+    name: "Poultry & Livestock",
+    slug: "poultry-livestock",
+    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
+  },
+  {
+    name: "Fishery & Aquaculture",
+    slug: "fishery-aquaculture",
+    image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
+  },
+  {
+    name: "Agriculture & Agro-Processing",
+    slug: "agriculture",
+    image: { src: sectorPhoto("29988955"), alt: "Worker in protective gear supervising plant operations" },
+  },
+  {
+    name: "Cold Storage & Cold Chain",
+    slug: "cold-chain",
+    image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
+  },
+  {
+    name: "Bakery & Confectionery",
+    slug: "bakery-confectionery",
+    image: { src: sectorPhoto("5532664"), alt: "Automated canning and packaging line" },
+  },
+  {
+    name: "Rice, Grain & Flour",
+    slug: "rice-grain-flour",
+    image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
+  },
+  {
+    name: "Feed Manufacturing",
+    slug: "feed-manufacturing",
+    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
+  },
+  {
+    name: "Bio-CNG & Renewable Energy",
+    slug: "bio-cng",
+    image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
+  },
+  {
+    name: "Recycling & Waste Management",
     slug: "recycling",
     image: { src: sectorPhoto("34718926"), alt: "Conveyor belts running through a plant interior" },
   },
   {
-    name: "Steel & Metal",
-    slug: "steel-metal",
+    name: "Engineering & Fabrication",
+    slug: "engineering",
+    image: { src: sectorPhoto("29988964"), alt: "Laser cutting machine running in a workshop" },
+  },
+  {
+    name: "Electrical & Industrial Equipment",
+    slug: "electrical-equipment",
     image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
+  },
+  {
+    name: "Textile & Garment",
+    slug: "textile",
+    image: { src: sectorPhoto("8246480"), alt: "Yarn production line in a textile factory" },
+  },
+  {
+    name: "Construction Material",
+    slug: "construction-material",
+    image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
+  },
+  {
+    name: "Beverage Alcohol",
+    slug: "alcohol-beverage",
+    image: { src: sectorPhoto("18631424"), alt: "Bottles moving along an automated conveyor" },
+  },
+  {
+    name: "Green & Sustainable Manufacturing",
+    slug: "green-manufacturing",
+    image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
   },
 ];
 
@@ -380,7 +455,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: "Turnkey setup of a 12,000 LPH packaged drinking water plant",
-    sector: "Beverage",
+    sector: "Beverage & Packaged Water",
     investment: "₹4 Cr",
     image: { src: sectorPhoto("18631424"), alt: "Bottles moving along an automated conveyor" },
   },
@@ -392,13 +467,13 @@ export const projects: Project[] = [
   },
   {
     title: "PET preform and closure unit with in-house tooling",
-    sector: "Plastic",
+    sector: "PET Preform & Bottle",
     investment: "₹8 Cr",
     image: { src: sectorPhoto("18631423"), alt: "Plastic bottle on a factory bottling line" },
   },
   {
     title: "Specialty resin blending plant with effluent treatment",
-    sector: "Chemical",
+    sector: "Plastic & Polymer",
     investment: "₹30 Cr",
     image: { src: sectorPhoto("34221997"), alt: "Industrial machine running in a production hall" },
   },
@@ -416,25 +491,25 @@ export const projects: Project[] = [
   },
   {
     title: "PP woven sack unit — circular looms and lamination",
-    sector: "Textile",
+    sector: "Textile & Garment",
     investment: "₹5.5 Cr",
     image: { src: sectorPhoto("38357014"), alt: "Textile machinery running large spools of yarn" },
   },
   {
     title: "PET bottle-to-flake washing and recycling line",
-    sector: "Recycling",
+    sector: "Recycling & Waste Management",
     investment: "₹3.5 Cr",
     image: { src: sectorPhoto("34718930"), alt: "Wide view of a factory floor with machinery and conveyors" },
   },
   {
     title: "Sheet metal fabrication unit with CNC press brakes",
-    sector: "Engineering",
+    sector: "Engineering & Fabrication",
     investment: "₹7 Cr",
     image: { src: sectorPhoto("29988986"), alt: "Laser cutter operating in an industrial facility" },
   },
   {
     title: "Induction furnace and rolling mill modernisation",
-    sector: "Steel & Metal",
+    sector: "Engineering & Fabrication",
     investment: "₹25 Cr",
     image: { src: sectorPhoto("29988988"), alt: "Laser cutting head working through sheet metal" },
   },
@@ -446,7 +521,7 @@ export const aboutSection = {
   paragraphs: [
     "Industrial Consultancy Firm has worked alongside Indian manufacturers since 2009, taking projects from a first conversation about an idea through to a plant running at rated output. We prepare the feasibility study, write the detailed project report, map the applicable subsidy scheme, arrange the term loan, specify and source the machinery, and stay on the project until it is commissioned.",
     "Most industrial projects do not fail on the factory floor. They fail earlier — on a feasibility study that will not survive a credit committee, on a subsidy claim filed against the wrong scheme, on a machine bought on price rather than on throughput. Our work is to close those gaps before they cost anything.",
-    "We work across ten manufacturing sectors and hold working relationships with 50+ banks and financial institutions, which is why our project reports tend to clear appraisal on the first pass rather than the third.",
+    "We work across manufacturing, processing and infrastructure sectors and hold working relationships with 50+ banks and financial institutions, which is why our project reports tend to clear appraisal on the first pass rather than the third.",
   ],
   cta: { label: "More About ICF", href: "/about" },
   form: {

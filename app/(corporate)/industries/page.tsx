@@ -23,18 +23,18 @@ import { site } from "@/content/site";
  * categories, while this one has to argue that sector knowledge is the thing
  * being bought.
  *
- * Hence the order: the argument first, then the ten sectors, then the
+ * Hence the order: the argument first, then the sectors, then the
  * cross-reference back to services, then the ask, with the remaining questions
  * parked last where they cannot interrupt anyone already convinced. The
  * `/industries/<slug>` routes do not exist; the depth they would carry is here,
- * anchored by slug, so `/industries#chemical` works today and keeps
+ * anchored by slug, so `/industries#food-processing` works today and keeps
  * working after they ship.
  */
 
 export const metadata: Metadata = {
   title: "Industries We Serve",
   description:
-    "Industrial consultancy across ten manufacturing sectors in India — plastic, food processing, beverage, chemical, textile, agriculture, engineering, packaging, recycling and steel. Sector-specific process routes, approvals and machinery.",
+    "Industrial consultancy across 20+ manufacturing, processing and infrastructure sectors in India — food processing, dairy, beverage, plastics, packaging, cold chain, poultry, engineering, textile and more. Sector-specific project lists, machinery and DPR support.",
   alternates: { canonical: "/industries" },
   robots: { index: true, follow: true },
   openGraph: {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: site.legalName,
     title: `Industries We Serve | ${site.name}`,
     description:
-      "Manufacturing project consultancy across ten sectors, each with its own process routes, statutory approvals and machinery market.",
+      "Manufacturing project consultancy across 20+ sectors, each with its own process routes, applicable norms and machinery market.",
   },
 };
 

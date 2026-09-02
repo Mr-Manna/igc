@@ -8,7 +8,7 @@ import { contact } from "@/content/site";
  * for the same reason: markup a crawler reads and text a visitor reads that map
  * over one object cannot drift apart.
  *
- * The questions here are deliberately disjoint from the eight on /services. Two
+ * The questions here are deliberately disjoint from those on /services. Two
  * `FAQPage` blocks on one domain answering the same question with the same words
  * is two pages competing for one result, and only one of them can win it.
  *

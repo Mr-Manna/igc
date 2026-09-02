@@ -3,15 +3,15 @@ import { industries } from "@/content/home";
 import { industriesPage } from "@/content/industries";
 
 /**
- * In-page anchors to the ten sector blocks, in the masthead slot
- * `ServiceJumpNav` occupies on /services.
+ * In-page anchors to the sector blocks, in the masthead slot `ServiceJumpNav`
+ * occupies on /services.
  *
  * Anchors rather than links to `/industries/<slug>`: those routes do not exist,
  * and this page carries the detail they would hold. The `id`s are the sector
- * slugs, so `/industries#chemical` is a stable address that survives the
+ * slugs, so `/industries#food-processing` is a stable address that survives the
  * per-sector pages shipping and these anchors becoming links.
  *
- * Ten is enough for the list to need `scroll-padding-top: 6rem` in
+ * With this many entries the list depends on `scroll-padding-top: 6rem` in
  * globals.css to be doing its job — without it every target lands under the
  * sticky header.
  */

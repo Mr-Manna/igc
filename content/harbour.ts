@@ -122,7 +122,7 @@ export const solutions = {
 export const sectors = {
   eyebrow: "Sectors",
   heading: {
-    bold: "Ten industries",
+    bold: "The sectors",
     light: "we have commissioned in",
   } satisfies TwoWeight,
   cta: { label: "All sectors", href: "/industries" },
@@ -222,7 +222,7 @@ export const faq = {
     },
     {
       q: "Which sectors do you take on?",
-      a: "Ten, listed above. Polymer processing, food and beverage, chemical and packaging are where our work is deepest. If your sector is not on the list, ask — we will tell you honestly whether we are the right firm for it.",
+      a: "The sectors listed above. Food and beverage processing, polymer and packaging, and agro-processing are where our work is deepest. If your sector is not on the list, ask — we will tell you honestly whether we are the right firm for it.",
     },
     {
       q: "Do you work outside your home state?",
