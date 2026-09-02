@@ -9,8 +9,8 @@ import { sectorStrip } from "@/content/services";
  *
  * The homepage runs the same list as a photographic rail. Repeating that here
  * would be the same content twice at the same weight, and this page has already
- * spent its attention budget on the six services — the sectors are context, not
- * a second headline act. So: chips, no pictures, no carousel.
+ * spent its attention budget on the twenty services — the sectors are context,
+ * not a second headline act. So: chips, no pictures, no carousel.
  *
  * Every chip goes to the sector's block on the index rather than to a per-sector
  * page. Those routes do not exist; /sectors carries the detail they would

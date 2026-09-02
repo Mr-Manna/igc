@@ -72,11 +72,11 @@ export const footerQuickLinks: NavItem[] = [
 
 export const footerServiceLinks: NavItem[] = [
   { label: "Project Consultancy", href: "/services/industrial-project-consultancy" },
-  { label: "Subsidy Consultancy", href: "/services/government-subsidy-consultancy" },
-  { label: "Loan Consultancy", href: "/services/loan-consultancy" },
-  { label: "Industrial Engineering", href: "/services/industrial-engineering" },
+  { label: "Project Reports (DPR)", href: "/services/detailed-project-report" },
+  { label: "Loan & Subsidy", href: "/services/government-loan-subsidy-consultancy" },
   { label: "Machinery Consultancy", href: "/services/machinery-consultancy" },
-  { label: "Plastic Industry Consultancy", href: "/services/plastic-industry-consultancy" },
+  { label: "Factory Setup", href: "/services/factory-setup-consultancy" },
+  { label: "AI Consultancy", href: "/services/ai-consultancy" },
 ];
 
 export const legalLinks: NavItem[] = [
