@@ -237,20 +237,20 @@ export const whyChooseUs = {
 };
 
 /**
- * Sectors carry a photograph now that `Industries` renders as image tiles.
+ * Sectors carry a photograph now that `Sectors` renders as image tiles.
  *
  * This is the single source of truth for the sector list — `content/harbour.ts`
  * re-exports it, so changing the shape here means updating
  * `components/harbour/Sectors.tsx` too. Do not fork a second list.
  */
 /**
- * Declared as a tuple so `IndustrySlug` is a union rather than `string`. That is
- * what makes `industryDetails` in `content/industries.ts` a total map: adding a
+ * Declared as a tuple so `SectorSlug` is a union rather than `string`. That is
+ * what makes `sectorDetails` in `content/sectors.ts` a total map: adding a
  * sector here without writing its detail fails the build instead of rendering
  * an empty block. Same arrangement as `serviceSlugs` above. Order is the order
- * the sectors render on /industries, following the client's sector document.
+ * the sectors render on /sectors, following the client's sector document.
  */
-export const industrySlugs = [
+export const sectorSlugs = [
   "food-processing",
   "dairy",
   "beverage",
@@ -275,11 +275,11 @@ export const industrySlugs = [
   "green-manufacturing",
 ] as const;
 
-export type IndustrySlug = (typeof industrySlugs)[number];
+export type SectorSlug = (typeof sectorSlugs)[number];
 
-export type Industry = {
+export type Sector = {
   name: string;
-  slug: IndustrySlug;
+  slug: SectorSlug;
   image: { src: string; alt: string };
 };
 
@@ -298,7 +298,7 @@ export type Industry = {
 const sectorPhoto = (id: string) =>
   `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=800`;
 
-export const industries: Industry[] = [
+export const sectors: Sector[] = [
   {
     name: "Food Processing",
     slug: "food-processing",
@@ -445,7 +445,7 @@ export const clients: Client[] = [
  */
 export type Project = {
   title: string;
-  /** Must match an `Industry.name`; the tab filter compares on this. */
+  /** Must match a `Sector.name`; the tab filter compares on this. */
   sector: string;
   /** Rendered verbatim, so the unit stays with the figure. */
   investment: string;

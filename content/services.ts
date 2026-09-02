@@ -271,7 +271,7 @@ export const sectorStrip = {
   heading: "Where These Services Are Delivered",
   body:
     "Every engagement is specified against the sector it is for — the process routes, the applicable norms and the machinery market all differ. These are the sectors we work in.",
-  cta: { label: "View All Industries", href: "/industries" },
+  cta: { label: "View All Sectors", href: "/sectors" },
 } as const;
 
 export type Faq = { question: string; answer: string };

@@ -2,7 +2,7 @@ import { AboutEnquiry } from "@/components/home/AboutEnquiry";
 import { ClientLogos } from "@/components/home/ClientLogos";
 import { ClosingCTA } from "@/components/home/ClosingCTA";
 import { Hero } from "@/components/home/Hero";
-import { Industries } from "@/components/home/Industries";
+import { Sectors } from "@/components/home/Sectors";
 import { ProjectsShowcase } from "@/components/home/ProjectsShowcase";
 import { SeoNarrative } from "@/components/home/SeoNarrative";
 import { ServicesIndex } from "@/components/home/ServicesIndex";
@@ -29,7 +29,7 @@ export default function HomePage() {
       <StatsBand />
       <ClientLogos />
       <ServicesIndex />
-      <Industries />
+      <Sectors />
       <AboutEnquiry />
       <WhyChooseUs />
       <SeoNarrative />

@@ -39,13 +39,14 @@ fonts, the global JSON-LD, the skip link, and the inline `.js`-stamping script. 
 **`content/` is the single source of truth.** Typed closed unions enforce consistency: e.g.
 `content/home.ts` exports `ServiceSlug`, and `content/services.ts` keys long-form copy by it, so
 adding a service without its detail copy is a *type error*, not an empty block. `content/harbour.ts`
-re-exports `stats`/`services`/`industries` from `content/home.ts` — don't fork them.
+re-exports `stats`/`services`/`sectors` from `content/home.ts` — don't fork them.
 
 **`builtRoutes` in `content/site.ts` is the one switch that ships a page.** It (a) removes the
 path from the `app/(corporate)/[...slug]/page.tsx` stub catch-all — two prerenders of one path
 collide at build time — and (b) adds it to `app/sitemap.ts`. Stubs stay out of the sitemap
 because they're `noindex`. Genuinely unknown paths still 404 (`dynamicParams = false`).
-Currently built: `/`, `/about`, `/services`, `/industries`.
+Currently built: `/`, `/about`, `/services`, `/sectors`. (`/industries` is the old path of
+`/sectors` and permanently redirects to it — see `next.config.ts`.)
 
 **Enquiry form validation is shared.** `lib/enquiry.ts` is imported by both
 `components/home/EnquiryForm.tsx` and `app/api/enquiry/route.ts` so a field can't pass client-side
@@ -69,7 +70,7 @@ delivery happens — unset `ENQUIRY_WEBHOOK_URL` logs to server console (works e
   runtime deps beyond React: `next`, `embla-carousel-react`, `embla-carousel-auto-scroll`.
   `components/ui/Carousel.tsx` is the only carousel wrapper and owns all the a11y Embla lacks.
 - **FAQ = native `<details>` + `FAQPage` JSON-LD generated from the same array** it renders
-  from. `components/faq/FaqSection.tsx` is the shared one; services/industries keep their own.
+  from. `components/faq/FaqSection.tsx` is the shared one; services/sectors keep their own.
 - **Images are all remote Pexels URLs** (whitelisted in `next.config.ts`); there is no `public/`
   directory and no local assets.
 

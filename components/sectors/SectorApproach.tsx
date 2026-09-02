@@ -1,5 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
-import { sectorApproach } from "@/content/industries";
+import { sectorApproach } from "@/content/sectors";
 
 /**
  * The argument for the page, placed before the sector list rather than after it.

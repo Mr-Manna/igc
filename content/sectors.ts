@@ -1,7 +1,7 @@
-import type { IndustrySlug } from "@/content/home";
+import type { SectorSlug } from "@/content/home";
 
 /**
- * Long-form copy for /industries.
+ * Long-form copy for /sectors.
  *
  * The counterpart to `content/services.ts`: that file is organised by what we
  * do, this one by what the client makes. Both describe the same engagements —
@@ -20,9 +20,9 @@ import type { IndustrySlug } from "@/content/home";
  * rather than listing schemes with expiry dates.
  */
 
-export const industriesPage = {
+export const sectorsPage = {
   eyebrow: "Sectors",
-  heading: "Industries We Serve",
+  heading: "Sectors We Serve",
   body:
     "End-to-end industrial consultancy across manufacturing, processing, infrastructure and emerging-technology sectors — from feasibility and DPR to machinery, finance and plant setup, taken from concept to commercial production.",
   primaryCta: { label: "Get Free Consultation", href: "/contact" },
@@ -55,7 +55,7 @@ export const sectorApproach = {
   ],
 } as const;
 
-export type IndustryDetail = {
+export type SectorDetail = {
   /** One sentence naming the work. Sits under the sector name as a standfirst. */
   lede: string;
   /**
@@ -70,7 +70,7 @@ export type IndustryDetail = {
   units: string[];
 };
 
-export const industryDetails: Record<IndustrySlug, IndustryDetail> = {
+export const sectorDetails: Record<SectorSlug, SectorDetail> = {
   "food-processing": {
     lede: "We assist entrepreneurs in establishing food-processing units from concept to commercial production.",
     body: "Project costing, machinery selection, plant layout, DPR, licensing guidance, production costing and profitability analysis.",
@@ -415,7 +415,7 @@ export const serviceStrip = {
   cta: { label: "View All Services", href: "/services" },
 } as const;
 
-export const industriesEnquiry = {
+export const sectorsEnquiry = {
   eyebrow: "Start Here",
   heading: "Your Sector Not Listed?",
   paragraphs: [
@@ -435,7 +435,7 @@ export type Faq = { question: string; answer: string };
  * subsidy schemes — are answered on /services, and repeating them here would be
  * two pages competing for the same query with the same text.
  */
-export const industriesFaq = {
+export const sectorsFaq = {
   eyebrow: "Questions",
   heading: "About Sector Work",
   items: [

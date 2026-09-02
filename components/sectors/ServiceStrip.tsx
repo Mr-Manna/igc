@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
 import { services } from "@/content/home";
-import { serviceStrip } from "@/content/industries";
+import { serviceStrip } from "@/content/sectors";
 
 /**
  * The mirror of `SectorStrip` on /services: that page ends its argument by

@@ -1,6 +1,6 @@
 import { EnquiryForm } from "@/components/home/EnquiryForm";
 import { Reveal } from "@/components/ui/Reveal";
-import { industriesEnquiry } from "@/content/industries";
+import { sectorsEnquiry } from "@/content/sectors";
 
 /**
  * The page's lead capture, and the target of every "Discuss a project in this
@@ -12,7 +12,7 @@ import { industriesEnquiry } from "@/content/industries";
  * the reader whose sector is not among them to close the tab, so the heading
  * takes that question rather than repeating the pitch.
  */
-export function IndustriesEnquiry() {
+export function SectorsEnquiry() {
   return (
     <section id="enquiry" className="bg-surface">
       <div className="shell grid items-start gap-12 py-20 lg:grid-cols-12 lg:gap-16 lg:py-24">
@@ -20,16 +20,16 @@ export function IndustriesEnquiry() {
           <Reveal>
             <p className="label flex items-center gap-3 text-blue">
               <span aria-hidden="true" className="h-px w-6 bg-current" />
-              {industriesEnquiry.eyebrow}
+              {sectorsEnquiry.eyebrow}
             </p>
           </Reveal>
 
           <Reveal delay={70}>
-            <h2 className="display-lg mt-4 max-w-[20ch]">{industriesEnquiry.heading}</h2>
+            <h2 className="display-lg mt-4 max-w-[20ch]">{sectorsEnquiry.heading}</h2>
           </Reveal>
 
           <div className="mt-6 space-y-5">
-            {industriesEnquiry.paragraphs.map((paragraph, index) => (
+            {sectorsEnquiry.paragraphs.map((paragraph, index) => (
               <Reveal
                 as="p"
                 key={paragraph.slice(0, 24)}
@@ -44,8 +44,8 @@ export function IndustriesEnquiry() {
 
         <Reveal delay={160} className="lg:col-span-5">
           <EnquiryForm
-            heading={industriesEnquiry.form.heading}
-            body={industriesEnquiry.form.body}
+            heading={sectorsEnquiry.form.heading}
+            body={sectorsEnquiry.form.body}
           />
         </Reveal>
       </div>

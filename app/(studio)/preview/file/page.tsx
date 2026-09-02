@@ -38,7 +38,7 @@ const clauses = [
   { no: "02", label: "Schemes", href: "/subsidies" },
   { no: "03", label: "Finance", href: "/services/loan-consultancy" },
   { no: "04", label: "Machinery", href: "/machinery" },
-  { no: "05", label: "Sectors", href: "/industries" },
+  { no: "05", label: "Sectors", href: "/sectors" },
   { no: "06", label: "Record", href: "/success-stories" },
 ];
 

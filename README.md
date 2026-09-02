@@ -13,9 +13,10 @@ in it is required to run the site.
 
 ## Status
 
-**Four pages are built: `/`, `/about`, `/services` and `/industries`.** Every other route the
+**Four pages are built: `/`, `/about`, `/services` and `/sectors`.** Every other route the
 shell links to resolves to a placeholder (`app/(corporate)/[...slug]/page.tsx`) so navigation
-never 404s; genuinely unknown paths still return a real 404.
+never 404s; genuinely unknown paths still return a real 404. `/industries` is the former path
+of `/sectors` and 308-redirects to it (`next.config.ts`).
 
 Shipping a page is one edit: add its path to `builtRoutes` in `content/site.ts`. That array is
 the single switch — it removes the path from the stub catch-all (two prerenders of the same
@@ -45,7 +46,7 @@ marked `TODO(real-data)`. Before pointing a public domain at this build, replace
 - `clients` in `content/home.ts` — invented company names, rendered as type because there are
   no logo assets and no `public/` directory. Real logos need clearance to use.
 
-The service, industry, statistics and SEO-narrative copy is legitimate domain content and can
+The service, sector, statistics and SEO-narrative copy is legitimate domain content and can
 stay, as is everything in `content/services.ts` — it describes the work rather than attributing
 anything to a named client, so it carries no `TODO(real-data)`.
 
@@ -136,7 +137,7 @@ five-stage process → sector chips → enquiry form → FAQ → closing CTA.
 long-form copy by it, so adding a service without writing its detail is a **type error rather
 than an empty block** in the browser. `Service.href` is derived from the slug in the same file;
 the two cannot drift. `Service.featured` splits the list: the six core engagements are
-`featured` and show in the homepage grid, the harbour spike and the `/industries` service
+`featured` and show in the homepage grid, the harbour spike and the `/sectors` service
 strip; the sector-specific services (plastics, brewery & distillery, cold storage, biogas,
 waste management) are `/services`-only.
 
@@ -147,25 +148,28 @@ depth that will eventually live on them is on this page, anchored by slug —
 per-service CTA points at `#enquiry` on the same page rather than at its own stub, because the
 form there is real and the stub is not.
 
-## The industries page
+## The sectors page
 
-`/industries` is the second axis of the same offer: `/services` is organised by what ICF does,
+`/sectors` is the second axis of the same offer: `/services` is organised by what ICF does,
 this page by what the client makes. It runs: navy masthead with a sector jump-nav → the
 "from concept to commercial production" intro → every sector at length → services cross-strip
 → enquiry form → FAQ → closing CTA.
 
 The sector list and the per-sector copy follow the client's own **"Sectors We Serve"**
 document — ~22 sectors, in that document's order. `content/home.ts` exports the closed
-`IndustrySlug` union (`industrySlugs`) and `content/industries.ts` keys `industryDetails` by
+`SectorSlug` union (`sectorSlugs`) and `content/sectors.ts` keys `sectorDetails` by
 it, so a sector without its detail copy is a type error. Each sector detail is deliberately
 thin: `lede` (the document's one-line intro), `body` (its consultancy sentence) and `units`
 (its project list, verbatim where possible) — no analytical "what decides viability" column.
 
-There are no `/industries/<slug>` routes; every sector is an in-page `#<slug>` anchor, and the
+There are no `/sectors/<slug>` routes; every sector is an in-page `#<slug>` anchor, and the
 `ItemList` JSON-LD lists them as `ListItem`, not `Service`. The page copy is count-neutral
 ("the sectors", not "the ten sectors") so the list can grow without a copy sweep. Sector
 photos are a small reused pool of stock URLs — more sectors than photographs, so some repeat;
 each `alt` still describes the frame.
+
+The page was `/industries` until the rename; `next.config.ts` permanently redirects the old
+path (and `/industries/*`) to `/sectors`.
 
 `components/ui/PageHeader.tsx` is the interior-page masthead and is meant to be reused. It is
 solid navy with a radial wash, not the homepage's photographic plate: the homepage has to stop a
@@ -229,8 +233,8 @@ site: `/preview/file` ("The Sanction File"), `/preview/datum` ("Datum"), and `/h
 `.theme-file` / `.theme-datum` / `.theme-harbour` in `globals.css`, outside `@layer base` so it
 wins on layer order without `!important`. Deleting a route group deletes its font downloads too.
 
-`content/harbour.ts` re-exports `stats`, `services` and `industries` from `content/home.ts` —
-those are single-source-of-truth. Changing the shape of `industries` means updating
+`content/harbour.ts` re-exports `stats`, `services` and `sectors` from `content/home.ts` —
+those are single-source-of-truth. Changing the shape of `sectors` means updating
 `components/harbour/Sectors.tsx` as well.
 
 ## Dependencies

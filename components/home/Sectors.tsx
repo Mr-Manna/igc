@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Carousel } from "@/components/ui/Carousel";
 import { Reveal } from "@/components/ui/Reveal";
-import { industries } from "@/content/home";
+import { sectors } from "@/content/home";
 
 /**
  * Sectors as photographic tiles on a rail.
@@ -13,11 +13,11 @@ import { industries } from "@/content/home";
  * inside a textile mill or a dairy plant. A picture per sector is the cheapest
  * available evidence.
  *
- * Every tile links to the sector's block on /industries rather than to a
+ * Every tile links to the sector's block on /sectors rather than to a
  * per-sector page: those routes do not exist, and the index carries the detail
  * they would hold, anchored by the same slug.
  */
-export function Industries() {
+export function Sectors() {
   return (
     <section className="border-y rule-light bg-surface">
       <div className="shell py-20 lg:py-28">
@@ -26,40 +26,40 @@ export function Industries() {
             <Reveal>
               <p className="label flex items-center gap-3 text-blue">
                 <span aria-hidden="true" className="h-px w-6 bg-current" />
-                Industries
+                Sectors
               </p>
             </Reveal>
             <Reveal delay={70}>
-              <h2 className="display-lg mt-4">Industries We Serve</h2>
+              <h2 className="display-lg mt-4">Sectors We Serve</h2>
             </Reveal>
             <Reveal delay={120}>
               <p className="measure mt-5 text-slate">
-                Expert consultancy across {industries.length} manufacturing sectors, with
+                Expert consultancy across {sectors.length} manufacturing sectors, with
                 specialised technical and regulatory knowledge for each.
               </p>
             </Reveal>
           </div>
 
           <Reveal delay={160} className="shrink-0">
-            <Button href="/industries" variant="secondary">
-              View All Industries
+            <Button href="/sectors" variant="secondary">
+              View All Sectors
             </Button>
           </Reveal>
         </div>
 
-        <Carousel ariaLabel="Industries we serve" className="mt-12">
-          {industries.map((industry) => (
+        <Carousel ariaLabel="Sectors we serve" className="mt-12">
+          {sectors.map((sector) => (
             <div
-              key={industry.slug}
+              key={sector.slug}
               className="min-w-0 shrink-0 grow-0 basis-[78%] pr-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
             >
               <Link
-                href={`/industries#${industry.slug}`}
+                href={`/sectors#${sector.slug}`}
                 className="group relative block aspect-[4/5] overflow-hidden rounded-card border border-[var(--rule-on-light)] sm:aspect-[4/3]"
               >
                 <Image
-                  src={industry.image.src}
-                  alt={industry.image.alt}
+                  src={sector.image.src}
+                  alt={sector.image.alt}
                   fill
                   sizes="(max-width: 640px) 78vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
                   className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] group-hover:scale-105"
@@ -70,7 +70,7 @@ export function Industries() {
 
                 <span className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 p-5">
                   <span className="font-display text-[1.0625rem] font-semibold text-white">
-                    {industry.name}
+                    {sector.name}
                   </span>
                   <svg
                     aria-hidden="true"

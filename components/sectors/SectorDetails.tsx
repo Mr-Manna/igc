@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "@/components/ui/Reveal";
-import { industries } from "@/content/home";
-import { industryDetails } from "@/content/industries";
+import { sectors } from "@/content/home";
+import { sectorDetails } from "@/content/sectors";
 
 /**
  * Every sector at length — the substance of the page.
@@ -18,25 +18,25 @@ import { industryDetails } from "@/content/industries";
  *
  * Every heading is an `<h2>`; the page `<h1>` in the masthead names the set.
  */
-export function IndustryDetails() {
+export function SectorDetails() {
   return (
     <section className="bg-canvas">
       <div className="shell py-20 lg:py-28">
         <div className="space-y-16 lg:space-y-24">
-          {industries.map((industry, index) => {
-            const detail = industryDetails[industry.slug];
+          {sectors.map((sector, index) => {
+            const detail = sectorDetails[sector.slug];
 
             return (
               <article
-                key={industry.slug}
-                id={industry.slug}
+                key={sector.slug}
+                id={sector.slug}
                 className="grid gap-10 border-t rule-light pt-12 first:border-t-0 first:pt-0 lg:grid-cols-12 lg:gap-14 lg:pt-16"
               >
                 <Reveal className="lg:col-span-5">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-card border border-[var(--rule-on-light)]">
                     <Image
-                      src={industry.image.src}
-                      alt={industry.image.alt}
+                      src={sector.image.src}
+                      alt={sector.image.alt}
                       fill
                       sizes="(max-width: 1024px) 100vw, 40vw"
                       className="object-cover"
@@ -47,12 +47,12 @@ export function IndustryDetails() {
                 <div className="lg:col-span-7">
                   <Reveal>
                     <span className="label text-slate-muted tabular-nums">
-                      {String(index + 1).padStart(2, "0")} / {industries.length}
+                      {String(index + 1).padStart(2, "0")} / {sectors.length}
                     </span>
                   </Reveal>
 
                   <Reveal delay={70}>
-                    <h2 className="display-lg mt-4">{industry.name}</h2>
+                    <h2 className="display-lg mt-4">{sector.name}</h2>
                   </Reveal>
 
                   <Reveal delay={120}>
@@ -82,7 +82,7 @@ export function IndustryDetails() {
 
                   <Reveal delay={250}>
                     {/* Points at the form on this page rather than at
-                        /industries/<slug>, which does not exist. One per sector
+                        /sectors/<slug>, which does not exist. One per sector
                         would read as a run of identical links in a screen
                         reader's link list, hence the off-screen qualifier. */}
                     <a
@@ -90,7 +90,7 @@ export function IndustryDetails() {
                       className="group mt-7 inline-flex items-center gap-2 text-[0.9375rem] font-semibold text-blue"
                     >
                       Discuss a project in this sector
-                      <span className="sr-only"> — {industry.name}</span>
+                      <span className="sr-only"> — {sector.name}</span>
                       <svg
                         aria-hidden="true"
                         viewBox="0 0 16 16"

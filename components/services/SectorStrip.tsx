@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-import { industries } from "@/content/home";
+import { sectors } from "@/content/home";
 import { sectorStrip } from "@/content/services";
 
 /**
@@ -13,7 +13,7 @@ import { sectorStrip } from "@/content/services";
  * a second headline act. So: chips, no pictures, no carousel.
  *
  * Every chip goes to the sector's block on the index rather than to a per-sector
- * page. Those routes do not exist; /industries carries the detail they would
+ * page. Those routes do not exist; /sectors carries the detail they would
  * hold, anchored by the same slug, so these links land on the sector rather than
  * at the top of a list the reader then has to search.
  */
@@ -46,13 +46,13 @@ export function SectorStrip() {
 
         <Reveal delay={200}>
           <ul className="mt-10 flex flex-wrap gap-2.5">
-            {industries.map((industry) => (
-              <li key={industry.slug}>
+            {sectors.map((sector) => (
+              <li key={sector.slug}>
                 <Link
-                  href={`/industries#${industry.slug}`}
+                  href={`/sectors#${sector.slug}`}
                   className="inline-block rounded-full border border-[var(--rule-on-light)] bg-surface px-4 py-2 text-[0.875rem] font-medium text-slate transition-colors duration-250 hover:border-blue hover:bg-canvas hover:text-blue"
                 >
-                  {industry.name}
+                  {sector.name}
                 </Link>
               </li>
             ))}
