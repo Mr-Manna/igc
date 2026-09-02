@@ -53,6 +53,7 @@ export const primaryNav: NavItem[] = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Sectors", href: "/sectors" },
+  { label: "Partners", href: "/partners" },
   { label: "Project Reports", href: "/project-reports" },
   // { label: "Machinery", href: "/machinery" },
   // { label: "Success Stories", href: "/success-stories" },
@@ -63,6 +64,7 @@ export const footerQuickLinks: NavItem[] = [
   { label: "About Us", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Sectors", href: "/sectors" },
+  { label: "Partners", href: "/partners" },
   { label: "Project Reports", href: "/project-reports" },
   // { label: "Machinery", href: "/machinery" },
   { label: "Blog", href: "/blog" },
@@ -103,7 +105,13 @@ export const allRoutes: string[] = [
  *
  * Add a route here the moment its page lands, and not before.
  */
-export const builtRoutes: string[] = ["/", "/about", "/services", "/sectors"];
+export const builtRoutes: string[] = [
+  "/",
+  "/about",
+  "/services",
+  "/sectors",
+  "/partners",
+];
 
 /** Everything the shell links to that is still a placeholder. */
 export const stubRoutes: string[] = allRoutes.filter(

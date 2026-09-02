@@ -2,6 +2,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { FloatingActions } from "@/components/layout/FloatingActions";
 import { UtilityBar } from "@/components/layout/UtilityBar";
+import { PartnersBand } from "@/components/partners/PartnersBand";
 
 /**
  * The shared shell for the live site.
@@ -27,6 +28,7 @@ export default function CorporateLayout({
       <UtilityBar />
       <Header />
       <main id="main">{children}</main>
+      <PartnersBand />
       <Footer />
       <FloatingActions />
     </>
