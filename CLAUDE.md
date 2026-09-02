@@ -45,13 +45,17 @@ re-exports `stats`/`services`/`sectors` from `content/home.ts` — don't fork th
 path from the `app/(corporate)/[...slug]/page.tsx` stub catch-all — two prerenders of one path
 collide at build time — and (b) adds it to `app/sitemap.ts`. Stubs stay out of the sitemap
 because they're `noindex`. Genuinely unknown paths still 404 (`dynamicParams = false`).
-Currently built: `/`, `/about`, `/services`, `/sectors`, `/partners`. (`/industries` is the
-old path of `/sectors` and permanently redirects to it — see `next.config.ts`.)
+Currently built: `/`, `/about`, `/services`, `/sectors`. (`/industries` is the old path of
+`/sectors` and permanently redirects to it — see `next.config.ts`.)
 
-**The `(corporate)` layout renders `PartnersBand` above the footer**, so the "Delivery
-partners" band (Quiet Seven, Substrate — copy in `content/partners.ts`) shows on every live
-route, not per-page. It is an `<aside>` because it sits outside `<main>`; its external links
-are plain `<a target="_blank">`, not `Button` (which is `next/link`).
+**`/partners` is hidden for now.** The page still exists at `app/(corporate)/partners/` but is
+unlinked from the nav/footer, out of `builtRoutes` (so out of the sitemap), and `noindex`.
+`components/partners/PartnersBand.tsx` (the site-wide "Delivery partners" band — Quiet Seven,
+Substrate, copy in `content/partners.ts`) is no longer rendered by the `(corporate)` layout.
+To restore: re-add `/partners` to `builtRoutes`, re-add the nav/footer links in
+`content/site.ts`, re-render `<PartnersBand />` in the layout, flip the page's `robots` back.
+The band is an `<aside>` (it sits outside `<main>`); its external links are plain
+`<a target="_blank">`, not `Button` (which is `next/link`).
 
 **Enquiry form validation is shared.** `lib/enquiry.ts` is imported by both
 `components/home/EnquiryForm.tsx` and `app/api/enquiry/route.ts` so a field can't pass client-side

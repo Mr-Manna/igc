@@ -17,7 +17,8 @@ export const metadata: Metadata = {
   description:
     "ICF's delivery partners: Quiet Seven for brand, digital and product design, and Substrate for cloud, data, AI and industrial-automation engineering — specialist firms brought into a manufacturing project when the work needs them.",
   alternates: { canonical: "/partners" },
-  robots: { index: true, follow: true },
+  // Hidden for now — unlinked from the shell and out of the sitemap.
+  robots: { index: false, follow: true },
   openGraph: {
     type: "website",
     url: `${site.url}/partners`,
